@@ -40,7 +40,7 @@ export const AppRouter = () => {
 
       {/* AI 피드백 페이지 */}
       <Route path='/ai-feedback' element={<AiFeedBackPage />} />
-      
+
       {/* 제작한 게시물 페이지 */}
       <Route path='/created-post' element={<CreatedPostPage />} />
 
@@ -65,6 +65,7 @@ export const AppRouter = () => {
 
       {/* 모집 게시판 */}
       <Route path='/postboard' element={<PostBoardPage />} />
+      {/* 모집글 상세 */}
       <Route path='/postboard/:id' element={<PostDetailPage />} />
 
       {/* 모집글 작성 */}
