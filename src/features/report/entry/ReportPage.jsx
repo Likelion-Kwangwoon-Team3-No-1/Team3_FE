@@ -1,3 +1,3 @@
 export const ReportPage = () => {
-  return <div>리뷰 작성 페이지</div>
+  return <div>신고된 리뷰 페이지</div>
 }
