@@ -1,0 +1,17 @@
+.list-item {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.list-date {
+  font-size: 0.9rem;
+  color: gray;
+}
