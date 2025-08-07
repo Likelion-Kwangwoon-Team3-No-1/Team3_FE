@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { ListItem } from '../../../components/list/ListItem.jsx'
+import { ListItem } from '../../../components/List/ListItem.jsx'
 import { loadReviews } from '../../../utils/storage'
 
-export function ReviewManagePage() {
+export function MyPromotionPage() {
   const [reviews, setReviews] = useState([])
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export function ReviewManagePage() {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <h2>리뷰 관리</h2>
+      <h2>내 프로모션</h2>
       {reviews.length === 0 ? (
         <p>작성된 리뷰가 없습니다.</p>
       ) : (
