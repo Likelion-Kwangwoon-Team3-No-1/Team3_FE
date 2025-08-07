@@ -1,7 +1,7 @@
 .review-form-container {
   padding: 20px;
   font-family: sans-serif;
-  box-sizing: border-box; /* 전체 컨테이너에도 box-sizing 적용 */
+  box-sizing: border-box;
 }
 
 /* 상호명 */
@@ -106,6 +106,7 @@
 }
 
 .preview-image {
+  position: relative;
   width: 80px;
   height: 80px;
   object-fit: cover;
@@ -120,12 +121,51 @@
   margin-top: 30px;
 }
 
-.submit-button {
-  background-color: #11264d;
-  color: white;
-  padding: 14px 32px;
-  font-size: 16px;
+.delete-button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0, 0, 0, 0.5);
   border: none;
+  color: white;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.plus-button {
+  width: 80px;
+  height: 80px;
+  background-color: #f0f0f0;
   border-radius: 12px;
-  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.plus-inner-circle {
+  width: 24px;
+  height: 24px;
+  background-color: #1d366f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plus-icon {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
 }

@@ -3,11 +3,11 @@ import { ReviewFormPage } from '../features/reviewform/entry/ReviewFormPage'
 import { ReviewPage } from '../features/review/entry/ReviewPage'
 import { AiFeedBackPage } from '../features/aifeedback/entry/AiFeedBackPage'
 import { CreatedPostPage } from '../features/createdpost/entry/CreatedPostPage'
-import { ReviewManagePage } from '../features/listmanage/entry/ReviewManagePage'
 import { BringContentPage } from '../features/listmanage/entry/BringContentPage'
 import { WrittenReviewPage } from '../features/listmanage/entry/WrittenReviewPage'
 import { ContentPreviewPage } from '../features/preview/entry/ContentPreviewPage'
 import { ReportPage } from '../features/report/entry/ReportPage'
+import { MyPromotionPage } from '../features/listmanage/entry/MyPromotionPage'
 
 export const AppRouter = () => {
   return (
@@ -27,8 +27,8 @@ export const AppRouter = () => {
       {/* 확정 콘텐츠 불러오기 */}
       <Route path='/bring-content' element={<BringContentPage />} />
 
-      {/* 리뷰 관리 페이지 */}
-      <Route path='/review-manage' element={<ReviewManagePage />} />
+      {/* 내 프로모션 페이지 */}
+      <Route path='/my-promotion' element={<MyPromotionPage />} />
 
       {/* 작성한 리뷰 페이지 */}
       <Route path='/written-review' element={<WrittenReviewPage />} />

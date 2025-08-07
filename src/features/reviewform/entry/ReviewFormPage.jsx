@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../ui/ReviewFormPage.css'
 import { saveReviews, loadReviews } from '../../../utils/storage'
 import { v4 as uuidv4 } from 'uuid'
+import { Button } from '../../../components/Button/Button'
+import { Rating } from '../../../components/Rating/Rating'
+import plusIcon from '../../../assets/review/plus.svg'
 
 export function ReviewFormPage() {
   const [previewUrls, setPreviewUrls] = useState([])
@@ -10,25 +13,27 @@ export function ReviewFormPage() {
   const [title, setTitle] = useState('')
   const [reviewText, setReviewText] = useState('')
   const navigate = useNavigate()
+  const fileInputRef = useRef(null)
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files)
-    const newPreviewUrls = []
+    const newPreviewUrls = [...previewUrls]
 
     files.forEach((file) => {
       const reader = new FileReader()
       reader.onloadend = () => {
         newPreviewUrls.push(reader.result)
-        if (newPreviewUrls.length === files.length) {
-          setPreviewUrls(newPreviewUrls)
+        if (newPreviewUrls.length <= 9) {
+          setPreviewUrls([...newPreviewUrls])
         }
       }
       reader.readAsDataURL(file)
     })
   }
 
-  const handleRatingClick = (value) => {
-    setRating(value)
+  const handleImageDelete = (indexToRemove) => {
+    const updated = previewUrls.filter((_, i) => i !== indexToRemove)
+    setPreviewUrls(updated)
   }
 
   const handleSubmit = () => {
@@ -43,13 +48,11 @@ export function ReviewFormPage() {
 
     const existing = loadReviews()
     saveReviews([newReview, ...existing])
-
     navigate('/home')
   }
 
   return (
     <div className='review-form-container'>
-      {/* 상호명 */}
       <h3>상호명</h3>
       <input
         type='text'
@@ -58,34 +61,11 @@ export function ReviewFormPage() {
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      {/* 별점 */}
       <div className='rating-section'>
-        {[1, 2, 3, 4, 5].map((value) => (
-          <span
-            key={value}
-            className={`star ${value <= rating ? 'filled' : ''}`}
-            onClick={() => handleRatingClick(value)}
-          >
-            ★
-          </span>
-        ))}
+        <Rating rating={rating} onRate={setRating} iconSize={32} />
         <span className='rating-count'>{rating}/5</span>
       </div>
-      <div className='photo-upload-wrapper'>
-        <label htmlFor='fileInput' className='photo-upload-button'>
-          사진 첨부
-        </label>
-        <input
-          id='fileInput'
-          type='file'
-          accept='image/*'
-          multiple
-          onChange={handleFileChange}
-          className='hidden-input'
-        />
-      </div>
 
-      {/* 리뷰 입력 + 글자수 카운터 */}
       <div className='review-content-section'>
         <div className='textarea-wrapper'>
           <h3>리뷰 내용</h3>
@@ -101,20 +81,41 @@ export function ReviewFormPage() {
 
       <div className='photo-note'>* 영수증 사진 필수 첨부</div>
 
-      {/* 이미지 미리보기 */}
-      {previewUrls.length > 0 && (
-        <div className='preview-gallery'>
-          {previewUrls.map((url, index) => (
-            <img key={index} src={url} alt={`미리보기 ${index + 1}`} className='preview-image' />
-          ))}
-        </div>
-      )}
+      <div className='preview-gallery'>
+        {previewUrls.map((url, index) => (
+          <div key={index} className='image-wrapper'>
+            <img src={url} alt={`preview-${index}`} className='preview-image' />
+            <button
+              type='button'
+              className='delete-button'
+              onClick={() => handleImageDelete(index)}
+            >
+              ×
+            </button>
+          </div>
+        ))}
 
-      {/* 제출 */}
+        {previewUrls.length < 9 && (
+          <div className='plus-button' onClick={() => fileInputRef.current.click()}>
+            <div className='plus-inner-circle'>
+              <img src={plusIcon} alt='plus icon' className='plus-icon' />
+            </div>
+          </div>
+        )}
+
+        <input
+          ref={fileInputRef}
+          id='fileInput'
+          type='file'
+          accept='image/*'
+          multiple
+          onChange={handleFileChange}
+          className='hidden-input'
+        />
+      </div>
+
       <div className='submit-container'>
-        <button className='submit-button' onClick={handleSubmit}>
-          제출하기
-        </button>
+        <Button label='제출하기' onClick={handleSubmit} />
       </div>
     </div>
   )
