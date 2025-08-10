@@ -1,0 +1,21 @@
+.btn {
+  display: flex;
+  width: 353px;
+  height: 50px;
+  padding: 16px 135px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: var(--sub, #1d366f);
+  color: white;
+
+  /* 그림자 */
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* 비활성화 상태 */
+.btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
