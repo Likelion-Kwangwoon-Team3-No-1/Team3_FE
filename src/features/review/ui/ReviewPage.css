@@ -1,0 +1,14 @@
+.topbar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 또는 부모 높이에 맞춤 */
+  top: 0;
+}
+
+.button {
+  position: fixed;
+  top: 760px;
+  /* 스크롤 가능하도록 */
+  flex: 1;
+  overflow-y: auto;
+}

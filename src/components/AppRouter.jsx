@@ -4,10 +4,10 @@ import { ReviewPage } from '../features/review/entry/ReviewPage'
 import { AiFeedBackPage } from '../features/aifeedback/entry/AiFeedBackPage'
 import { CreatedPostPage } from '../features/createdpost/entry/CreatedPostPage'
 import { BringContentPage } from '../features/listmanage/entry/BringContentPage'
-import { WrittenReviewPage } from '../features/listmanage/entry/WrittenReviewPage'
 import { ContentPreviewPage } from '../features/preview/entry/ContentPreviewPage'
 import { ReportPage } from '../features/report/entry/ReportPage'
 import { MyPromotionPage } from '../features/listmanage/entry/MyPromotionPage'
+import { WrittenReviewPage } from '../features/\bwrittenreview/entry/WrittenReviewPage'
 
 export const AppRouter = () => {
   return (
