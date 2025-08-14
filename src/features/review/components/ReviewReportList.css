@@ -1,0 +1,74 @@
+.written-review-page {
+  padding: 16px;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.review-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.review-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.review-nickname {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.star-wrapper {
+  display: flex;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.star-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.review-text {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 4px;
+  white-space: pre-wrap;
+}
+
+/* 액션 버튼 영역 */
+.review-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.report-btn,
+.checkbox-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.report-btn img,
+.checkbox-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.report-btn.is-done img {
+  opacity: 0.6;
+}
