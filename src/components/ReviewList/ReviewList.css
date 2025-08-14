@@ -1,0 +1,53 @@
+.written-review-page {
+  padding: 16px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.review-item {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #fff;
+}
+
+.review-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.review-nickname {
+  font-size: 14px;
+  color: #777;
+  margin: 4px 0 8px;
+}
+
+.star-wrapper {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.star-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.review-text {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}

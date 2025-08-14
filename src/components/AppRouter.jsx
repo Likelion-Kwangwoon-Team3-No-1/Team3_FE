@@ -28,6 +28,7 @@ import { EndedPromoPage } from '../features/endedpromo/entry/EndedPromoPage'
 import { SplashPage } from '../features/splash/entry/SplashPage'
 import { OnBoardingOwnerPage } from '../features/onboarding/entry/OnBoardingOwnerPage'
 import { OnBoardingStudentPage } from '../features/onboarding/entry/OnBoardingStudentPage'
+import AdminPage from '../features/admin/entry/AdminPage'
 
 export const AppRouter = () => {
   return (
@@ -103,6 +104,9 @@ export const AppRouter = () => {
       {/* 온보딩 */}
       <Route path='/onboarding/owner' element={<OnBoardingOwnerPage />} />
       <Route path='/onboarding/student' element={<OnBoardingStudentPage />} />
+
+      {/* 관리자 */}
+      <Route path='/admin' element={<AdminPage />} />
     </Routes>
   )
 }

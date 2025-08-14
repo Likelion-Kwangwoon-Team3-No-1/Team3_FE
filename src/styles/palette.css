@@ -1,0 +1,23 @@
+:root {
+  /* 메인 컬러 */
+  --color-primary: #6075ff;
+
+  /* 서브 컬러 */
+  --color-sub: #1d366f;
+  --color-sub2: #394ed3;
+  --color-ghostwhite: #f4f6fa;
+  --color-red: #ff4040;
+  --color-point: #ffc100;
+
+  /* 그레이 스케일 컬러 */
+  --color-darkgray: #4c5056;
+  --color-gray: #808993;
+  --color-gray300: #c0c5c7;
+  --color-lightgray: #e8ebed;
+
+  /* 블랙 컬러 */
+  --color-black: #4c5056;
+
+  /* 화이트 컬러 */
+  --color-white: #4c5056;
+}

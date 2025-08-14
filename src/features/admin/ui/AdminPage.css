@@ -1,0 +1,67 @@
+.admin-top {
+  position: relative;
+  width: 100%;
+  background: #f5f6f7;
+}
+
+.admin-top__header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 24px 20px 12px;
+  border-bottom: 1px solid #eee;
+  z-index: 10;
+}
+
+.admin-top__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #111;
+}
+
+.admin-top__tabs {
+  position: sticky;
+  top: 64px; /* 헤더 높이에 맞게 조정 */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  z-index: 9;
+}
+
+.admin-top__tab {
+  position: relative;
+  height: 52px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.admin-top__tab:last-child {
+  border-right: none;
+}
+
+.admin-top__tab.is-active {
+  color: #111;
+}
+
+.admin-top__tab.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: #111;
+}
+
+.admin-top__content {
+  padding: 20px;
+  font-size: 16px;
+  background: #fff;
+}
