@@ -1,17 +1,36 @@
 .list-item {
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
 }
-
-.list-title {
-  font-weight: bold;
-  font-size: 1.1rem;
+.list-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-
-.list-date {
-  font-size: 0.9rem;
-  color: gray;
+.list-item-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.list-item-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+}
+.list-item-date {
+  font-size: 14px;
+  color: #9097a0;
+}
+.badge-ongoing {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff4d4f;
+} /* 빨간 텍스트 */
+.list-item-arrow {
+  width: 24px;
+  height: 24px;
+  opacity: 0.6;
 }
