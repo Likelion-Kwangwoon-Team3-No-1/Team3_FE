@@ -1,5 +1,5 @@
 import './ListItem.css'
-import arrowIcon from '../../assets/mypage/mypage-arrow-right.svg'
+import arrowIcon from '../../../assets/mypage/mypage-arrow-right.svg'
 
 export function ListItem({ title, createdAt, status, onClick }) {
   const isOngoing = status === 'ongoing' // 진행 중인 항목만 뱃지

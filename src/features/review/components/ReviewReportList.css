@@ -1,64 +1,73 @@
 .written-review-page {
-  padding: 16px;
+  background-color: var(--white);
+  height: 218px;
+  width: 393px;
+  position: relative;
 }
 
-.review-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.review-item {
-  padding: 14px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.review-title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.review-title {
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.review-nickname {
-  font-size: 13px;
-  color: #6b7280;
-  margin-top: 4px;
-}
-
-.star-wrapper {
-  display: flex;
-  gap: 4px;
-  margin: 6px 0;
-}
-
-.star-icon {
-  width: 24px;
+.written-review-page .checkbox-btn {
+  aspect-ratio: 1;
   height: 24px;
+  left: 338px;
+  position: absolute;
+  top: 19px;
+  width: 24px;
 }
 
-.review-text {
-  font-size: 14px;
-  line-height: 1.5;
-  margin-top: 4px;
-  white-space: pre-wrap;
+.written-review-page .report-btn {
+  aspect-ratio: 1;
+  height: 24px;
+  left: 298px;
+  position: absolute;
+  top: 19px;
+  width: 24px;
+}
+/* 카드 */
+.review-item {
+  position: relative; /* ⬅ 아이콘 고정용 기준 */
+  padding: 22px 0 24px;
+  border-bottom: 1px solid #eceff3;
 }
 
-/* 액션 버튼 영역 */
+/* 제목 줄 */
+.review-title-row {
+  display: block; /* 제목은 블록, 아이콘은 절대 배치 */
+  min-height: 28px; /* 제목이 없어도 높이 확보 */
+}
+
+/* 제목 스타일: 스샷 느낌 */
+.review-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 28px;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+  max-width: calc(100% - 80px); /* 우상단 아이콘과 겹치지 않게 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 아이콘 묶음: 카드 우상단 고정 */
 .review-actions {
-  display: flex;
+  position: absolute;
+  top: 4px;
+  right: 0;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 
 .report-btn,
 .checkbox-btn {
-  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   border: none;
+  background: none;
   padding: 0;
   cursor: pointer;
 }
@@ -71,4 +80,30 @@
 
 .report-btn.is-done img {
   opacity: 0.6;
+}
+
+/* 닉네임/별점/본문 간격 — 스샷과 유사 */
+.review-nickname {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  color: #1f2937;
+}
+
+.star-wrapper {
+  display: flex;
+  gap: 2px;
+}
+.star-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.review-text {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 28px;
+  color: #111827;
+  letter-spacing: -0.2px;
+  word-break: keep-all;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ListItem } from '../../../components/List/ListItem.jsx'
+import { ListItem } from '../components/ListItem.jsx'
 import { loadReviews } from '../../../utils/storage'
 import TopBar from '../../../components/TopBar/TopBar.jsx'
 import '../ui/MyPromotionPage.css'

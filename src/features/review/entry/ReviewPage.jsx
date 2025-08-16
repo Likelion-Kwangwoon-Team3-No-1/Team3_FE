@@ -5,12 +5,56 @@ import ReviewReportList from '../components/ReviewReportList'
 import '../ui/ReviewPage.css'
 import { Button } from '../../../components/Button/Button'
 import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver'
+import TopBar from '../../../components/TopBar/TopBar'
+
+/* =======================
+   인스타 프리뷰 변환 유틸
+   ======================= */
+function sanitize(s = '') {
+  return String(s).replace(/\s+/g, ' ').trim()
+}
+function pickTitle(r) {
+  return r?.title || r?.storeName || r?.placeName || r?.shopName || '가게'
+}
+function makePreviewDraft(review, { photosCount = 0 } = {}) {
+  // 예시 이미지 톤 & 섹션 구성
+  const store = pickTitle(review)
+  const rating = review?.rating ?? 0
+  const text = sanitize(review?.reviewText || review?.content || '')
+  const stars = '⭐'.repeat(Math.round(rating))
+
+  return {
+    title: '예시 1번',
+    intro: `📍 ${store}에서 이런 스시 퀄리티가 가능하다고…? 🍣`,
+    lead: text
+      ? text.slice(0, 60) + (text.length > 60 ? '…' : '')
+      : '방문 소감 한 줄 요약을 여기에.',
+    points: [
+      '🤤 특히 사장님이 직접 손질한 숙성 생선은 신선함 그 자체.',
+      '샐러드부터 초밥, 우동까지 하나하나 퀄리티 좋고 정성도 가득.',
+      stars ? `${stars} (${rating}/5)` : '친구에게 추천하고 싶은 집',
+    ],
+    menu: [
+      '연어/광어/참치 혼합 초밥 세트 🍣',
+      '냉우동 or 따뜻한 미소국 사이드 선택 가능',
+      '계절 샐러드도 개운하고 맛있음 🥗',
+    ],
+    subtext: [
+      '무엇보다 혼밥하기도 부담 없고, 내부가 조용해서 공부하다 들르기 좋아!',
+      '학생증 보여주면 음료 서비스까지?! 🥤 꼭 가봐야 해…',
+      photosCount ? `📷 사진 ${photosCount}장` : '',
+    ].filter(Boolean),
+    location: '📍 위치: 역 기준 도보 2분',
+    hours: '🕒 영업시간: 오전 11:30 ~ 오후 9:00 (브레이크 3~5시)',
+    hashtags: `#${store.replace(/\s/g, '')} #스시맛집 #가성비스시 #혼밥환영 #연어맛집`,
+  }
+}
 
 export function ReviewPage() {
   const navigate = useNavigate()
   const [reviews, setReviews] = useState([])
 
-  // ✅ 사진 선택 상태 (index 기반)
+  // 사진 선택 상태 (index 기반)
   const [selectedPhotoIdxSet, setSelectedPhotoIdxSet] = useState(new Set())
 
   // 무한스크롤용 상태
@@ -35,7 +79,7 @@ export function ReviewPage() {
     [reviews],
   )
 
-  // ✅ 사진 선택 토글
+  // 사진 선택 토글
   const handleTogglePhoto = useCallback((idx) => {
     setSelectedPhotoIdxSet((prev) => {
       const next = new Set(prev)
@@ -76,7 +120,7 @@ export function ReviewPage() {
     !isLoading && hasNext && visibleReviews.length > 0,
   )
 
-  // 선택/신고 (기존 그대로)
+  // 선택/신고
   const [selectedMap, setSelectedMap] = useState({})
   const [reportedMap, setReportedMap] = useState({})
   const handleToggleSelect = (id) => setSelectedMap((prev) => ({ ...prev, [id]: !prev[id] }))
@@ -85,13 +129,40 @@ export function ReviewPage() {
     alert('신고가 접수되었습니다.')
   }
 
+  /* ========================
+     제작 버튼 → 프리뷰 이동
+     ======================== */
+  const handleMakePost = () => {
+    // 우선순위: 체크된 리뷰 중 첫 번째 → 없으면 첫 리뷰
+    const selectedIds = Object.keys(selectedMap).filter((id) => selectedMap[id])
+    const target =
+      selectedIds.length > 0
+        ? reviews.find((r) => String(r.id) === String(selectedIds[0]))
+        : reviews[0]
+
+    if (!target) {
+      alert('작성된 리뷰가 없습니다.')
+      return
+    }
+
+    const draft = makePreviewDraft(target, {
+      photosCount: target?.photos?.length || target?.previewUrls?.length || 0,
+    })
+
+    // 새로고침 대비 임시 저장
+    sessionStorage.setItem('contentPreviewDraft', JSON.stringify(draft))
+
+    // 페이지 이동 (state로도 전달)
+    navigate('/ai-feedback', { state: { draft } })
+  }
+
   return (
     <div className='reviewPage'>
       <div className='reviewPage__header'>
-        <h2>리뷰</h2>
+        <TopBar title='리뷰' />
       </div>
 
-      {/* 사진 그리드 (탭/클릭으로 선택) */}
+      {/* 상단 사진 그리드 */}
       <div className='reviewPage__photoGrid'>
         {allPhotos.slice(0, 30).map((src, idx) => {
           const selected = selectedPhotoIdxSet.has(idx)
@@ -112,7 +183,6 @@ export function ReviewPage() {
                 }}
                 draggable={false}
               />
-              {/* 체크 아이콘/배지 (선택 시 표시) */}
               {selected && <span className='reviewPage__photoBadge'>선택됨</span>}
             </div>
           )
@@ -129,20 +199,19 @@ export function ReviewPage() {
           onReport={handleReport}
         />
 
-        {/* 상태 안내 */}
         {isLoading && <p className='infoText'>불러오는 중…</p>}
-        {!hasNext && visibleReviews.length > 0}
         {!isLoading && visibleReviews.length === 0 && (
           <p className='infoText'>아직 등록된 리뷰가 없습니다.</p>
         )}
-
-        {/*  센티넬: 관찰 대상 */}
         <div ref={observerRef} style={{ height: 1 }} />
       </div>
 
+      {/* 하단 버튼 */}
       <div className='reviewPage__footer'>
-        <Button label='제작' />
+        <Button label='제작' onClick={handleMakePost} />
       </div>
     </div>
   )
 }
+
+export default ReviewPage

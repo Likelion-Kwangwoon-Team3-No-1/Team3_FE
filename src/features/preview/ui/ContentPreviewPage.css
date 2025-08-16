@@ -1,0 +1,80 @@
+.contentPreview {
+  padding: 0 20px 24px;
+  background: #fff;
+}
+.contentPreview__card {
+  margin-top: 12px;
+}
+
+.cp-title {
+  margin: 8px 0 18px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+.cp-intro {
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 24px;
+}
+.cp-lead {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.cp-list {
+  margin: 0 0 12px 0;
+  padding: 0;
+  list-style: none;
+}
+.cp-list li {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.cp-subtitle {
+  margin: 6px 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.cp-bullets {
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style: none;
+}
+.cp-bullets li {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.cp-par {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  line-height: 24px;
+}
+.cp-meta {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.cp-hash-title {
+  margin: 14px 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.cp-hash {
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 22px;
+  color: #111827;
+}
+
+.cp-actions.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}

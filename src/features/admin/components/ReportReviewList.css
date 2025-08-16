@@ -1,59 +1,81 @@
-/* 카드 하단 버튼 영역: 고정형 */
-.review-actions {
-  display: flex; /* grid 제거 */
-  justify-content: center; /* 가운데 정렬 */
-  align-items: center;
-  gap: 12px; /* 버튼 사이 고정 간격 */
-  margin-top: 16px;
-  width: 100%;
-  /* 상위에서 좌우 패딩(예: 20px)을 주고 있다면 여기엔 패딩 주지 마세요 */
-}
-
-/* 공통 버튼: 고정 크기 */
-.review-btn {
-  flex: 0 0 auto; /* 늘어나지 않음(고정) */
-  width: 169px;
-  height: 50px;
-  border: 0;
-  border-radius: 10px;
-  box-sizing: border-box;
-  font-size: 16px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-}
-
-/* 색상만 변형 클래스에서 지정 (크기 재지정 금지) */
-.review-btn--approve,
-.review-btn--reject {
-  background: #1d366f;
-  color: #fff;
-}
-
-.review-btn:active {
-  transform: translateY(1px);
-}
-
-/* 카드(리뷰 아이템): 반응형 상한만 두고 고정폭은 제거 권장 */
-.review-item {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 393px; /* 필요 시 상한만 */
-  background: #fff;
-  box-sizing: border-box;
-  /* height: 287px;  <= 고정 높이는 제거 권장(내용량에 맞게 늘어나게) */
-}
-
-/* 페이지 좌우 가터만(겹침 방지) */
-.written-review-page {
+/* ===== 스코프 컨테이너 ===== */
+.report-list-scope.written-review-page {
   padding: 0 20px;
 }
 
-.review-nickname {
-  margin-bottom: 4px; /* 닉네임 → 별점 간격 */
+/* 리스트 기본 */
+.report-list-scope .review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.report-list-scope .review-item {
+  background: #fff;
+  padding: 16px 20px 24px 20px;
+  border-bottom: 1px solid #eceff3;
+}
+
+/* 제목/작성자/별점/본문 */
+.report-list-scope .review-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 28px;
+  color: #0f172a;
+}
+.report-list-scope .review-nickname {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+.report-list-scope .star-wrapper {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0 12px;
+}
+.report-list-scope .star-icon {
+  width: 24px;
+  height: 24px;
+}
+.report-list-scope .review-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: #111827;
+}
+
+/* ===== 하단 큰 버튼(항상 노출) ===== */
+.report-list-scope .review-actions-bottom {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 두 버튼 동일 폭 */
+  gap: 24px;
+}
+.report-list-scope .review-btn {
+  height: 50px;
+  width: 169px;
+  border: 0;
+  border-radius: 16px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+.report-list-scope .review-btn--primary {
+  background: #1d366f; /* 남색 */
+  color: #fff;
+}
+.report-list-scope .review-btn:active {
+  transform: translateY(1px);
+}
+
+/* 혹시 예전에 쓰던 상단 액션 스타일이 남아있다면 완전히 끈다 */
+.report-list-scope .review-actions,
+.report-list-scope .review-actions-top {
+  display: none !important;
 }
