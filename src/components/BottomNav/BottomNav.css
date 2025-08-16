@@ -1,0 +1,24 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+  z-index: 100;
+}
+
+.nav-item {
+  text-decoration: none;
+  font-size: 14px;
+  color: #555;
+}
+
+.nav-item:hover {
+  color: #0056ff;
+}

@@ -1,0 +1,163 @@
+/* 전체 레이아웃 */
+.home-container {
+  width: 393px;
+  height: 852px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 2px #808993;
+  padding-bottom: 80px; /* 네비게이션 높이 확보 */
+}
+
+/* 헤더 */
+.home-header {
+  height: 111px;
+  align-content: end;
+  box-shadow: 0px 1px 3px -1px #c0c5c7;
+}
+
+.logo-home {
+  padding-left: 20px;
+  padding-bottom: 15.01px;
+}
+
+/* 바디 */
+.home-body {
+  padding: 20px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.welcome-msg {
+  margin: 0px;
+  padding-top: 6px;
+  padding-bottom: 24px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.banner {
+  border-radius: 10px;
+  width: 353px;
+  height: 169px;
+}
+
+/* 섹션 타이틀 */
+.section-title {
+  margin: 0px;
+  padding-top: 24px;
+  padding-bottom: 12.25px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #1d366f;
+}
+
+/* 캐러셀 */
+.carousel-container {
+  width: 100%;
+}
+
+/* 캐러셀 화살표 버튼 */
+.arrow-btn {
+  position: absolute;
+  top: 232px;
+  z-index: 10;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.arrow-btn.prev {
+  left: 8.3px; /* 카드 영역 기준 좌측 */
+}
+
+.arrow-btn.next {
+  right: 8.3px; /* 카드 영역 기준 우측 */
+}
+
+/* 슬라이더 dots */
+.slick-dots {
+  height: 4px;
+  bottom: 30px;
+}
+.slick-dots li button:before {
+  font-size: 4px;
+  color: c0c5c7;
+}
+.slick-dots li.slick-active button:before {
+  color: #808993;
+}
+
+/* 참여중인 프로모션 없을 때 */
+.empty-promo {
+  box-sizing: border-box;
+  width: 353px;
+  height: 356px;
+  text-align: center;
+  padding: 68.5px 0px;
+  box-shadow: 0px 0px 2px #808993;
+  border-radius: 10px;
+  background-color: white;
+}
+.empty-icon {
+  margin: 0px;
+  padding-bottom: 16px;
+}
+.empty-promo p {
+  font-size: 16px;
+  color: #808993;
+  margin: 0px;
+  padding-bottom: 56px;
+}
+.go-btn {
+  margin: 0px;
+}
+
+.go-btn button {
+  display: flex;
+  width: 100%;
+  height: 24px;
+  background-color: white;
+  padding: 0px;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.go-btn span {
+  font-size: 12px;
+  color: #808993;
+}
+
+/* SNS 버튼 */
+.sns-btn {
+  margin: 24px 0;
+}
+
+.sns-btn button {
+  display: flex;
+  width: 100%;
+  height: 84px;
+  background-color: #1d366f;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.sns-btn-logo {
+  padding-right: 12px;
+}
+
+.sns-btn-content {
+  width: 155px;
+  color: white;
+  font-size: 16px;
+}
+
+.sns-btn-arrow {
+  padding-left: 84px;
+}
+
+.sns-btn button:hover {
+  background-color: #142752;
+}
