@@ -1,0 +1,112 @@
+.aiPreview {
+  padding: 0 20px 24px;
+  background: #fff;
+}
+
+/* 상단: 제목 + 체크 */
+.aiHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 0 8px;
+}
+.aiTitle {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+.aiCheckBtn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.aiCheckBtn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* 본문 카드 */
+.aiCard {
+  margin-top: 4px;
+}
+.aiCard.is-dimmed {
+  opacity: 0.55;
+}
+
+.aiIntro {
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 24px;
+}
+.aiLead {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.aiList {
+  margin: 0 0 12px 0;
+  padding: 0;
+  list-style: none;
+}
+.aiList li {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.aiSubTitle {
+  margin: 6px 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.aiBullets {
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style: none;
+}
+.aiBullets li {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.aiPar {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.aiMeta {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.aiHashTitle {
+  margin: 14px 0 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.aiHash {
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 22px;
+  color: #111827;
+}
+
+/* 하단 버튼 */
+.aiBottom {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center; /* ← 가로 가운데 */
+  align-items: center; /* 세로 정렬 안정화 */
+  width: 100%;
+}

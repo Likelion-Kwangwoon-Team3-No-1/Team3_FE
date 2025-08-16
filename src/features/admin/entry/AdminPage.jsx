@@ -1,22 +1,35 @@
-import { useState, memo, useMemo } from 'react'
+import { useState, memo, useEffect } from 'react'
 import '../ui/AdminPage.css'
-import { ListItem } from '../../../components/List/ListItem'
+import { AdminListItem } from '../components/AdminListItem'
 import { ReportReviewList } from '../components/ReportReviewList'
 import LeftTopBar from '../../../components/LeftTopBar/LeftTopBar'
+import { loadAdminItems } from '../../../utils/storage'
 
 function AdminPage() {
   const [activeTab, setActiveTab] = useState('approved')
+  const [rows, setRows] = useState([])
 
-  // 📌 데모용 데이터 (API로 대체 가능)
-  const approvedData = useMemo(
-    () => [
-      { id: 1, title: '푸른스시', createdAt: '2025-08-03T11:30:00' },
-      { id: 2, title: '푸른스시', createdAt: '2025-08-03T11:30:00' },
-      { id: 3, title: '푸른스시', createdAt: '2025-08-03T11:30:00' },
-      { id: 4, title: '푸른스시', createdAt: '2025-08-03T11:30:00' },
-    ],
-    [],
-  )
+  // 로딩 + 포커스/스토리지 변경 시 동기화
+  const refresh = () => {
+    // 최신순 정렬(생략 가능)
+    const data = loadAdminItems().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    setRows(data)
+  }
+
+  useEffect(() => {
+    refresh()
+    // 다른 탭에서 업로드 후 돌아오면 갱신되도록
+    const onFocus = () => refresh()
+    const onStorage = (e) => {
+      if (e.key === 'admin_posts') refresh()
+    }
+    window.addEventListener('focus', onFocus)
+    window.addEventListener('storage', onStorage)
+    return () => {
+      window.removeEventListener('focus', onFocus)
+      window.removeEventListener('storage', onStorage)
+    }
+  }, [])
 
   return (
     <div className='page-fixed-393'>
@@ -46,14 +59,27 @@ function AdminPage() {
           </button>
         </nav>
 
-        {/* 아래 콘텐츠 영역 (데모용) */}
+        {/* 콘텐츠 */}
         <div className='admin-top__content'>
           {activeTab === 'approved' ? (
-            <div>
-              {approvedData.map((item) => (
-                <ListItem key={item.id} title={item.title} createdAt={item.createdAt} />
-              ))}
-            </div>
+            rows.length === 0 ? (
+              <div className='empty'>아직 업로드된 게시물이 없어요.</div>
+            ) : (
+              <div>
+                {rows.map((item) => (
+                  <AdminListItem
+                    key={item.id}
+                    title={item.title}
+                    createdAt={item.createdAt}
+                    status={item.status}
+                    onClick={() => {
+                      // 상세 보기로 이동하거나 모달 오픈 등
+                      // navigate(`/admin/post/${item.id}`)
+                    }}
+                  />
+                ))}
+              </div>
+            )
           ) : (
             <ReportReviewList
               onApprove={(rv) => console.log('승인:', rv.id)}

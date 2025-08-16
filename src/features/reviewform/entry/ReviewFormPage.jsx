@@ -19,7 +19,7 @@ export function ReviewFormPage() {
   const { createReview, isLoading } = useCreateReview()
 
   const MAX_TEXT = 100
-  const MAX_PHOTOS = 9 // 최대 사진 첨부 수
+  const MAX_PHOTOS = 8 // 최대 사진 첨부 수
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files || [])
