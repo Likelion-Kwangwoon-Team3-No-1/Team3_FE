@@ -1,6 +1,5 @@
 .written-review-page {
-  padding: 16px;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  padding: 20px;
 }
 
 .review-list {
@@ -10,35 +9,30 @@
 }
 
 .review-item {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 12px;
-  margin-bottom: 12px;
   background-color: #fff;
-}
-
-.review-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding-top: 16px; /* 위쪽 여백 */
+  padding-bottom: 20px; /* 아래쪽 여백 */
 }
 
 .review-title {
   font-size: 16px;
-  font-weight: bold;
-  margin: 0;
+  font-weight: 700;
+  margin-bottom: 6px; /* 상호명 → 닉네임 간격 */
 }
 
 .review-nickname {
   font-size: 14px;
-  color: #777;
-  margin: 4px 0 8px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  margin-bottom: 10px; /* 닉네임 → 별점 간격 */
 }
 
 .star-wrapper {
   display: flex;
-  gap: 4px;
-  margin-bottom: 8px;
+  gap: 2px;
+  align-items: center;
+  margin-bottom: 12px; /* 별점 → 리뷰 내용 간격 */
 }
 
 .star-icon {
@@ -48,6 +42,7 @@
 
 .review-text {
   font-size: 14px;
-  color: #333;
-  line-height: 1.4;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.14px;
 }

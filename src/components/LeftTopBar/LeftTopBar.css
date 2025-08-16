@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 51.358px;
+
+  /* 피그마 레이아웃 고정 */
+  width: 393px;
+  height: 111px;
+  padding: 73px 224px 15px 20px;
+  flex-shrink: 0;
+
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.title {
+  width: 149px;
+  height: 22.469px;
+  flex-shrink: 0;
+  color: var(--black, #121212);
+
+  /* Laundry/B/헤드라인 */
+  font-family: LaundryGothicOTF;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

@@ -6,6 +6,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { Button } from '../../../components/Button/Button'
 import { Rating } from '../../../components/Rating/Rating'
 import plusIcon from '../../../assets/review/plus.svg'
+import { useCreateReview } from '../api/useCreateReview' // 경로는 프로젝트 구조에 맞게
+import TopBar from '../../../components/TopBar/TopBar' // ⬅️ TopBar 추가
 
 export function ReviewFormPage() {
   const [previewUrls, setPreviewUrls] = useState([])
@@ -14,6 +16,7 @@ export function ReviewFormPage() {
   const [reviewText, setReviewText] = useState('')
   const navigate = useNavigate()
   const fileInputRef = useRef(null)
+  const { createReview, isLoading } = useCreateReview()
 
   const MAX_TEXT = 100
   const MAX_PHOTOS = 9 // 최대 사진 첨부 수
@@ -34,8 +37,7 @@ export function ReviewFormPage() {
       }
       reader.readAsDataURL(file)
     })
-    // 같은 파일 다시 선택 가능
-    e.target.value = ''
+    e.target.value = '' // 같은 파일 다시 선택 가능
   }
 
   const handleImageDelete = (indexToRemove) => {
@@ -63,15 +65,22 @@ export function ReviewFormPage() {
 
     const existing = loadReviews()
     saveReviews([newReview, ...existing])
-    navigate('/home') // 제출하기 버튼 누른 후 이동 경로
+
+    createReview({
+      title: title.trim(),
+      rating,
+      reviewText,
+      photos: previewUrls, // dataURL 배열
+      onSuccess: () => navigate('/home'),
+    })
   }
 
   const openFilePicker = () => fileInputRef.current?.click()
 
   return (
-    <div className='review-page-wrapper'>
-      {/* 좌측 뒤로가기, 중앙 타이틀 */}
-      {/* <TopBar title='리뷰 작성' /> */}
+    <div className='page-fixed-393'>
+      {/* 상단바: 뒤로가기 + 중앙 타이틀(고정폭) */}
+      <TopBar title='리뷰 작성' />
 
       <div className='review-form-container'>
         {/* 상호명 */}
@@ -155,9 +164,13 @@ export function ReviewFormPage() {
           />
         </div>
 
-        {/* 제출 버튼 */}
+        {/* 제출 버튼 (중복 제거) */}
         <div className='submit-container'>
-          <Button label='제출하기' onClick={handleSubmit} />
+          <Button
+            label={isLoading ? '제출 중...' : '제출하기'}
+            onClick={handleSubmit}
+            disabled={isLoading}
+          />
         </div>
       </div>
     </div>

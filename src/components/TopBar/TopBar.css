@@ -1,0 +1,52 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 51.358px;
+
+  /* 피그마 레이아웃 고정 */
+  width: 393px;
+  height: 111px;
+  padding: 67px 107.357px 8px 20px;
+  flex-shrink: 0;
+
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.topbar__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.topbar__back-icon {
+  width: 36px;
+  height: 36px;
+  display: block;
+}
+
+.topbar__title {
+  display: flex;
+  width: 178.285px;
+  height: 22.469px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--black, #121212);
+  text-align: center;
+
+  /* Laundry/B/헤드라인 */
+  font-family: LaundryGothicOTF;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
