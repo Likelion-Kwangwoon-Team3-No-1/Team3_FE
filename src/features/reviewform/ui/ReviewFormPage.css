@@ -152,16 +152,9 @@
   justify-content: center;
 }
 
-/* 하단 큰 버튼 (스크린샷 스타일) */
-/* .submit-button {
-  width: 100%;
-  height: 50px;
-  border: 0;
-  border-radius: 10px;
-  background: #1d366f;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-} */
+/* 페이지 전체 고정폭 & 중앙 정렬 */
+.page-fixed-393 {
+  width: 393px;
+  margin: 0 auto; /* 필요하면 중앙 배치 */
+  background: #fff; /* 디자인에 맞게 */
+}

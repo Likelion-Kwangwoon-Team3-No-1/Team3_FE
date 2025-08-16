@@ -1,34 +1,59 @@
-/* 카드 하단 버튼 영역 */
+/* 카드 하단 버튼 영역: 고정형 */
 .review-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 14px;
+  display: flex; /* grid 제거 */
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+  gap: 12px; /* 버튼 사이 고정 간격 */
+  margin-top: 16px;
+  width: 100%;
+  /* 상위에서 좌우 패딩(예: 20px)을 주고 있다면 여기엔 패딩 주지 마세요 */
 }
 
+/* 공통 버튼: 고정 크기 */
 .review-btn {
-  height: 52px;
-  border-radius: 12px;
-  border: none;
+  flex: 0 0 auto; /* 늘어나지 않음(고정) */
+  width: 169px;
+  height: 50px;
+  border: 0;
+  border-radius: 10px;
+  box-sizing: border-box;
   font-size: 16px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   cursor: pointer;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
-/* 스샷처럼 두 버튼 모두 남색 톤 */
+/* 색상만 변형 클래스에서 지정 (크기 재지정 금지) */
 .review-btn--approve,
 .review-btn--reject {
   background: #1d366f;
   color: #fff;
-  display: flex;
-  width: 169px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
 }
 
 .review-btn:active {
   transform: translateY(1px);
+}
+
+/* 카드(리뷰 아이템): 반응형 상한만 두고 고정폭은 제거 권장 */
+.review-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 393px; /* 필요 시 상한만 */
+  background: #fff;
+  box-sizing: border-box;
+  /* height: 287px;  <= 고정 높이는 제거 권장(내용량에 맞게 늘어나게) */
+}
+
+/* 페이지 좌우 가터만(겹침 방지) */
+.written-review-page {
+  padding: 0 20px;
+}
+
+.review-nickname {
+  margin-bottom: 4px; /* 닉네임 → 별점 간격 */
 }
