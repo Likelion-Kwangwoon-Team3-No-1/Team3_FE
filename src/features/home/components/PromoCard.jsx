@@ -1,5 +1,6 @@
 import { Icon } from '../../../components/Icon/Icon'
 import './PromoCard.css'
+import { formatPromoDate } from '../../../utils/promoDate'
 
 const PromoCard = ({ promotion }) => {
   return (
@@ -18,7 +19,7 @@ const PromoCard = ({ promotion }) => {
           </div>
           <div className='info-item'>
             <Icon name='post-date' width={19.49} height={19.49} />
-            <span>{promotion.date}</span>
+            <span>{formatPromoDate(promotion.date)}</span>
           </div>
         </div>
       </div>
