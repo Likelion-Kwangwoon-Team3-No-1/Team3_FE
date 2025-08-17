@@ -4,8 +4,8 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import { Link } from 'react-router-dom'
 
-import PromoCard from '../components/PromoCard'
 import { Icon } from '../../../components/Icon/Icon'
+import PromoCard from '../components/PromoCard'
 import BottomNav from '../../../components/BottomNav/BottomNav'
 import banner from '../../../assets/logo/logo-home-banner.svg'
 import './HomeStudentPage.css'
@@ -17,21 +17,21 @@ const promotions = [
     name: '푸른스시',
     category: '식당',
     address: '서울특별시 노원구 월계동',
-    date: '2025.07.31 ~ 2025.08.31',
+    date: '2025-07-31',
   },
   {
     image: 'https://placehold.co/353x200',
     name: '푸른스시',
     category: '식당',
     address: '서울특별시 노원구 월계동',
-    date: '2025.07.31 ~ 2025.08.31',
+    date: '2025-07-31',
   },
   {
     image: 'https://placehold.co/353x200',
     name: '푸른스시',
     category: '식당',
     address: '서울특별시 노원구 월계동',
-    date: '2025.07.31 ~ 2025.08.31',
+    date: '2025-07-31',
   },
 ]
 
@@ -104,21 +104,23 @@ export const HomeStudentPage = () => {
       <header className='home-header'>
         <Icon name='logo-home' width={86.87} height={21.65} className='logo-home' />
       </header>
-      <div className='home-body'>
-        <p className='welcome-msg'>👋 대학생 크리에이터님, 환영합니다!</p>
-        <img src={banner} className='banner' />
+      <div className='home-content-wrapper'>
+        <div className='home-body'>
+          <p className='welcome-msg'>👋 대학생 크리에이터님, 환영합니다!</p>
+          <img src={banner} className='banner' />
 
-        <Carousel />
+          <Carousel />
 
-        <div className='sns-btn'>
-          <button>
-            <Icon name='logo-instagram' width={32} height={32} className='sns-btn-logo' />
-            <span className='sns-btn-content'>Feed Up SNS 바로가기</span>
-            <Icon name='button-sns-arrow' width={24} height={24} className='sns-btn-arrow' />
-          </button>
+          <div className='sns-btn'>
+            <button>
+              <Icon name='logo-instagram' width={32} height={32} className='sns-btn-logo' />
+              <span className='sns-btn-content'>Feed Up SNS 바로가기</span>
+              <Icon name='button-sns-arrow' width={24} height={24} className='sns-btn-arrow' />
+            </button>
+          </div>
         </div>
-        <BottomNav />
       </div>
+      <BottomNav />
     </div>
   )
 }
