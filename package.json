@@ -27,6 +27,7 @@
     "globals": "^16.3.0",
     "react-slick": "^0.31.0",
     "slick-carousel": "^1.8.1",
-    "vite": "^7.0.4"
+    "vite": "^7.0.4",
+    "vite-plugin-svgr": "^4.3.0"
   }
 }
