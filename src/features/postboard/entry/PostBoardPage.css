@@ -1,0 +1,99 @@
+/* 전체 레이아웃 */
+.promotion-board {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  width: 393px;
+  height: 900px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 2px #808993;
+}
+
+/* 상단 헤더 (검색바 포함) */
+.promotion-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
+  height: 167px;
+  padding: 11.53px 20px;
+  padding-top: 73px;
+  box-sizing: border-box;
+  border-bottom: 8px solid #f4f6fa;
+}
+
+.promotion-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  height: 22.57px;
+  margin: 0px;
+  padding-bottom: 12px;
+}
+
+.search-bar-container {
+  width: 353px;
+  position: relative;
+  align-items: center;
+}
+
+.search-bar-container input {
+  width: 353px;
+  height: 40px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  color: #808993;
+  background-color: #e8ebed;
+}
+.search-bar-container input:focus {
+  outline: none;
+  border-color: transparent;
+}
+
+.search-bar-icon {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  transform: translateY(-50%);
+  fill: #808993;
+}
+
+/* 게시물 리스트 컨테이너 (스크롤 전용) */
+.post-list-container {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 100px; /* 네비게이션바 높이를 고려한 패딩 */
+}
+
+.post-list-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-trigger,
+.scroll-end {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  background: #2c6ed5;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}

@@ -1,0 +1,85 @@
+.postlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-bottom: 2px solid #f4f6fa;
+  padding: 13px 20px;
+  box-sizing: border-box;
+  width: 393px;
+  height: 94px;
+}
+
+.postlist-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.postlist-header {
+  display: flex;
+  align-items: center;
+  height: 23px;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.promo-shop {
+  color: #1d366f;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.dot {
+  color: #1d366f;
+  font-size: 16px;
+  width: 9.53px;
+  height: 15.45px;
+  font-weight: bold;
+}
+
+.promo-category {
+  font-size: 16px;
+  color: #6075ff;
+  font-weight: 600;
+}
+
+.promo-time {
+  font-size: 12px;
+  color: #c0c5c7;
+  font-weight: 400;
+}
+
+.promo-address {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #808993;
+  margin: 0px;
+  gap: 2px;
+}
+
+.promo-date {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #808993;
+  margin: 0px;
+  gap: 2px;
+}
+
+.postlist-image {
+  width: 66x;
+  height: 66px;
+  border-radius: 8px;
+}
+
+.postlist-image img {
+  width: 66x;
+  height: 66px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-left: 12px;
+}
