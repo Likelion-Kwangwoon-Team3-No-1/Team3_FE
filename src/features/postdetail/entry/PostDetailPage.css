@@ -1,0 +1,197 @@
+/* 전체 페이지 레이아웃 설정 */
+.post-detail-container {
+  display: flex;
+  width: 393px;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f4f6fa;
+  margin: 0 auto;
+  box-shadow: 0px 0px 2px #808993;
+}
+
+/* 스크롤 가능한 콘텐츠 영역 */
+.scrollable-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE 및 Edge */
+  scrollbar-width: none; /* Firefox */
+  padding-bottom: 80px; /* 고정 버튼 영역만큼 여백 추가 */
+}
+
+/* Chrome, Safari, Opera 스크롤바 숨기기 */
+.scrollable-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* 이미지 컨테이너 */
+.image-container {
+  width: 100%;
+  height: 186px;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(5px);
+  opacity: 80%;
+}
+
+/* 뒤로가기 버튼 오버레이 */
+.back-button-overlay {
+  position: absolute;
+  top: 67px;
+  left: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.back-button .Icon {
+  fill: white;
+}
+
+.detail-info {
+  box-sizing: border-box;
+  padding: 16px 33.53px;
+  background-color: white;
+  position: relative;
+  height: 191.3px;
+  border-bottom: 3px solid #f4f6fa;
+}
+
+/* 상세 콘텐츠 영역 */
+.detail-content {
+  padding: 36px 34px;
+  background-color: white;
+  position: relative;
+  padding-bottom: 300px;
+}
+
+/* 스토어 정보 섹션 */
+/* 폰트 높이 고려 */
+.store-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  top: -82.004px;
+  position: relative;
+}
+
+.store-thumbnail-container {
+  border-radius: 10px;
+}
+
+.store-thumbnail {
+  width: 85px;
+  height: 85px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.store-text {
+  height: 150.3px;
+}
+
+.store-name {
+  padding-top: 15.69px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.store-category {
+  color: #6075ff;
+  font-size: 16px;
+  padding-top: 8px;
+  margin: 0;
+}
+
+.store-details {
+  display: flex;
+  flex-direction: column;
+  padding-top: 8px;
+  gap: 4.3px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #808993;
+  margin: 0;
+}
+
+.detail-item span {
+  font-weight: 500;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  padding: 0px;
+  padding-bottom: 16px;
+}
+
+.promotion-text {
+  font-size: 14px;
+  color: #808993;
+}
+
+.promotion-text p {
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
+/* 추가 정보 섹션 */
+.additional-info {
+  margin: 0;
+  padding: 21px;
+  font-size: 10px;
+  color: #c0c5c7;
+  box-shadow: none;
+}
+
+.additional-info p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* 신청하기 버튼 */
+.apply-button {
+  z-index: 200;
+  position: fixed;
+  bottom: 33.75px;
+  width: 353px;
+  height: 55px;
+  background-color: #1d366f; /* 초록색 */
+  color: white;
+  padding: 16px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.apply-button:hover {
+  background-color: #142752;
+}
