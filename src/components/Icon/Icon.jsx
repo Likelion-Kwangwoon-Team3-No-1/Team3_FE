@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 
 import { iconMap } from './iconMap'
 
-export const Icon = ({ name, size, className = '', ...props }) => {
+export const Icon = ({ name, width, height, className = '', ...props }) => {
   const SvgIcon = iconMap[name]
 
   if (!SvgIcon) {
@@ -12,7 +12,7 @@ export const Icon = ({ name, size, className = '', ...props }) => {
 
   return (
     <Suspense fallback={null}>
-      <SvgIcon width={size} height={size} className={className} {...props} />
+      <SvgIcon width={width} height={height} className={className} {...props} />
     </Suspense>
   )
 }
