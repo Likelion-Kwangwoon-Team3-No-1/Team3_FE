@@ -5,6 +5,10 @@ import cardNext from '../../assets/card/card-next.svg?react'
 import cardNoneArrow from '../../assets/card/card-none-arrow.svg?react'
 import cardNone from '../../assets/card/card-none.svg?react'
 import cardPre from '../../assets/card/card-pre.svg?react'
+import detailArrowLeft from '../../assets/detail/detail-arrow-left.svg?react'
+import detailDate from '../../assets/detail/detail-date.svg?react'
+import detailLocation from '../../assets/detail/detail-location.svg?react'
+import detailPhone from '../../assets/detail/detail-phone.svg?react'
 import logoHome from '../../assets/logo/logo-home.svg?react'
 import logoInstagram from '../../assets/logo/logo-instagram.svg?react'
 import postPostDate from '../../assets/post/post-date.svg?react'
@@ -20,6 +24,10 @@ export const iconMap = {
   'card-none-arrow': cardNoneArrow,
   'card-none': cardNone,
   'card-pre': cardPre,
+  'detail-arrow-left': detailArrowLeft,
+  'detail-date': detailDate,
+  'detail-location': detailLocation,
+  'detail-phone': detailPhone,
   'logo-home': logoHome,
   'logo-instagram': logoInstagram,
   'post-date': postPostDate,
