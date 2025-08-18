@@ -38,7 +38,7 @@ export const AppRouter = () => {
       <Route path='/review' element={<ReviewPage />} />
 
       {/* 리뷰 작성 */}
-      <Route path='/review-form' element={<ReviewFormPage />} />
+      <Route path='/review-form/:promotionId' element={<ReviewFormPage />} />
 
       {/* AI 피드백 페이지 */}
       <Route path='/ai-feedback' element={<AiFeedBackPage />} />

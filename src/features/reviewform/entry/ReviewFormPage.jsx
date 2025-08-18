@@ -1,89 +1,90 @@
 import { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import '../ui/ReviewFormPage.css'
 import { saveReviews, loadReviews } from '../../../utils/storage'
 import { v4 as uuidv4 } from 'uuid'
 import { Button } from '../../../components/Button/Button'
 import { Rating } from '../../../components/Rating/Rating'
 import plusIcon from '../../../assets/review/plus.svg'
-import { useCreateReview } from '../api/useCreateReview' // 경로는 프로젝트 구조에 맞게
-import TopBar from '../../../components/TopBar/TopBar' // ⬅️ TopBar 추가
+import { useCreateReview } from '../api/useCreateReview'
+import TopBar from '../../../components/TopBar/TopBar'
 
 export function ReviewFormPage() {
   const [previewUrls, setPreviewUrls] = useState([])
-  const [rating, setRating] = useState(0)
-  const [title, setTitle] = useState('')
-  const [reviewText, setReviewText] = useState('')
-  const navigate = useNavigate()
+  const [rate, setRate] = useState(0)
+  const [shopTitle, setShopTitle] = useState('') // 화면 표시용
+  const [content, setContent] = useState('')
   const fileInputRef = useRef(null)
+  const navigate = useNavigate()
   const { createReview, isLoading } = useCreateReview()
 
-  const MAX_TEXT = 100
-  const MAX_PHOTOS = 8 // 최대 사진 첨부 수
+  // URL 파라미터에서 읽음
+  const { promotionId: paramId } = useParams()
+  const promotionId = isNaN(Number(paramId)) ? paramId : Number(paramId)
 
+  const MAX_TEXT = 100
+  const MAX_PHOTOS = 8
+
+  const openFilePicker = () => fileInputRef.current?.click()
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files || [])
     if (!files.length) return
-
     const next = [...previewUrls]
     files.forEach((file) => {
       if (next.length >= MAX_PHOTOS) return
       const reader = new FileReader()
       reader.onloadend = () => {
         if (next.length < MAX_PHOTOS) {
-          next.push(reader.result)
+          next.push(reader.result) // dataURL
           setPreviewUrls([...next])
         }
       }
       reader.readAsDataURL(file)
     })
-    e.target.value = '' // 같은 파일 다시 선택 가능
+    e.target.value = ''
   }
+  const handleImageDelete = (idx) => setPreviewUrls((prev) => prev.filter((_, i) => i !== idx))
 
-  const handleImageDelete = (indexToRemove) => {
-    setPreviewUrls((prev) => prev.filter((_, i) => i !== indexToRemove))
-  }
-
-  const handleSubmit = () => {
-    if (!title.trim()) {
-      alert('상호명을 입력해주세요.')
+  const handleSubmit = async () => {
+    if (promotionId === undefined || promotionId === null || promotionId === '') {
+      alert('promotionId가 없습니다. 경로/호출부를 확인해주세요.')
       return
     }
-    if (previewUrls.length === 0) {
-      alert('영수증 사진을 최소 1장 첨부해주세요.')
-      return
+    if (rate <= 0) return alert('별점을 선택해주세요.')
+    if (!content.trim()) return alert('리뷰 내용을 입력해주세요.')
+    if (previewUrls.length === 0) return alert('영수증 사진을 최소 1장 첨부해주세요.')
+
+    try {
+      await createReview({
+        promotionId,
+        content,
+        rate,
+        photoUrls: previewUrls, // 현재 dataURL 배열을 그대로 보냄
+        onSuccess: () => {
+          const newReview = {
+            id: uuidv4(),
+            title: shopTitle.trim(),
+            rating: rate,
+            reviewText: content,
+            photos: previewUrls,
+            date: new Date().toISOString(),
+            promotionId,
+          }
+          const existing = loadReviews()
+          saveReviews([newReview, ...(Array.isArray(existing) ? existing : [])])
+          navigate('/home')
+        },
+      })
+    } catch (e) {
+      alert(e?.message || '등록에 실패했습니다.')
     }
-
-    const newReview = {
-      id: uuidv4(),
-      title: title.trim(),
-      rating,
-      reviewText,
-      photos: previewUrls,
-      date: new Date().toISOString(),
-    }
-
-    const existing = loadReviews()
-    saveReviews([newReview, ...existing])
-
-    createReview({
-      title: title.trim(),
-      rating,
-      reviewText,
-      photos: previewUrls, // dataURL 배열
-      onSuccess: () => navigate('/home'),
-    })
   }
-
-  const openFilePicker = () => fileInputRef.current?.click()
 
   return (
     <div className='page-fixed-393'>
-      {/* 상단바: 뒤로가기 + 중앙 타이틀(고정폭) */}
       <TopBar title='리뷰 작성' />
 
       <div className='review-form-container'>
-        {/* 상호명 */}
         <label htmlFor='shopName' className='field-label'>
           상호명
         </label>
@@ -92,17 +93,15 @@ export function ReviewFormPage() {
           type='text'
           className='title-input'
           placeholder='상호명을 입력하세요'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={shopTitle}
+          onChange={(e) => setShopTitle(e.target.value)}
         />
 
-        {/* 별점 + 0/5 */}
         <div className='rating-section'>
-          <Rating rating={rating} onRate={setRating} iconSize={32} />
-          <span className='rating-count'>{rating}/5</span>
+          <Rating rating={rate} onRate={setRate} iconSize={32} />
+          <span className='rating-count'>{rate}/5</span>
         </div>
 
-        {/* 리뷰 내용 */}
         <label htmlFor='reviewText' className='field-label'>
           리뷰 내용
         </label>
@@ -113,19 +112,17 @@ export function ReviewFormPage() {
               className='review-textarea'
               placeholder='리뷰를 작성해주세요'
               maxLength={MAX_TEXT}
-              value={reviewText}
-              onChange={(e) => setReviewText(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
             <span className='char-counter'>
-              {reviewText.length}/{MAX_TEXT}
+              {content.length}/{MAX_TEXT}
             </span>
           </div>
         </div>
 
-        {/* 안내문 */}
         <p className='photo-note'>* 영수증 사진 필수 첨부</p>
 
-        {/* 사진 썸네일 3열 + 플러스 버튼 */}
         <div className='preview-gallery'>
           {previewUrls.map((url, idx) => (
             <div key={idx} className='image-wrapper'>
@@ -133,7 +130,6 @@ export function ReviewFormPage() {
               <button
                 type='button'
                 className='delete-button'
-                aria-label='이미지 삭제'
                 onClick={() => handleImageDelete(idx)}
               >
                 ×
@@ -142,12 +138,7 @@ export function ReviewFormPage() {
           ))}
 
           {previewUrls.length < MAX_PHOTOS && (
-            <button
-              type='button'
-              className='plus-button'
-              onClick={openFilePicker}
-              aria-label='사진 추가'
-            >
+            <button type='button' className='plus-button' onClick={openFilePicker}>
               <div className='plus-inner-circle'>
                 <img src={plusIcon} alt='' className='plus-icon' />
               </div>
@@ -164,7 +155,6 @@ export function ReviewFormPage() {
           />
         </div>
 
-        {/* 제출 버튼 (중복 제거) */}
         <div className='submit-container'>
           <Button
             label={isLoading ? '제출 중...' : '제출하기'}
