@@ -13,8 +13,7 @@ import { HomeStudentPage } from '../features/home/entry/HomeStudentPage'
 import { PostBoardPage } from '../features/postboard/entry/PostBoardPage'
 import { PostDetailPage } from '../features/postdetail/entry/PostDetailPage'
 import { PostFormPage } from '../features/postform/entry/PostFormPage'
-import { SignupOwnerPage } from '../features/signup/entry/SignupOwnerPage'
-import { SignupStudentPage } from '../features/signup/entry/SignupStudentPage'
+import { SignupPage } from '../features/signup/entry/SignupPage'
 import { LoginPage } from '../features/login/entry/LoginPage'
 import { MypageOwnerPage } from '../features/mypage/entry/MypageOwnerPage'
 import { MypageStudentPage } from '../features/mypage/entry/MypageStudentPage'
@@ -69,8 +68,7 @@ export const AppRouter = () => {
       <Route path='/postform' element={<PostFormPage />} />
 
       {/* 회원가입 */}
-      <Route path='/signup/owner' element={<SignupOwnerPage />} />
-      <Route path='/signup/student' element={<SignupStudentPage />} />
+      <Route path='/signup' element={<SignupPage />} />
 
       {/* 로그인 */}
       <Route path='/login' element={<LoginPage />} />
