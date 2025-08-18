@@ -28,6 +28,7 @@ import { SplashPage } from '../features/splash/entry/SplashPage'
 import { OnBoardingOwnerPage } from '../features/onboarding/entry/OnBoardingOwnerPage'
 import { OnBoardingStudentPage } from '../features/onboarding/entry/OnBoardingStudentPage'
 import AdminPage from '../features/admin/entry/AdminPage'
+import { CheckoutPage } from '../features/payments/entry/CheckoutPage'
 
 export const AppRouter = () => {
   return (
@@ -103,6 +104,9 @@ export const AppRouter = () => {
 
       {/* 관리자 */}
       <Route path='/admin' element={<AdminPage />} />
+
+      {/* 관리자 */}
+      <Route path='/payments' element={<CheckoutPage />} />
     </Routes>
   )
 }
