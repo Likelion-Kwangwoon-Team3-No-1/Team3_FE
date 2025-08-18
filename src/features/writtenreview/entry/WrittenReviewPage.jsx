@@ -1,17 +1,17 @@
-import TopBar from '../../../components/TopBar/TopBar'
 import { ReviewList } from '../../../components/ReviewList/ReviewList'
-import '../ui/WrittenReviewPage.css' // 고정폭 스타일 적용
+import { useMyReviews } from '../../..//features/review/api/useMyReviews'
 
-export const WrittenReviewPage = () => {
+export function WrittenReviewPage() {
+  const { items, hasNext, load, loading, error } = useMyReviews(10)
+
+  // 무한스크롤 센티넬에서 load 호출하면 됨
   return (
-    <div className='page-fixed-393'>
-      {/* 상단바 */}
-      <TopBar title='작성한 리뷰' />
-
-      {/* 리뷰 리스트 */}
-      <ReviewList />
-    </div>
+    <ReviewList
+      reviews={items}
+      hasNext={hasNext}
+      onLoadMore={load}
+      loading={loading}
+      error={error}
+    />
   )
 }
-
-export default WrittenReviewPage
