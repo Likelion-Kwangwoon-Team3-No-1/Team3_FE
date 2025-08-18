@@ -1,0 +1,216 @@
+.signup-page {
+  display: flex;
+  width: 393px;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: white;
+  margin: 0 auto;
+  box-shadow: 0px 0px 2px #808993;
+}
+
+.signup-header {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  position: relative;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.signup-form-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 20px;
+}
+.category-select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%; /* 너비 100%로 설정 */
+  -webkit-appearance: none; /* iOS 및 일부 브라우저에서 기본 스타일 제거 */
+  -moz-appearance: none; /* Firefox에서 기본 스타일 제거 */
+  appearance: none; /* 드롭다운 기본 스타일 제거 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 10px;
+}
+
+.input-group input {
+  flex-grow: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.check-button {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.check-button:hover {
+  background-color: #d0d0d0;
+}
+
+.password-info {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+}
+
+.user-type-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.user-type-button {
+  background-color: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  padding: 15px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  font-weight: bold;
+}
+
+.user-type-button.active {
+  background-color: #e0f0ff;
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.terms-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox.checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.checkmark {
+  color: #fff;
+  font-size: 14px;
+  display: none;
+}
+
+.checkbox.checked .checkmark {
+  display: block;
+}
+
+.terms-text {
+  flex-grow: 1;
+  font-size: 15px;
+}
+
+.terms-link {
+  font-size: 20px;
+  color: #888;
+}
+
+.signup-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.signup-button:hover {
+  background-color: #0056b3;
+}
+
+.address-input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.fixed-address {
+  background-color: #f0f0f0;
+  color: #888;
+  cursor: default;
+  flex: 1; /* 너비를 유동적으로 설정 */
+}
+
+/* 상세주소 입력 필드의 너비를 조절 */
+.address-input-group input:not(.fixed-address) {
+  flex: 1; /* 너비를 유동적으로 설정 */
+}
