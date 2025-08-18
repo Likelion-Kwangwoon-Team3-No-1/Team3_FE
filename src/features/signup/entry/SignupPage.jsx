@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './SignupPage.css'
 import { TermsModal } from '../components/TermsModal'
 import { useNavigate } from 'react-router-dom'
+import { Icon } from '../../../components/Icon/Icon'
 
 export function SignupPage() {
   const [userId, setUserId] = useState('')
@@ -75,14 +76,20 @@ export function SignupPage() {
       userType,
       agreedToTerms,
     })
-    navigate('/login')
+
+    if (userType === 'student') {
+      navigate('/signup/student')
+    }
+    if (userType === 'owner') {
+      navigate('/signup/owner')
+    }
   }
 
   return (
     <div className='signup-page'>
       <header className='signup-header'>
         <button className='back-button' onClick={() => navigate('/login')}>
-          ←
+          <Icon name='detail-arrow-left' width={36} height={36} />
         </button>
         <h1 className='header-title'>회원가입</h1>
       </header>
@@ -156,7 +163,7 @@ export function SignupPage() {
             </div>
             <span className='terms-text'>이용약관 동의</span>
             <span className='terms-link' onClick={handleOpenModal}>
-              →
+              <Icon name='agree-arrow-right' width={24} height={24} />
             </span>
           </div>
 
