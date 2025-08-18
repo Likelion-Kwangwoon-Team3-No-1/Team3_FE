@@ -1,0 +1,180 @@
+/* 전체 페이지 컨테이너 */
+.post-form-container {
+  display: flex;
+  width: 393px;
+  box-sizing: border-box;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: white;
+  margin: 0 auto;
+  box-shadow: 0px 0px 2px #808993;
+}
+
+/* 상단바: 고정 */
+.header-bar {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.back-button svg {
+  width: 24px;
+  height: 24px;
+  color: #555;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+/* 스크롤 가능 영역 */
+.scroll-wrapper {
+  flex-grow: 1; /* 남은 공간을 모두 차지 */
+  overflow-y: auto; /* 이 영역에만 세로 스크롤 허용 */
+  -webkit-overflow-scrolling: touch; /* iOS에서 스크롤 부드럽게 */
+}
+
+.scroll-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* 스크롤되는 내부 영역 */
+.scroll-content {
+  padding: 20px;
+  padding-bottom: 189px;
+}
+
+/* 입력 그룹 */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.input-field,
+.date-input,
+.textarea-field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus,
+.date-input:focus,
+.textarea-field:focus {
+  outline: none;
+  border-color: #6a8cff;
+}
+
+/* 비활성화된 입력 필드 스타일 */
+.input-field[disabled] {
+  background-color: #e9e9e9;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* 날짜 입력 컨테이너 */
+.date-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.date-input {
+  flex: 1;
+}
+
+.date-separator {
+  margin: 0 10px;
+  color: #555;
+}
+
+/* 요금제 버튼 */
+.plan-buttons-container {
+  display: flex;
+  gap: 10px;
+}
+
+.plan-button {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.plan-button.selected {
+  background-color: #6a8cff;
+  color: #fff;
+  border-color: #6a8cff;
+}
+
+/* 텍스트 영역 */
+.textarea-field {
+  resize: vertical;
+}
+
+/* 하단 버튼 바: 고정 */
+.fixed-bottom-bar {
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.post-button {
+  z-index: 200;
+  position: fixed;
+  bottom: 33.75px;
+  width: 353px;
+  height: 55px;
+  background-color: #1d366f;
+  color: white;
+  padding: 16px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-button:hover {
+  background-color: #142752;
+}
