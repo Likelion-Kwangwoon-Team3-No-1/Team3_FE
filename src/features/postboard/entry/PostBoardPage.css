@@ -5,8 +5,8 @@
   background: white;
   width: 393px;
   height: 900px;
-  margin: 0 auto;
   box-shadow: 0px 0px 2px #808993;
+  margin: auto 2px;
 }
 
 /* 상단 헤더 (검색바 포함) */

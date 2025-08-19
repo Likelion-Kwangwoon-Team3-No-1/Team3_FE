@@ -4,12 +4,12 @@
   padding-top: 32px;
   padding-bottom: 43px;
   box-sizing: border-box;
-  width: 353px;
-  height: 356px;
+  width: 349px;
+  height: 352px;
   box-shadow: 0px 0px 2px #808993;
   border-radius: 10px;
   background: white;
-  margin: 0;
+  margin: 1px;
 }
 
 /* 상단 이미지 */
@@ -41,18 +41,21 @@
   font-weight: bold;
   color: #1d366f; /* 진한 네이비 */
   margin: 0px;
+  font-family: 'EliceDigitalBaeum', sans-serif;
 }
 
 .promo-category {
   font-size: 20px;
   font-weight: 600;
-  color: #6075ff; /* 파란 포인트 */
+  color: var(--primary-color); /* 파란 포인트 */
   margin: 0px;
+  font-family: 'TTLaundryGothicB', sans-serif;
 }
 
 /* 정보 (주소/날짜) */
 .promo-info {
   padding-top: 9px;
+  line-height: 20px;
   margin: 0px;
   display: flex;
   flex-direction: column;

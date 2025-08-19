@@ -4,15 +4,21 @@
   flex-direction: column; /* 세로 방향으로 나열 */
   width: 393px;
   height: 917.33px;
-  margin: 0 auto;
   box-shadow: 0px 0px 2px #808993;
+  margin: auto 2px;
+}
+.card-wrapper {
+  width: 353px;
+  height: 356px;
+  padding: 1px;
+  box-sizing: border-box;
 }
 
 /* 상단 헤더 (고정) */
 .home-header {
   height: 111px;
   align-content: end;
-  box-shadow: 0px 1px 3px -1px #c0c5c7;
+  box-shadow: 0px 1px 3px -1px #808993;
   flex-shrink: 0; /* 헤더의 크기가 줄어들지 않도록 설정 */
 }
 
@@ -30,7 +36,7 @@
 /* 바디 (기존 home-body는 스크롤 영역의 내부 콘텐츠) */
 .home-body {
   padding: 20px;
-  height: 890px;
+  padding-bottom: 168px;
   box-sizing: border-box;
   align-items: center;
 }
@@ -54,20 +60,26 @@
   padding-bottom: 24px;
   font-size: 20px;
   font-weight: bold;
+  font-family: 'TTLaundryGothicB', sans-serif;
 }
 .banner {
   border-radius: 10px;
   width: 353px;
   height: 169px;
+  padding-bottom: 24px;
 }
 .section-title {
   margin: 0px;
-  padding-top: 24px;
   padding-bottom: 12.25px;
+}
+
+.carousel-container h2 {
   font-size: 20px;
   font-weight: bold;
   color: #1d366f;
+  font-family: 'TTLaundryGothicB', sans-serif;
 }
+
 .carousel-container {
   width: 100%;
 }
@@ -162,7 +174,7 @@
 .sns-btn-content {
   width: 155px;
   color: white;
-
+  font-family: 'EliceDigitalBaeum', sans-serif;
   font-size: 16px;
 }
 

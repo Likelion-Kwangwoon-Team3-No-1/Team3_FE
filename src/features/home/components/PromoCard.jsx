@@ -2,9 +2,9 @@ import { Icon } from '../../../components/Icon/Icon'
 import './PromoCard.css'
 import { formatPromoDate } from '../../../utils/promoDate'
 
-const PromoCard = ({ promotion }) => {
+const PromoCard = ({ promotion, onClick }) => {
   return (
-    <div className='promo-card'>
+    <div className='promo-card' onClick={() => onClick(promotion.promotionId)}>
       <img src={promotion.image} alt={promotion.name} className='promo-image' />
       <div className='promo-body'>
         <div className='promo-header'>

@@ -79,8 +79,8 @@ export const AppRouter = () => {
       <Route path='/login' element={<LoginPage />} />
 
       {/* 마이페이지 */}
-      <Route path='/mypage/owner/:ownerId' element={<MypageOwnerPage />} />
-      <Route path='/mypage/student/:studentId' element={<MypageStudentPage />} />
+      <Route path='/mypage/owner/' element={<MypageOwnerPage />} />
+      <Route path='/mypage/student/' element={<MypageStudentPage />} />
 
       {/* 프로필 정보 */}
       <Route path='mypage/owner/:ownerId/infoProfile' element={<InfoProfileOwnerPage />} />
