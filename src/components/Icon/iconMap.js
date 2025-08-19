@@ -18,6 +18,12 @@ import mypageCamera from '../../assets/mypage/mypage-camera.svg?react'
 import mypagePlus from '../../assets/mypage/mypage-plus.svg?react'
 import mypageProfile from '../../assets/mypage/mypage-profile.svg?react'
 import mypageSetting from '../../assets/mypage/mypage-setting.svg?react'
+import naviBoardDefault from '../../assets/navigation/navi-board-default.svg?react'
+import naviBoardFilled from '../../assets/navigation/navi-board-filled.svg?react'
+import naviHomeDefault from '../../assets/navigation/navi-home-default.svg?react'
+import naviHomeFilled from '../../assets/navigation/navi-home-filled.svg?react'
+import naviMypageDefault from '../../assets/navigation/navi-mypage-default.svg?react'
+import naviMypageFilled from '../../assets/navigation/navi-mypage-filled.svg?react'
 import postPostDate from '../../assets/post/post-date.svg?react'
 import postPostForm from '../../assets/post/post-form.svg?react'
 import postPostLocation from '../../assets/post/post-location.svg?react'
@@ -44,6 +50,12 @@ export const iconMap = {
   'mypage-plus': mypagePlus,
   'mypage-profile': mypageProfile,
   'mypage-setting': mypageSetting,
+  'navi-board-default': naviBoardDefault,
+  'navi-board-filled': naviBoardFilled,
+  'navi-home-default': naviHomeDefault,
+  'navi-home-filled': naviHomeFilled,
+  'navi-mypage-default': naviMypageDefault,
+  'navi-mypage-filled': naviMypageFilled,
   'post-date': postPostDate,
   'post-form': postPostForm,
   'post-location': postPostLocation,

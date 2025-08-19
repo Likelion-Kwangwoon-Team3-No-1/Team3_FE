@@ -1,28 +1,40 @@
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
-  max-width: 480px;
-  margin: 0 auto;
+  width: 393px;
+  height: 100px;
+  background-color: #fff;
+  box-shadow: 0px 0px 3px #808993;
+  padding: 8px 26.5px;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.bottom-nav-list {
   display: flex;
-  justify-content: space-around;
-  background: white;
-  border-top: 1px solid #ddd;
-  padding: 10px 0;
-  z-index: 100;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 32px;
 }
 
-.nav-item {
+.bottom-nav-item {
+  text-align: center;
+  width: 92px;
+  height: 58px;
+}
+
+.bottom-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
-  font-size: 14px;
-  color: #555;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.nav-item.active {
-  color: #0056ff;
-}
-
-.nav-item:hover {
-  color: #0056ff;
+.bottom-nav-text {
+  margin-top: 4px; /* 아이콘과 텍스트 사이의 간격 */
+  transition: color 0.3s ease;
 }
