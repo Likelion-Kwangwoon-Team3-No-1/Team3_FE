@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import '../ui/ReviewFormPage.css'
-import { saveReviews, loadReviews } from '../../../utils/storage'
-import { v4 as uuidv4 } from 'uuid'
+// import { saveReviews, loadReviews } from '../../../utils/storage'
+// import { v4 as uuidv4 } from 'uuid'
 import { Button } from '../../../components/Button/Button'
 import { Rating } from '../../../components/Rating/Rating'
 import plusIcon from '../../../assets/review/plus.svg'
@@ -15,7 +15,7 @@ export function ReviewFormPage() {
   const [shopTitle, setShopTitle] = useState('') // 화면 표시용
   const [content, setContent] = useState('')
   const fileInputRef = useRef(null)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const { createReview, isLoading } = useCreateReview()
 
   // URL 파라미터에서 읽음
@@ -45,7 +45,7 @@ export function ReviewFormPage() {
   }
   const handleImageDelete = (idx) => setPreviewUrls((prev) => prev.filter((_, i) => i !== idx))
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     if (promotionId === undefined || promotionId === null || promotionId === '') {
       alert('promotionId가 없습니다. 경로/호출부를 확인해주세요.')
       return
@@ -54,29 +54,23 @@ export function ReviewFormPage() {
     if (!content.trim()) return alert('리뷰 내용을 입력해주세요.')
     if (previewUrls.length === 0) return alert('영수증 사진을 최소 1장 첨부해주세요.')
 
+    e.preventDefault()
     try {
       await createReview({
         promotionId,
-        content,
         rate,
-        photoUrls: previewUrls, // 현재 dataURL 배열을 그대로 보냄
-        onSuccess: () => {
-          const newReview = {
-            id: uuidv4(),
-            title: shopTitle.trim(),
-            rating: rate,
-            reviewText: content,
-            photos: previewUrls,
-            date: new Date().toISOString(),
-            promotionId,
-          }
-          const existing = loadReviews()
-          saveReviews([newReview, ...(Array.isArray(existing) ? existing : [])])
-          navigate('/home')
-        },
+        content,
+        photoUrls: previewUrls,
       })
-    } catch (e) {
-      alert(e?.message || '등록에 실패했습니다.')
+
+      setRate(0)
+      setContent('')
+      setPreviewUrls([])
+
+      // navigate('/home/student')
+    } catch (error) {
+      console.error('리뷰 등록 실패', error)
+      alert('리뷰 등록에 실패하였습니다.')
     }
   }
 
