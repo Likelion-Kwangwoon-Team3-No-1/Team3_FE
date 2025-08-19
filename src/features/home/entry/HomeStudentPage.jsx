@@ -2,13 +2,14 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Icon } from '../../../components/Icon/Icon'
 import PromoCard from '../components/PromoCard'
 import BottomNav from '../../../components/BottomNav/BottomNav'
 import banner from '../../../assets/logo/logo-home-banner.svg'
-import './HomeStudentPage.css'
+import './HomePage.css'
 
 // 더미데이터
 const promotions = [
@@ -18,6 +19,7 @@ const promotions = [
     category: '식당',
     address: '서울특별시 노원구 월계동',
     date: '2025-07-31',
+    promotionId: 1,
   },
   {
     image: 'https://placehold.co/353x200',
@@ -25,6 +27,7 @@ const promotions = [
     category: '식당',
     address: '서울특별시 노원구 월계동',
     date: '2025-07-31',
+    promotionId: 2,
   },
   {
     image: 'https://placehold.co/353x200',
@@ -32,6 +35,7 @@ const promotions = [
     category: '식당',
     address: '서울특별시 노원구 월계동',
     date: '2025-07-31',
+    promotionId: 3,
   },
 ]
 
@@ -68,6 +72,10 @@ function Carousel() {
     prevArrow: <PrevArrow />,
   }
   const style = { textDecoration: 'none' }
+  const navigate = useNavigate()
+  const handleCardClick = (promotionId) => {
+    navigate(`/review-form/${promotionId}`)
+  }
 
   return (
     <div className='carousel-container'>
@@ -76,7 +84,7 @@ function Carousel() {
         <Slider {...settings}>
           {promotions.map((promo, index) => (
             <div key={index} className='card-wrapper'>
-              <PromoCard promotion={promo} />
+              <PromoCard promotion={promo} onClick={handleCardClick} />
             </div>
           ))}
         </Slider>
@@ -99,6 +107,11 @@ function Carousel() {
 }
 
 export const HomeStudentPage = () => {
+  // 테스트용 학생
+  useEffect(() => {
+    localStorage.setItem('userType', 'STUDENT')
+  }, [])
+
   return (
     <div className='home-container'>
       <header className='home-header'>
@@ -112,7 +125,7 @@ export const HomeStudentPage = () => {
           <Carousel />
 
           <div className='sns-btn'>
-            <button>
+            <button onClick={() => window.open('https://www.instagram.com/instagram/')}>
               <Icon name='logo-instagram' width={32} height={32} className='sns-btn-logo' />
               <span className='sns-btn-content'>Feed Up SNS 바로가기</span>
               <Icon name='button-sns-arrow' width={24} height={24} className='sns-btn-arrow' />
