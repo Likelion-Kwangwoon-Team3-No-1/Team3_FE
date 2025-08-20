@@ -7,7 +7,6 @@ export const instance = axios.create({
 })
 
 const pendingRequests = new Map()
-
 const getRequestKey = (config) => {
   const { method, url, params, data } = config
   return [method, url, JSON.stringify(params), JSON.stringify(data)].join('&')
@@ -17,7 +16,6 @@ const getRequestKey = (config) => {
 instance.interceptors.request.use(
   (config) => {
     const requestKey = getRequestKey(config)
-
     if (pendingRequests.has(requestKey)) {
       console.warn(`중복 요청 차단됨: ${requestKey}`)
       return Promise.reject(new Error('중복 요청 차단됨'))
@@ -61,5 +59,4 @@ instance.interceptors.response.use(
     return Promise.reject(err)
   },
 )
-
 export default instance
