@@ -47,7 +47,7 @@ export const AppRouter = () => {
       <Route path='/created-post' element={<CreatedPostPage />} />
 
       {/* 내 프로모션 페이지 */}
-      <Route path='/my-promotion' element={<MyPromotionPage />} />
+      <Route path='/my-promotion/:hostId' element={<MyPromotionPage />} />
 
       {/* 작성한 리뷰 페이지 */}
       <Route path='/written-review' element={<WrittenReviewPage />} />
