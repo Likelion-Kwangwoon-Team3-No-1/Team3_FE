@@ -1,5 +1,69 @@
-.page-fixed-393 {
-  width: 393px;
-  margin: 0 auto;
+.promotion-page {
   background: #fff;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.promotion-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.promotion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 12px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.promotion-item:hover {
+  background: #fafafa;
+}
+
+.promotion-info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.promotion-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.promotion-status {
+  font-size: 14px;
+}
+
+.status-active {
+  color: red;
+}
+
+.status-pending {
+  color: orange;
+}
+
+.status-completed {
+  color: gray;
+}
+
+.promotion-time {
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.promotion-arrow {
+  font-size: 18px;
+  color: #999;
+  margin-left: auto;
 }

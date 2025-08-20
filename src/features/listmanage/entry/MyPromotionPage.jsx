@@ -1,29 +1,77 @@
+import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { ListItem } from '../components/ListItem.jsx'
-import { loadReviews } from '../../../utils/storage'
-import TopBar from '../../../components/TopBar/TopBar.jsx'
+import { instance } from '../../../api/client'
 import '../ui/MyPromotionPage.css'
+import TopBar from '../../../components/TopBar/TopBar'
 
 export function MyPromotionPage() {
-  const [reviews, setReviews] = useState([])
+  const { hostId } = useParams() // 로그인 사용자 hostId
+  const navigate = useNavigate()
+  const [promotions, setPromotions] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  // 상태 변환 함수
+  const getStatusLabel = (status) => {
+    switch (status?.toLowerCase()) {
+      case 'active':
+        return { text: '모집 중', className: 'status-active' }
+      case 'pending':
+        return { text: '리뷰 작성 대기 중', className: 'status-pending' }
+      case 'completed':
+        return { text: '모든 리뷰 작성 완료', className: 'status-completed' }
+      default:
+        return { text: '알 수 없음', className: '' }
+    }
+  }
 
   useEffect(() => {
-    const saved = loadReviews()
-    setReviews(saved)
-  }, [])
+    if (!hostId) return
+    const fetchPromotions = async () => {
+      setIsLoading(true)
+      setError(null)
+      try {
+        const res = await instance.get('/promotions', { params: { hostId } })
+        setPromotions(res.data.items || [])
+      } catch (err) {
+        console.error('내 프로모션 불러오기 실패:', err)
+        setError('데이터를 불러오지 못했습니다.')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchPromotions()
+  }, [hostId])
+
+  if (isLoading) return <p className='loading'>불러오는 중...</p>
+  if (error) return <p className='error'>{error}</p>
 
   return (
-    <div className='page-fixed-393'>
+    <div className='promotion-page'>
       <TopBar title='내 프로모션' />
-      {reviews.length === 0 ? (
-        <p>작성된 리뷰가 없습니다.</p>
-      ) : (
-        <div>
-          {reviews.map((review) => (
-            <ListItem key={review.id} title={review.title} createdAt={review.date} />
-          ))}
-        </div>
-      )}
+      <div className='promotion-list'>
+        {promotions.length === 0 ? (
+          <p className='empty'>등록된 프로모션이 없습니다.</p>
+        ) : (
+          promotions.map((item) => {
+            const status = getStatusLabel(item.promotionStatus)
+            return (
+              <div
+                key={item.promotionId}
+                className='promotion-item'
+                onClick={() => navigate(`/review-form/${item.promotionId}`)} // 클릭 시 리뷰 확인 페이지 이동
+              >
+                <div className='promotion-info'>
+                  <span className='promotion-name'>{item.nickname}</span>
+                  <span className={`promotion-status ${status.className}`}>{status.text}</span>
+                </div>
+                <div className='promotion-time'>{item.createdAt}</div>
+                <span className='promotion-arrow'>›</span>
+              </div>
+            )
+          })
+        )}
+      </div>
     </div>
   )
 }
