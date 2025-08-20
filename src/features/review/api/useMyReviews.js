@@ -1,34 +1,28 @@
-import { useEffect, useState, useCallback } from 'react'
-import { createReviewApi } from './reviewApi'
+import { useEffect, useState } from 'react'
+import { instance } from '../../../api/client'
 
-export function useMyReviews(pageSize = 10) {
-  const [items, setItems] = useState([])
-  const [offset, setOffset] = useState(0)
-  const [hasNext, setHasNext] = useState(true)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+export const useMyReviews = () => {
+  const [reviews, setReviews] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
-  const load = useCallback(async () => {
-    if (!hasNext || loading) return
-    setLoading(true)
-    setError(null)
+  const fetchMyReviews = async () => {
     try {
-      const data = await createReviewApi({ offset, limit: pageSize })
-      setItems((prev) => [...prev, ...(data.items ?? [])])
-      setHasNext(Boolean(data.hasNext))
-      setOffset(data.nextOffset ?? offset + pageSize)
-    } catch (e) {
-      setError(e)
+      setIsLoading(true)
+      setIsError(false)
+      const response = await instance.get('/reviews/me')
+      setReviews(response.data.items || [])
+    } catch (err) {
+      console.error('내 리뷰 조회 실패:', err.response?.data || err.message)
+      setIsError(true)
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
-  }, [offset, pageSize, hasNext, loading])
+  }
 
   useEffect(() => {
-    // 초기 1페이지
-    load()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchMyReviews()
   }, [])
 
-  return { items, hasNext, load, loading, error }
+  return { reviews, isLoading, isError, refetch: fetchMyReviews }
 }
