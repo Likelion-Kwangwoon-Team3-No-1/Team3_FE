@@ -1,12 +1,15 @@
 import agreeAgreeArrowRight from '../../assets/agree/agree-arrow-right.svg?react'
 import agreeAgreeCheckboxDefault from '../../assets/agree/agree-checkbox-default.svg?react'
 import agreeAgreeCheckboxFilled from '../../assets/agree/agree-checkbox-filled.svg?react'
+import agreeClose from '../../assets/agree/agree-close.svg?react'
 import buttonSnsArrow from '../../assets/button/button-sns-arrow.svg?react'
 import cardNext from '../../assets/card/card-next.svg?react'
 import cardNoneArrow from '../../assets/card/card-none-arrow.svg?react'
 import cardNone from '../../assets/card/card-none.svg?react'
 import cardPre from '../../assets/card/card-pre.svg?react'
 import detailArrowLeft from '../../assets/detail/detail-arrow-left.svg?react'
+import detailCheck from '../../assets/detail/detail-check.svg?react'
+import detailCircle from '../../assets/detail/detail-circle.svg?react'
 import detailDate from '../../assets/detail/detail-date.svg?react'
 import detailLocation from '../../assets/detail/detail-location.svg?react'
 import detailPhone from '../../assets/detail/detail-phone.svg?react'
@@ -33,12 +36,15 @@ export const iconMap = {
   'agree-arrow-right': agreeAgreeArrowRight,
   'agree-checkbox-default': agreeAgreeCheckboxDefault,
   'agree-checkbox-filled': agreeAgreeCheckboxFilled,
+  'agree-close': agreeClose,
   'button-sns-arrow': buttonSnsArrow,
   'card-next': cardNext,
   'card-none-arrow': cardNoneArrow,
   'card-none': cardNone,
   'card-pre': cardPre,
   'detail-arrow-left': detailArrowLeft,
+  'detail-check': detailCheck,
+  'detail-circle': detailCircle,
   'detail-date': detailDate,
   'detail-location': detailLocation,
   'detail-phone': detailPhone,
