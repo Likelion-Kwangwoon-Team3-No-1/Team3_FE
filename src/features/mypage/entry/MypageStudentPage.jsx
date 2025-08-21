@@ -1,4 +1,4 @@
-import './MypageStudentPage.css'
+import './MypagePage.css'
 import { Icon } from '../../../components/Icon/Icon'
 import BottomNav from '../../../components/BottomNav/BottomNav'
 import { useNavigate } from 'react-router-dom'

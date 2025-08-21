@@ -173,11 +173,17 @@
   white-space: pre-wrap;
 }
 
-/* 신청하기 버튼 */
-.apply-button {
+.apply-button-wrapper {
   z-index: 200;
   position: fixed;
   bottom: 33.75px;
+  width: 393px; /* 부모(post-detail-container)의 너비를 꽉 채움 */
+  display: flex;
+  justify-content: center; /* 자식 요소(버튼)를 가운데로 정렬 */
+}
+
+/* 신청하기 버튼 */
+.apply-button {
   width: 353px;
   height: 55px;
   background-color: #1d366f;

@@ -1,13 +1,11 @@
-import './MypageOwnerPage.css'
+import './MypagePage.css'
 import { Icon } from '../../../components/Icon/Icon'
 import BottomNav from '../../../components/BottomNav/BottomNav'
-import { useNavigate } from 'react-router-dom'
 
 export function MypageOwnerPage() {
   const handleUpdateClick = () => {
     alert('업데이트 예정입니다.')
   }
-  const navigate = useNavigate()
 
   return (
     <div className='mypage-container'>
@@ -46,7 +44,7 @@ export function MypageOwnerPage() {
           {/* 내 프로모션 */}
           <div className='content-section'>
             <h2>내 프로모션</h2>
-            <div className='list-item' onClick={() => navigate('/my-promotion')}>
+            <div className='list-item' onClick={handleUpdateClick}>
               <span>프로모션 리스트</span>
               <Icon name='mypage-arrow-right' width={24} height={24} />
             </div>

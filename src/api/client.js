@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { jwtDecode } from 'jwt-decode'
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_DOMAIN,
@@ -24,7 +25,6 @@ instance.interceptors.request.use(
 
     pendingRequests.set(requestKey, true)
 
-    // 로컬스토리지에 저장된 토큰을 Authorization 헤더에 추가
     const token = localStorage.getItem('ACCESS_TOKEN')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
@@ -50,7 +50,6 @@ instance.interceptors.response.use(
     pendingRequests.delete(requestKey)
     console.error('Response Error:', err.response?.data || err.message)
 
-    // 토큰 만료 처리 (401 Unauthorized)
     if (err.response?.status === 401) {
       localStorage.removeItem('ACCESS_TOKEN')
       window.location.href = '/login'
@@ -60,4 +59,15 @@ instance.interceptors.response.use(
   },
 )
 
+// 유저 역할 함수 HOST / MATE
+export const getUserRole = () => {
+  const token = localStorage.getItem('ACCESS_TOKEN')
+  if (!token) return null
+  try {
+    const decoded = jwtDecode(token)
+    return decoded.role
+  } catch (error) {
+    console.error('Failed to decode JWT:', error)
+    return null
+  }}
 export default instance
