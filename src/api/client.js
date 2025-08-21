@@ -2,11 +2,12 @@ import axios from 'axios'
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_DOMAIN,
-  withCredentials: true, // 쿠키 기반 인증이 아니면 false로 해도 무방
+  withCredentials: true, // JWT 헤더 인증이므로 false
   headers: { 'Content-Type': 'application/json' },
 })
 
 const pendingRequests = new Map()
+
 const getRequestKey = (config) => {
   const { method, url, params, data } = config
   return [method, url, JSON.stringify(params), JSON.stringify(data)].join('&')
@@ -51,12 +52,12 @@ instance.interceptors.response.use(
 
     // 토큰 만료 처리 (401 Unauthorized)
     if (err.response?.status === 401) {
-      // 로그아웃 처리 or 리프레시 토큰 로직
-      // 예: localStorage.removeItem('ACCESS_TOKEN')
-      // window.location.href = '/login'
+      localStorage.removeItem('ACCESS_TOKEN')
+      window.location.href = '/login'
     }
 
     return Promise.reject(err)
   },
 )
+
 export default instance
