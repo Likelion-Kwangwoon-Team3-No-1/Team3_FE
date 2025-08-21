@@ -1,10 +1,12 @@
+import styles from './App.module.css'
 import { AppRouter } from './components/AppRouter'
-import './App.module.css'
 
 function App() {
   return (
-    <div className='app'>
-      <AppRouter />
+    <div className={styles.app}>
+      <div className={styles.container}>
+        <AppRouter />
+      </div>
     </div>
   )
 }
