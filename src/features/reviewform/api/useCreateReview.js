@@ -5,7 +5,7 @@ export const useCreateReview = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
 
-  const createReview = async ({ promotionId, content, rate, photoUrls = [] }) => {
+  const createReview = async ({ promotionId, content, rate }) => {
     setIsLoading(true)
     setError(false)
     try {
@@ -13,7 +13,7 @@ export const useCreateReview = () => {
         promotionId,
         content,
         rate,
-        photoUrls: Array.isArray(photoUrls) ? photoUrls : [],
+        photoUrls: ['https://example.com/review1.jpg', 'https://example.com/review2.jpg'],
       })
     } catch (error) {
       console.error('리뷰 등록 실패:', error)

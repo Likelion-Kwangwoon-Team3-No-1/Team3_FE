@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { instance } from '../../../api/client'
 import '../ui/MyPromotionPage.css'
@@ -6,7 +6,6 @@ import TopBar from '../../../components/TopBar/TopBar'
 
 export function MyPromotionPage() {
   const { hostId } = useParams() // 로그인 사용자 hostId
-  const navigate = useNavigate()
   const [promotions, setPromotions] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -32,9 +31,10 @@ export function MyPromotionPage() {
       setError(null)
       try {
         const res = await instance.get('/promotions', { params: { hostId } })
-        setPromotions(res.data.items || [])
+        setPromotions(res.items || [])
       } catch (err) {
         console.error('내 프로모션 불러오기 실패:', err)
+        setPromotions([])
         setError('데이터를 불러오지 못했습니다.')
       } finally {
         setIsLoading(false)
@@ -56,17 +56,12 @@ export function MyPromotionPage() {
           promotions.map((item) => {
             const status = getStatusLabel(item.promotionStatus)
             return (
-              <div
-                key={item.promotionId}
-                className='promotion-item'
-                onClick={() => navigate(`/review-form/${item.promotionId}`)} // 클릭 시 리뷰 확인 페이지 이동
-              >
+              <div key={item.promotionId} className='promotion-item'>
                 <div className='promotion-info'>
                   <span className='promotion-name'>{item.nickname}</span>
                   <span className={`promotion-status ${status.className}`}>{status.text}</span>
                 </div>
                 <div className='promotion-time'>{item.createdAt}</div>
-                <span className='promotion-arrow'>›</span>
               </div>
             )
           })
