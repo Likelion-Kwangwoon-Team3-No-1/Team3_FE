@@ -35,7 +35,7 @@ export const AppRouter = () => {
   return (
     <Routes>
       {/* 리뷰 확인 */}
-      <Route path='/review' element={<ReviewPage />} />
+      <Route path='/review/:promotionId' element={<ReviewPage />} />
 
       {/* 리뷰 작성 */}
       <Route path='/review-form/:promotionId' element={<ReviewFormPage />} />
