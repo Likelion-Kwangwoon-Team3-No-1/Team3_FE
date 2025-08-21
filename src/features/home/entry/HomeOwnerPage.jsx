@@ -73,8 +73,8 @@ function Carousel() {
   }
   const style = { textDecoration: 'none' }
   const navigate = useNavigate()
-  const handleCardClick = () => {
-    navigate(`/review`)
+  const handleCardClick = (promotionId) => {
+    navigate(`/review/${promotionId}`)
   }
 
   return (

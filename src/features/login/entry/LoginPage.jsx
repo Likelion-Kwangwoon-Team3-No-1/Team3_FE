@@ -77,7 +77,7 @@ export function LoginPage() {
         <div className='login-footer' onClick={() => navigate('/signup')}>
           아직 계정이 없으신가요? <a>가입하기</a>
         </div>
-        <button className='login-button' onClick={handleLogin}>
+        <button className='login-button' type='submit'>
           로그인
         </button>
       </form>

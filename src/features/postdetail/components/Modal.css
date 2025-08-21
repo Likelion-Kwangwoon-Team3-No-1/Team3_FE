@@ -1,0 +1,147 @@
+.post-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.post-modal-container {
+  background-color: #fff;
+  border-radius: 12px;
+  width: 353px;
+  height: 472px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.post-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 17.5px 11.98px;
+}
+
+.close-button {
+  cursor: pointer;
+}
+
+.post-modal-body {
+  width: 353px;
+  height: 472px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  border: none;
+}
+
+.post-modal-attention {
+  padding-bottom: 19.64px;
+}
+
+.post-modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 26px;
+  padding-bottom: 24px;
+  margin: 0px;
+  font-family: 'TTLaundryGothicB', sans-serif;
+  color: black;
+}
+
+.post-modal-list {
+  list-style: none;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-gray);
+  margin: 0px;
+  padding: 0px;
+}
+
+.post-modal-list li {
+  padding-bottom: 8px;
+}
+
+.agreement-checkbox {
+  display: flex;
+  align-items: center;
+  padding-top: 55.89px;
+  font-size: 14px;
+  color: var(--color-gray);
+  cursor: pointer; /* 클릭 가능한 영역임을 표시 */
+  gap: 5px;
+  padding-left: 30px;
+}
+
+.agreement-checkbox .agreement-text {
+  user-select: none; /* 텍스트 드래그 방지 */
+}
+
+.modal-button {
+  padding: 10.5px 127px;
+  border: none;
+  width: 313px;
+  height: 44px;
+  border-radius: 8px;
+  background-color: var(--color-lightgray);
+  color: var(--color-gray300);
+  font-weight: bold;
+  font-size: 16px;
+  cursor: not-allowed;
+  transition: background-color 0.3s;
+  font-family: 'EliceDigitalBaeum', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-button.active {
+  background-color: var(--color-sub);
+  color: white;
+  cursor: pointer;
+}
+
+.completion-modal {
+  text-align: center;
+  padding: 24px;
+}
+
+.completion-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 86px;
+}
+
+.completion-icon-wrapper {
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 82px;
+  height: 82px;
+  position: relative;
+}
+
+.completion-circle-icon,
+.completion-check-icon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.completion-body p {
+  font-size: 32px;
+  font-weight: bold;
+  color: black;
+  font-family: 'TTLaundryGothicB', sans-serif;
+  padding-top: 41px;
+  margin: 0px;
+}
