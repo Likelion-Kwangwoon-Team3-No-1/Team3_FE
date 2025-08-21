@@ -3,12 +3,11 @@ import { jwtDecode } from 'jwt-decode'
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_DOMAIN,
-  withCredentials: true, // JWT 헤더 인증이므로 false
+  withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 })
 
 const pendingRequests = new Map()
-
 const getRequestKey = (config) => {
   const { method, url, params, data } = config
   return [method, url, JSON.stringify(params), JSON.stringify(data)].join('&')
@@ -51,8 +50,7 @@ instance.interceptors.response.use(
     console.error('Response Error:', err.response?.data || err.message)
 
     if (err.response?.status === 401) {
-      localStorage.removeItem('ACCESS_TOKEN')
-      window.location.href = '/login'
+      // 로그아웃 처리
     }
 
     return Promise.reject(err)
@@ -69,5 +67,7 @@ export const getUserRole = () => {
   } catch (error) {
     console.error('Failed to decode JWT:', error)
     return null
-  }}
+  }
+}
+
 export default instance
