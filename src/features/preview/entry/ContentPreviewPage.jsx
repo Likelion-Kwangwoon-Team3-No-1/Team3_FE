@@ -43,7 +43,7 @@ export function ContentPreviewPage() {
     })
 
     // 2) 내 프로모션 페이지로 이동
-    nav('/my-promotion')
+    nav('/home/owner')
   }
 
   if (!draft) {
