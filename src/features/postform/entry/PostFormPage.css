@@ -14,8 +14,9 @@
 /* 상단바: 고정 */
 .header-bar {
   display: flex;
-  align-items: center;
-  padding: 15px;
+  align-items: end;
+  height: 111px;
+  padding: 8px 20px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -33,18 +34,14 @@
   margin-right: 15px;
 }
 
-.back-button svg {
-  width: 24px;
-  height: 24px;
-  color: #555;
-}
-
 .page-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   margin: 0;
-  flex-grow: 1;
+  width: 178.28px;
   text-align: center;
+  padding-left: 51.36px;
+  font-family: 'TTLaundryGothicB', sans-serif;
 }
 
 /* 스크롤 가능 영역 */
@@ -137,9 +134,9 @@
 }
 
 .plan-button.selected {
-  background-color: #6a8cff;
-  color: #fff;
-  border-color: #6a8cff;
+  background-color: var(--color-sub);
+  color: white;
+  border-color: var(--color-sub);
 }
 
 /* 텍스트 영역 */
@@ -147,20 +144,17 @@
   resize: vertical;
 }
 
-/* 하단 버튼 바: 고정 */
-.fixed-bottom-bar {
-  padding: 15px;
-  background-color: #fff;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
-}
-
-.post-button {
+.post-button-wrapper {
   z-index: 200;
   position: fixed;
   bottom: 33.75px;
+  width: 393px; /* 부모(post-detail-container)의 너비를 꽉 채움 */
+  display: flex;
+  justify-content: center; /* 자식 요소(버튼)를 가운데로 정렬 */
+}
+
+/* 신청하기 버튼 */
+.post-button {
   width: 353px;
   height: 55px;
   background-color: #1d366f;

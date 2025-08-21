@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../../components/Icon/Icon'
+import { instance } from '../../../api/client'
 import './PostFormPage.css'
 
 export function PostFormPage() {
@@ -22,23 +23,40 @@ export function PostFormPage() {
   // 프로모션 내용
   const [promotionContent, setPromotionContent] = useState('')
 
-  // 시작일 입력 시 종료일 자동 설정
-  useEffect(() => {
-    if (startDate) {
-      const start = new Date(startDate)
-      const end = new Date(start)
-      end.setMonth(end.getMonth() + 1)
-      // 'YYYY-MM-DD' 형식으로 변환
-      const formattedEndDate = end.toISOString().split('T')[0]
-      setEndDate(formattedEndDate)
-    } else {
-      setEndDate('')
+  const handlePostClick = async () => {
+    // 요금제에 따라 planId 결정
+    const planMapping = {
+      plan1: 1,
+      plan2: 2,
+      plan3: 3,
     }
-  }, [startDate])
+    const planId = planMapping[selectedPlan]
 
-  const handlePostClick = () => {
-    // 게시하기 버튼 클릭 시 임시 팝업
-    alert('결제창')
+    // 모든 필수 정보가 입력되었는지 확인
+    if (!startDate || !endDate || !selectedPlan || !promotionContent) {
+      alert('모든 필수 정보를 입력해 주세요.')
+      return
+    }
+
+    // API 명세서에 맞는 전송 데이터 준비
+    const postData = {
+      promotionContext: promotionContent,
+      startDate: startDate,
+      endDate: endDate,
+      planId: planId,
+    }
+
+    try {
+      const response = await instance.post('/promotions', postData)
+      console.log('게시물 등록 성공:', response)
+
+      // 성공 팝업 후 결제 페이지로 이동하거나, 다른 로직 실행
+      alert('게시물 등록 완료! 결제 페이지로 이동합니다.')
+      // navigate('/payment') // 결제 페이지가 있다면 이렇게 연결할 수 있습니다.
+    } catch (error) {
+      console.error('게시물 등록 실패:', error)
+      alert('게시물 등록에 실패했습니다. 다시 시도해 주세요.')
+    }
   }
 
   const navigate = useNavigate()
@@ -82,7 +100,12 @@ export function PostFormPage() {
                 onChange={(e) => setStartDate(e.target.value)}
               />
               <span className='date-separator'>~</span>
-              <input type='date' className='date-input' value={endDate} disabled />
+              <input
+                type='date'
+                className='date-input'
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)} // ⭐️ 이 부분을 추가합니다.
+              />
             </div>
           </div>
           <div className='input-group'>
@@ -122,9 +145,11 @@ export function PostFormPage() {
       </div>
 
       {/* 게시하기 버튼 고정 */}
-      <button className='post-button' onClick={handlePostClick}>
-        게시하기
-      </button>
+      <div className='post-button-wrapper'>
+        <button className='post-button' onClick={handlePostClick}>
+          게시하기
+        </button>
+      </div>
     </div>
   )
 }

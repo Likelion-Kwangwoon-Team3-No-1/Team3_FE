@@ -1,8 +1,9 @@
-// PostDetailPage.jsx
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { createDummyDataPostDetail } from '../hooks/CreateDummyDataPostDetail'
 import { formatPromoDate } from '../../../utils/promoDate'
+import { ConsentModal } from '../components/ConsentModal'
+import { CompletionModal } from '../components/CompletionModal'
 import './PostDetailPage.css'
 import { Icon } from '../../../components/Icon/Icon'
 
@@ -10,6 +11,8 @@ export function PostDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [post, setPost] = useState(null)
+  const [showConsentModal, setShowConsentModal] = useState(false)
+  const [showCompletionModal, setShowCompletionModal] = useState(false)
 
   useEffect(() => {
     const allDummyPosts = createDummyDataPostDetail(5)
@@ -18,7 +21,17 @@ export function PostDetailPage() {
   }, [id])
 
   const handleApplyClick = () => {
-    alert('유의사항 및 동의 팝업 예정')
+    setShowConsentModal(true)
+  }
+
+  const handleApplySubmit = () => {
+    setShowConsentModal(false)
+    setShowCompletionModal(true)
+  }
+
+  const handleCloseCompletionModal = () => {
+    setShowCompletionModal(false)
+    navigate('/home/student') // 신청 완료 후 홈 화면으로 이동
   }
 
   if (!post) {
@@ -82,9 +95,17 @@ export function PostDetailPage() {
           </p>
         </div>
       </div>
-      <button className='apply-button' onClick={handleApplyClick}>
-        신청하기
-      </button>
+      <div className='apply-button-wrapper'>
+        <button className='apply-button' onClick={handleApplyClick}>
+          신청하기
+        </button>
+      </div>
+
+      {showConsentModal && (
+        <ConsentModal onClose={() => setShowConsentModal(false)} onApply={handleApplySubmit} />
+      )}
+
+      {showCompletionModal && <CompletionModal onClose={handleCloseCompletionModal} />}
     </div>
   )
 }
