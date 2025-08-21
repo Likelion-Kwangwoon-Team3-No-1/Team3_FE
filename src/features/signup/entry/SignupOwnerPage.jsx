@@ -1,4 +1,4 @@
-import './SignupOwnerPage.css'
+import './SignupPage.css'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../../components/Icon/Icon'
 import { useState } from 'react'

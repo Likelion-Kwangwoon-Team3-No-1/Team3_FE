@@ -96,16 +96,10 @@ export function SignupPage() {
 
       <main className='signup-form-container'>
         <form onSubmit={handleSignup} className='signup-form'>
-          <div className='input-group'>
+          <div className='id-input-group'>
             <label htmlFor='userId'>아이디</label>
             <div className='input-with-button'>
-              <input
-                type='text'
-                id='userId'
-                value={userId}
-                onChange={handleUserIdChange}
-                placeholder='아이디'
-              />
+              <input type='text' id='userId' value={userId} onChange={handleUserIdChange} />
               <button type='button' className='check-button' onClick={handleCheckId}>
                 중복확인
               </button>
@@ -114,13 +108,7 @@ export function SignupPage() {
 
           <div className='input-group'>
             <label htmlFor='password'>비밀번호</label>
-            <input
-              type='password'
-              id='password'
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder='비밀번호'
-            />
+            <input type='password' id='password' value={password} onChange={handlePasswordChange} />
           </div>
 
           <div className='input-group'>
@@ -130,7 +118,6 @@ export function SignupPage() {
               id='confirmPassword'
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
-              placeholder='비밀번호 확인'
             />
             <p className='password-info'>
               * 영문, 숫자, 특수문자 중 2가지 이상을 조합하여 6~20자로 입력해주세요
@@ -155,12 +142,12 @@ export function SignupPage() {
           </div>
 
           <div className='terms-group'>
-            <div
-              className={`checkbox ${agreedToTerms ? 'checked' : ''}`}
-              onClick={handleOpenModal} // 체크박스 클릭 시에도 모달이 열리도록 변경
-            >
-              <div className='checkmark'>✔</div>
-            </div>
+            <Icon
+              name={`agree-checkbox${agreedToTerms ? '-filled' : '-default'}`}
+              width={24}
+              height={24}
+              onClick={handleOpenModal}
+            />
             <span className='terms-text'>이용약관 동의</span>
             <span className='terms-link' onClick={handleOpenModal}>
               <Icon name='agree-arrow-right' width={24} height={24} />

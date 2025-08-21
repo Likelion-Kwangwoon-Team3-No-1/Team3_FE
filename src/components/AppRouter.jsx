@@ -34,6 +34,9 @@ import { CheckoutPage } from '../features/payments/entry/CheckoutPage'
 export const AppRouter = () => {
   return (
     <Routes>
+      {/* 첫 화면. 배포 시 LoginPage => SplashPage로 변경하기*/}
+      <Route path='/' element={<LoginPage />} />
+
       {/* 리뷰 확인 */}
       <Route path='/review/:promotionId' element={<ReviewPage />} />
 
