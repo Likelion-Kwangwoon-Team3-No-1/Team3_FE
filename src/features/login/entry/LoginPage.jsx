@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import instance from '../../../api/client'
 import './LoginPage.css'
+import { Button } from '../../../components/Button/Button'
 
 export function LoginPage() {
   const [loginId, setLoginId] = useState('')
@@ -28,9 +29,9 @@ export function LoginPage() {
       const decodedToken = jwtDecode(accessToken)
       const userRole = decodedToken.role
 
-      if (userRole === 'MATE') {
+      if (userRole === 'ROLE_MATE') {
         navigate('/home/student')
-      } else if (userRole === 'HOST') {
+      } else if (userRole === 'ROLE_HOST') {
         navigate('/home/owner')
       } else {
         console.error('Unknown role:', userRole)
@@ -74,12 +75,12 @@ export function LoginPage() {
           {loginStatus && <div className='login-status-message'>{loginStatus}</div>}
         </div>
 
-        <div className='login-footer' onClick={() => navigate('/signup')}>
-          아직 계정이 없으신가요? <a>가입하기</a>
+        <div className='login-bottom'>
+          <div className='login-footer' onClick={() => navigate('/signup')}>
+            아직 계정이 없으신가요? <a>가입하기</a>
+          </div>
+          <Button label='로그인' onClick={handleLogin} />
         </div>
-        <button className='login-button' type='submit'>
-          로그인
-        </button>
       </form>
     </div>
   )
