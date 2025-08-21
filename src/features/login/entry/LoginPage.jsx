@@ -28,9 +28,9 @@ export function LoginPage() {
       const decodedToken = jwtDecode(accessToken)
       const userRole = decodedToken.role
 
-      if (userRole === 'MATE') {
+      if (userRole === 'ROLE_MATE') {
         navigate('/home/student')
-      } else if (userRole === 'HOST') {
+      } else if (userRole === 'ROLE_HOST') {
         navigate('/home/owner')
       } else {
         console.error('Unknown role:', userRole)
