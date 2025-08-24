@@ -146,7 +146,7 @@ export function ReviewFormPage() {
           </div>
         </div>
 
-        <p className='photo-note'>* 사진 필수 1장 이상 업로드</p>
+        <p className='photo-note'>* 영수증 사진 필수 첨부</p>
 
         <div className='preview-gallery'>
           {previewUrls.map((url, idx) => (

@@ -4,7 +4,7 @@
   gap: 51.358px;
 
   /* 피그마 레이아웃 고정 */
-  width: 393px;
+  /* width: 393px; */
   height: 111px;
   padding: 67px 107.357px 8px 20px;
   flex-shrink: 0;

@@ -3,6 +3,7 @@
   flex-direction: column;
   height: 100vh;
   overflow-y: auto; /* 세로 스크롤 */
+  padding-bottom: 80px; /* 버튼 높이만큼 여백 추가 */
 }
 
 .content-preview__card {

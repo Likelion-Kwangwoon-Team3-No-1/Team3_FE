@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import TopBar from '../../../components/TopBar/TopBar'
 import { instance } from '../../../api/client'
 import '../ui/ContentPreviewPage.css'
@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { Button } from '../../../components/Button/Button'
 
 export function ContentPreviewPage() {
   const { state } = useLocation()
@@ -16,6 +17,7 @@ export function ContentPreviewPage() {
   const [contentData, setContentData] = useState(item || null)
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!promotionId) return
@@ -95,6 +97,7 @@ export function ContentPreviewPage() {
         <div className='content-preview__text'>
           <p>{contentData.content}</p>
         </div>
+        <Button label='업로드' onClick={() => navigate('/home/owner')} />
       </div>
     </div>
   )
