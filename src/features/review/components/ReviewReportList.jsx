@@ -7,7 +7,7 @@ import checkboxDefault from '../../../assets/review/review-checkbox-default.svg'
 import checkboxFilled from '../../../assets/review/review-checkbox-filled.svg'
 import './ReviewReportList.css'
 
-export function ReviewReportList({ promotionId }) {
+export function ReviewReportList({ promotionId, onLoad }) {
   const [reviews, setReviews] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -20,12 +20,14 @@ export function ReviewReportList({ promotionId }) {
         setIsLoading(true)
         setIsError(false)
 
-        const res = await instance.get('/reviews', {
+        const res = await instance.get('/reviews/me', {
           params: { promotionId: Number(promotionId) },
         })
 
         const data = res?.data || res
-        setReviews(data.items || [])
+        const items = data.items || []
+        setReviews(items)
+        if (onLoad) onLoad(items) // ReviewPage에 리뷰 전달
       } catch (err) {
         console.error('리뷰 불러오기 실패:', err.response?.data || err.message)
         setIsError(true)
@@ -35,7 +37,7 @@ export function ReviewReportList({ promotionId }) {
     }
 
     if (promotionId) fetchReviews()
-  }, [promotionId])
+  }, [promotionId, onLoad])
 
   const renderStars = (rate) => (
     <div className='star-wrapper'>
@@ -94,6 +96,7 @@ export function ReviewReportList({ promotionId }) {
                   </button>
                 </div>
               </div>
+
               <p className='review-nickname'>{review.nickname} 작성</p>
               {renderStars(review.rate)}
               <p className='review-text'>{review.content}</p>
