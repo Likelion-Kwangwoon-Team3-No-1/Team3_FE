@@ -8,14 +8,12 @@ export function SignupPage() {
   const [userId, setUserId] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [isIdChecked, setIsIdChecked] = useState(false)
   const [userType, setUserType] = useState(null)
   const [agreedToTerms, setAgreedToTerms] = useState(false) // 이 상태가 이제 모달과 연동됩니다.
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleUserIdChange = (e) => {
     setUserId(e.target.value)
-    setIsIdChecked(false)
   }
 
   const handlePasswordChange = (e) => {
@@ -24,11 +22,6 @@ export function SignupPage() {
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value)
-  }
-
-  const handleCheckId = () => {
-    console.log('ID 중복확인:', userId)
-    setIsIdChecked(true)
   }
 
   const handleUserTypeSelect = (type) => {
@@ -53,7 +46,7 @@ export function SignupPage() {
       return
     }
 
-    if (!userId || !password || !confirmPassword || !isIdChecked) {
+    if (!userId || !password || !confirmPassword) {
       alert('모든 필수 정보를 입력하고 약관에 동의해주세요.')
       return
     }
@@ -77,11 +70,21 @@ export function SignupPage() {
       agreedToTerms,
     })
 
-    if (userType === 'student') {
-      navigate('/signup/student')
+    if (userType === 'ROLE_MATE') {
+      navigate('/signup/student', {
+        state: {
+          userId,
+          password,
+        },
+      })
     }
-    if (userType === 'owner') {
-      navigate('/signup/owner')
+    if (userType === 'ROLE_HOST') {
+      navigate('/signup/owner', {
+        state: {
+          userId,
+          password,
+        },
+      })
     }
   }
 
@@ -96,14 +99,9 @@ export function SignupPage() {
 
       <main className='signup-form-container'>
         <form onSubmit={handleSignup} className='signup-form'>
-          <div className='id-input-group'>
+          <div className='input-group'>
             <label htmlFor='userId'>아이디</label>
-            <div className='input-with-button'>
-              <input type='text' id='userId' value={userId} onChange={handleUserIdChange} />
-              <button type='button' className='check-button' onClick={handleCheckId}>
-                중복확인
-              </button>
-            </div>
+            <input type='text' id='userId' value={userId} onChange={handleUserIdChange} />
           </div>
 
           <div className='input-group'>
@@ -127,15 +125,15 @@ export function SignupPage() {
           <div className='user-type-group'>
             <button
               type='button'
-              className={`user-type-button ${userType === 'student' ? 'active' : ''}`}
-              onClick={() => handleUserTypeSelect('student')}
+              className={`user-type-button ${userType === 'ROLE_MATE' ? 'active' : ''}`}
+              onClick={() => handleUserTypeSelect('ROLE_MATE')}
             >
               대학생
             </button>
             <button
               type='button'
-              className={`user-type-button ${userType === 'owner' ? 'active' : ''}`}
-              onClick={() => handleUserTypeSelect('owner')}
+              className={`user-type-button ${userType === 'ROLE_HOST' ? 'active' : ''}`}
+              onClick={() => handleUserTypeSelect('ROLE_HOST')}
             >
               자영업자
             </button>

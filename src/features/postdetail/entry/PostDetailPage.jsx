@@ -1,42 +1,65 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { createDummyDataPostDetail } from '../hooks/CreateDummyDataPostDetail'
 import { formatPromoDate } from '../../../utils/promoDate'
 import { ConsentModal } from '../components/ConsentModal'
 import { CompletionModal } from '../components/CompletionModal'
 import './PostDetailPage.css'
 import { Icon } from '../../../components/Icon/Icon'
+import instance, { getUserRole } from '../../../api/client'
 
 export function PostDetailPage() {
-  const { id } = useParams()
+  const { promotionId } = useParams()
   const navigate = useNavigate()
   const [post, setPost] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
   const [showConsentModal, setShowConsentModal] = useState(false)
   const [showCompletionModal, setShowCompletionModal] = useState(false)
 
+  const [userRole, setUserRole] = useState(null)
+
   useEffect(() => {
-    const allDummyPosts = createDummyDataPostDetail(5)
-    const foundPost = allDummyPosts.find((p) => p.promotionId === Number(id))
-    setPost(foundPost)
-  }, [id])
+    setUserRole(getUserRole())
+  }, [])
 
-  const handleApplyClick = () => {
-    setShowConsentModal(true)
-  }
+  useEffect(() => {
+    const fetchPostDetail = async () => {
+      try {
+        setIsLoading(true)
+        const response = await instance.get(`/promotions/${promotionId}`)
+        setPost(response) // instance는 res.data 반환하므로 그대로 사용
+      } catch (err) {
+        console.error('상세 조회 실패:', err)
+        setIsError(true)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchPostDetail()
+  }, [promotionId])
 
-  const handleApplySubmit = () => {
-    setShowConsentModal(false)
-    setShowCompletionModal(true)
+  const handleApplyClick = () => setShowConsentModal(true)
+  const handleApplySubmit = async () => {
+    try {
+      await instance.post('/promotion-applies', {
+        /* request body 확인 부탁하기*/
+        promotionId: `PROMO_${promotionId}`,
+      })
+      setShowConsentModal(false)
+      setShowCompletionModal(true)
+    } catch (err) {
+      console.error('프로모션 신청 실패:', err.response?.data || err.message)
+      alert('신청에 실패했습니다.')
+    }
   }
 
   const handleCloseCompletionModal = () => {
     setShowCompletionModal(false)
-    navigate('/home/student') // 신청 완료 후 홈 화면으로 이동
+    navigate('/home/student')
   }
 
-  if (!post) {
-    return <div>게시물을 찾을 수 없습니다.</div>
-  }
+  if (isLoading) return <div>로딩 중...</div>
+  if (isError || !post) return <div>게시물을 찾을 수 없습니다.</div>
 
   return (
     <div className='post-detail-container'>
@@ -62,11 +85,11 @@ export function PostDetailPage() {
                 </p>
                 <p className='detail-item'>
                   <Icon name='detail-phone' width={24} height={24} />
-                  <span>{post.phoneNumber}</span>
+                  <span>{post.phone}</span>
                 </p>
                 <p className='detail-item'>
                   <Icon name='detail-date' width={24} height={24} />
-                  <span>{formatPromoDate(post.start_date)}</span>
+                  <span>{formatPromoDate(post.start_date, post.end_date)}</span>
                 </p>
               </div>
             </div>
@@ -95,11 +118,13 @@ export function PostDetailPage() {
           </p>
         </div>
       </div>
-      <div className='apply-button-wrapper'>
-        <button className='apply-button' onClick={handleApplyClick}>
-          신청하기
-        </button>
-      </div>
+      {userRole === 'ROLE_MATE' && (
+        <div className='apply-button-wrapper'>
+          <button className='apply-button' onClick={handleApplyClick}>
+            신청하기
+          </button>
+        </div>
+      )}
 
       {showConsentModal && (
         <ConsentModal onClose={() => setShowConsentModal(false)} onApply={handleApplySubmit} />

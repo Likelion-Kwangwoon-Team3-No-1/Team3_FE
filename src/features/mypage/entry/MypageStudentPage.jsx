@@ -2,12 +2,33 @@ import './MypagePage.css'
 import { Icon } from '../../../components/Icon/Icon'
 import BottomNav from '../../../components/BottomNav/BottomNav'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import instance, { getUserSub } from '../../../api/client' // 기존 client.js의 instance 사용
 
 export function MypageStudentPage() {
+  const [promotions, setPromotions] = useState([])
+  const navigate = useNavigate()
+  const userId = getUserSub()
+
+  // 참여 중인 프로모션 불러오기
+  const fetchPromotions = async () => {
+    try {
+      const res = await instance.get('/promotion-applies/me/promotions', {
+        params: { offset: 0, limit: 10 },
+      })
+      setPromotions(res.promotions || [])
+    } catch (error) {
+      console.error('참여중인 프로모션 불러오기 실패:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchPromotions()
+  }, [])
+
   const handleUpdateClick = () => {
     alert('업데이트 예정입니다.')
   }
-  const navigate = useNavigate()
 
   return (
     <div className='mypage-container'>
@@ -21,7 +42,7 @@ export function MypageStudentPage() {
               <Icon name='mypage-profile' width={82} height={82} className='profile-icon' />
             </div>
             <div className='profile-text'>
-              <span className='user-name'>홍길동</span>
+              <span className='user-name'>{userId}</span>
               <span className='user-role'>크리에이터님</span>
             </div>
           </div>
@@ -37,14 +58,20 @@ export function MypageStudentPage() {
           {/* 참여 중인 프로모션 */}
           <div className='content-section'>
             <h2>참여 중인 프로모션</h2>
-            <div className='list-item' onClick={() => navigate('/review-form')}>
-              <span>푸른스시</span>
-              <Icon name='mypage-arrow-right' width={24} height={24} />
-            </div>
-            <div className='list-item' onClick={() => navigate('/review-form')}>
-              <span>베르데</span>
-              <Icon name='mypage-arrow-right' width={24} height={24} />
-            </div>
+            {promotions.length > 0 ? (
+              promotions.map((promo) => (
+                <div
+                  key={promo.promotionId}
+                  className='list-item'
+                  onClick={() => navigate(`/review-form/${promo.promotionId}`)}
+                >
+                  <span>{promo.placeName}</span>
+                  <Icon name='mypage-arrow-right' width={24} height={24} />
+                </div>
+              ))
+            ) : (
+              <p className='empty-text'>참여 중인 프로모션이 없습니다.</p>
+            )}
           </div>
 
           {/* 리뷰 */}
