@@ -1,76 +1,77 @@
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 import TopBar from '../../../components/TopBar/TopBar'
-import { Button } from '../../../components/Button/Button'
-import uncheckedIcon from '../../../assets/review/review-checkbox-default.svg'
-import checkedIcon from '../../../assets/review/review-checkbox-filled.svg'
 import { instance } from '../../../api/client'
-import '../ui/AiFeedBackPage.css'
+import { Button } from '../../../components/Button/Button'
+import '../ui/AiFeedbackPage.css'
 
 export function AiFeedBackPage() {
-  const nav = useNavigate()
-  const { state } = useLocation() // { promotionId, items }
-  const drafts = state?.items || []
+  const { state } = useLocation()
+  const { promotionId } = state || {}
+  const navigate = useNavigate()
 
+  const [items, setItems] = useState([])
   const [selectedId, setSelectedId] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleGoPreview = async () => {
+  useEffect(() => {
+    const fetchAiPosts = async () => {
+      try {
+        setIsLoading(true)
+        const res = await instance.post('/generated-sns', { promotionId })
+        let aiItems = res.items || []
+        setItems(aiItems)
+      } catch (err) {
+        console.error('AI 생성 실패:', err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    if (promotionId) fetchAiPosts()
+  }, [promotionId])
+
+  const handleReselect = () => {
     if (!selectedId) {
-      alert('예시를 하나 선택해 주세요.')
+      alert('게시물 스타일을 선택해주세요.')
       return
     }
-    const chosen = drafts.find((d) => d.id === selectedId)
-
-    try {
-      setIsLoading(true)
-      const res = await instance.post(`/generated-sns/select?promotionId=${state.promotionId}`, {
-        style: chosen.style,
-      })
-      const finalContent = res
-      sessionStorage.setItem('finalContent', JSON.stringify(finalContent))
-      nav('/content-preview', { state: { promotionId: state.promotionId } })
-    } catch (err) {
-      console.error('최종 컨텐츠 생성 실패:', err)
-      alert('최종 컨텐츠 생성에 실패했습니다.')
-    } finally {
-      setIsLoading(false)
-    }
+    const selectedItem = items.find((i) => i.id === selectedId)
+    navigate('/content-preview', {
+      state: { promotionId, item: selectedItem },
+    })
   }
 
+  if (isLoading) return <p>생성 중...</p>
+
   return (
-    <div className='aiPreview'>
+    <div className='ai-feedback'>
       <TopBar title='제작된 게시물' />
 
-      {drafts.map((draft, idx) => (
-        <div key={draft.id} className='aiDraftWrapper'>
-          <div className='aiHeaderRow'>
-            <div className='aiTitle'>예시 {idx + 1}번</div>
-            <button type='button' className='aiCheckBtn' onClick={() => setSelectedId(draft.id)}>
-              <img src={selectedId === draft.id ? checkedIcon : uncheckedIcon} alt='' />
-            </button>
+      <div className='ai-feedback__list'>
+        {items.map((item, idx) => (
+          <div key={item.id} className='ai-feedback__card'>
+            <div className='ai-feedback__header'>
+              <h3>예시 {idx + 1}번</h3>
+              <label className='ai-feedback__checkbox'>
+                <input
+                  type='checkbox'
+                  checked={selectedId === item.id}
+                  onChange={() => setSelectedId(item.id)}
+                />
+              </label>
+            </div>
+
+            <p className='ai-feedback__content'>{item.content}</p>
           </div>
+        ))}
+      </div>
 
-          <section className={`aiCard ${selectedId === draft.id ? 'is-active' : ''}`}>
-            <pre className='aiContent'>{draft.content}</pre>
-            {draft.mediaUrls?.length > 0 && (
-              <div className='aiImages'>
-                {draft.mediaUrls.map((url, i) => (
-                  <img key={i} src={url} alt='미리보기 이미지' className='aiImage' />
-                ))}
-              </div>
-            )}
-          </section>
-        </div>
-      ))}
-
-      <div className='aiBottom'>
-        <Button
-          label={isLoading ? '생성 중...' : '재생성'}
-          onClick={handleGoPreview}
-          disabled={isLoading}
-        />
+      <div className='ai-feedback__footer'>
+        <Button label='재생성' onClick={handleReselect} />
       </div>
     </div>
   )
 }
+
+export default AiFeedBackPage

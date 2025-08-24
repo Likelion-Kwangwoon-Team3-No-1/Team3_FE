@@ -35,7 +35,7 @@ export function MyPromotionPage() {
       } catch (err) {
         console.error('내 프로모션 불러오기 실패:', err)
         setPromotions([])
-        setError('데이터를 불러오지 못했습니다.')
+        //setError('데이터를 불러오지 못했습니다.')
       } finally {
         setIsLoading(false)
       }

@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode'
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_DOMAIN,
   withCredentials: true,
-  headers: { 'Content-Type': 'application/json' },
+  //headers: { 'Content-Type': 'application/json' },
 })
 
 const pendingRequests = new Map()
@@ -28,10 +28,6 @@ instance.interceptors.request.use(
     if (token) {
       /*배포시 변경 */
       config.headers.Authorization = `Bearer ${token}`
-      /* 자영업자 토큰*/
-      //config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYXRlQWRtaW4iLCJyb2xlIjoiUk9MRV9NQVRFIiwiaWF0IjoxNzU2MDIyMDYzLCJleHAiOjE3NTYwMjU2NjN9.cfaX3fE5mbbkRj16BPxcpfUCyE06f6BNUty24c9HlvQ`
-      /* 대학생 토큰  */
-      //config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIb3N0QWRtaW4iLCJyb2xlIjoiUk9MRV9IT1NUIiwiaWF0IjoxNzU2MDIyMTIyLCJleHAiOjE3NTYwMjU3MjJ9.3kINALFEGOwwoSQLsYdhqV0XYlKTdriaygm52A9ljgw`
     }
 
     return config

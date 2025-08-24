@@ -1,203 +1,64 @@
-:root {
-  --text: #303235;
-  --muted: #6b7280;
-  --border: #eeeeee;
-  --danger: #ef4444;
-  --danger-soft: #fee2e2;
-  --danger-border: #fca5a5;
-}
-
 .reviewPage {
-  padding-bottom: 24px;
-  color: var(--text);
-  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 화면 전체 기준 */
+  padding-bottom: 80px;
 }
 
-.reviewPage__header {
-  width: 393px;
-  margin: 0 auto;
-  background: #fff;
-}
+/* 상단 사진 그리드 영역: 고정 */
 
-.reviewPage__title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-/* 사진 3열 그리드 (모바일 기준) */
 .reviewPage__photoGrid {
   display: grid;
-  width: 393px;
-  padding: 12px 24px;
-  align-items: flex-start;
-  align-content: flex-start;
-  gap: 8px;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .reviewPage__photoItem {
   position: relative;
-  width: 100%;
-  padding-top: 100%; /* 정사각형 */
-  overflow: hidden;
-  border-radius: 8px;
-  background: #eee;
-}
-
-.reviewPage__photoImg {
-  position: absolute;
-  inset: 0;
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-}
-
-/* 리스트 래퍼 */
-.reviewPage__listWrap {
-  padding: 0 16px 24px;
-}
-
-/* 각 아이템 블록 */
-/* .reviewPage__itemBlock {
-  margin-bottom: 12px;
-} */
-
-/* 신고/체크박스 액션바 */
-.reviewPage__actionBar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-/* 신고 버튼 */
-.reviewPage__reportBtn {
-  border: 1px solid var(--danger-border);
-  background: transparent;
-  color: var(--danger);
-  border-radius: 8px;
-  padding: 6px 8px;
-  line-height: 1;
   cursor: pointer;
-}
-
-.reviewPage__reportBtn.is-done {
-  background: var(--danger-soft);
-}
-
-/* 체크박스 */
-.reviewPage__checkboxLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.reviewPage__checkbox {
-  width: 18px;
-  height: 18px;
-}
-
-/* 큰 화면에서 사진 4열 이상 */
-@media (min-width: 640px) {
-  .reviewPage__photoGrid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.reviewPage__scroll {
-  height: 50vh; /* 적당히 조절 */
-  overflow-y: auto;
-}
-
-/* 버튼을 흐름 속에서 가운데 */
-.reviewPage__footer {
-  position: static;
-  display: flex;
-  justify-content: center;
-  padding: 16px;
-  margin-top: 10px;
-}
-
-/* 마지막 카드와 버튼이 붙지 않게 여백 보강 (선택) */
-.review-list {
-  margin-bottom: 8px;
-}
-
-.reviewPage__photoItem {
-  position: relative;
-  border-radius: 10px;
+  border: 2px solid transparent;
+  border-radius: 8px;
   overflow: hidden;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
 }
 
 .reviewPage__photoItem.is-selected {
-  outline: 3px solid #1d366f; /* 선택 테두리 */
-  outline-offset: 0;
+  border-color: #007bff;
 }
 
-.reviewPage__photoItem.is-selected::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(29, 54, 111, 0.18); /* 살짝 어둡게 */
-}
-
-.reviewPage__photoImg {
+.reviewPage__photoItem img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  user-select: none;
-  -webkit-user-drag: none;
-  cursor: pointer;
+  height: auto;
+  display: block;
+  border-radius: 6px;
 }
 
 .reviewPage__photoBadge {
   position: absolute;
-  right: 8px;
-  top: 8px;
-  padding: 2px 8px;
+  bottom: 6px;
+  right: 6px;
+  background: #007bff;
+  color: #fff;
   font-size: 12px;
-  border-radius: 999px;
-  background: #1d366f;
-  color: #fff;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
-/* 결과 박스 */
-.reviewPage__postBox {
-  margin: 12px 20px 90px;
+/* 리뷰 리스트 영역만 스크롤 */
+.reviewPage__reviewListWrap {
+  flex: 1; /* 남는 공간 채움 */
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  padding: 12px 16px;
+  background: #fff;
 }
 
-.reviewPage__postTextarea {
-  width: 100%;
-  min-height: 220px;
-  box-sizing: border-box;
-  padding: 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  font-size: 14px;
-  line-height: 22px;
-  resize: vertical;
+/* 하단 버튼 고정 */
+.reviewPage__footer {
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  background: #fff;
 }
 
-.reviewPage__postActions {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.post-btn {
-  padding: 10px 12px;
-  border: none;
-  border-radius: 8px;
-  background: #1d366f;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.post-btn.secondary {
-  background: #6b7280;
+.reviewPage__scroll {
+  overflow: scroll;
 }

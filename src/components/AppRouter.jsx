@@ -30,6 +30,8 @@ import { OnBoardingOwnerPage } from '../features/onboarding/entry/OnBoardingOwne
 import { OnBoardingStudentPage } from '../features/onboarding/entry/OnBoardingStudentPage'
 import AdminPage from '../features/admin/entry/AdminPage'
 import { CheckoutPage } from '../features/payments/entry/CheckoutPage'
+import { SuccessPage } from '../features/payments/entry/SuccessPage'
+import { FailPage } from '../features/payments/entry/FailPage'
 
 export const AppRouter = () => {
   return (
@@ -112,6 +114,8 @@ export const AppRouter = () => {
 
       {/* 결제 */}
       <Route path='/payments' element={<CheckoutPage />} />
+      <Route path='/success' element={<SuccessPage />} />
+      <Route path='/fail' element={<FailPage />} />
     </Routes>
   )
 }

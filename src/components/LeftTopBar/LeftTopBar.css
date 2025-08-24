@@ -1,29 +1,29 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 51.358px;
-
-  /* 피그마 레이아웃 고정 */
-  width: 393px;
-  height: 111px;
-  padding: 73px 224px 15px 20px;
-  flex-shrink: 0;
-
+  justify-content: center; /* 중앙 정렬 */
+  position: relative; /* 뒤로가기 버튼 같은 요소는 absolute로 배치 */
+  width: 100%; /* 화면 꽉 차게 */
+  height: 56px; /* 일반 모바일 헤더 높이 */
+  padding: 0 16px;
   background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
 }
 
 .title {
-  width: 149px;
-  height: 22.469px;
-  flex-shrink: 0;
   color: var(--black, #121212);
-
-  /* Laundry/B/헤드라인 */
   font-family: 'TTLaundryGothicB';
   font-size: 20px;
-  font-style: normal;
   font-weight: 700;
   line-height: normal;
+  text-align: center; /* 글자 자체 중앙 */
+}
+
+/* 뒤로가기 버튼 예시 */
+.header .back-btn {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
 }

@@ -1,112 +1,63 @@
-.aiPreview {
-  padding: 0 20px 24px;
+.ai-feedback {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 전체 화면 높이 */
+  background: #f9f9f9;
+  width: 100%;
+  max-width: 393px;
+  margin: 0 auto;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 중앙 정렬 */
+  position: relative;
+  padding-bottom: 80px;
+}
+
+.ai-feedback > .top-bar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.ai-feedback__list {
+  flex: 1; /* 남는 공간 차지 */
+  overflow-y: auto; /* 스크롤 가능 */
+  padding: 12px;
+}
+
+.ai-feedback__card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
   background: #fff;
 }
 
-/* 상단: 제목 + 체크 */
-.aiHeaderRow {
+.ai-feedback__header {
   display: flex;
+  justify-content: space-between; /* 제목 왼쪽, 체크박스 오른쪽 */
   align-items: center;
-  justify-content: space-between;
-  margin: 12px 0 8px;
+  margin-bottom: 8px;
 }
-.aiTitle {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.3px;
-}
-.aiCheckBtn {
-  width: 32px;
-  height: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  padding: 0;
+
+.ai-feedback__checkbox input {
+  width: 18px;
+  height: 18px;
   cursor: pointer;
 }
-.aiCheckBtn img {
-  width: 24px;
-  height: 24px;
+
+.ai-feedback__content {
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-line; /* 줄바꿈 유지 */
 }
 
-/* 본문 카드 */
-.aiCard {
-  margin-top: 4px;
-}
-.aiCard.is-dimmed {
-  opacity: 0.55;
-}
-
-.aiIntro {
-  margin: 0 0 6px;
-  font-size: 16px;
-  line-height: 24px;
-}
-.aiLead {
-  margin: 0 0 12px;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.aiList {
-  margin: 0 0 12px 0;
-  padding: 0;
-  list-style: none;
-}
-.aiList li {
-  margin: 0 0 6px 0;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.aiSubTitle {
-  margin: 6px 0 6px;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.aiBullets {
-  margin: 0 0 10px 0;
-  padding: 0;
-  list-style: none;
-}
-.aiBullets li {
-  margin: 0 0 6px 0;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.aiPar {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.aiMeta {
-  margin: 0 0 6px 0;
-  font-size: 15px;
-  line-height: 22px;
-}
-
-.aiHashTitle {
-  margin: 14px 0 6px;
-  font-size: 16px;
-  font-weight: 700;
-}
-.aiHash {
-  white-space: pre-wrap;
-  font-size: 15px;
-  line-height: 22px;
-  color: #111827;
-}
-
-/* 하단 버튼 */
-.aiBottom {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center; /* ← 가로 가운데 */
-  align-items: center; /* 세로 정렬 안정화 */
-  width: 100%;
+.ai-feedback__footer {
+  padding: 12px;
+  border-top: 1px solid #ddd;
+  background: #fff;
 }
