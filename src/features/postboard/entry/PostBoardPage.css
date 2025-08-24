@@ -1,26 +1,19 @@
 /* 전체 레이아웃 */
-.promotion-board {
+.container {
+  position: relative;
   display: flex;
   flex-direction: column;
-  background: white;
-  width: 393px;
-  height: 900px;
-  box-shadow: 0px 0px 2px #808993;
-  margin: auto 2px;
-  position: relative;
+  gap: 8px;
+  height: 100%;
+  overflow-y: hidden;
+  background-color: var(--color-ghostwhite);
 }
 
 /* 상단 헤더 (검색바 포함) */
 .promotion-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: white;
-  height: 167px;
-  padding: 11.53px 20px;
-  padding-top: 73px;
-  box-sizing: border-box;
-  border-bottom: 8px solid #f4f6fa;
+  position: relative;
+  padding: 14px 20px 11.53px;
+  background-color: white;
 }
 
 .promotion-header h2 {
@@ -28,17 +21,18 @@
   font-weight: 700;
   height: 22.57px;
   margin: 0px;
-  padding-bottom: 12px;
+  font-family: 'TTLaundryGothicB', sans-serif;
 }
 
 .search-bar-container {
-  width: 353px;
-  position: relative;
+  width: 100%;
   align-items: center;
+  padding-top: 12px;
+  position: relative;
 }
 
 .search-bar-container input {
-  width: 353px;
+  width: 100%;
   height: 40px;
   padding: 10px 16px;
   box-sizing: border-box;
@@ -58,44 +52,31 @@
   top: 20px;
   right: 16px;
   transform: translateY(-50%);
-  fill: #808993;
+  fill: var(--color-lightgray);
 }
 
 /* 게시물 리스트 컨테이너 (스크롤 전용) */
 .post-list-container {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 100px; /* 네비게이션바 높이를 고려한 패딩 */
-}
-
-.post-list-container::-webkit-scrollbar {
-  display: none;
-}
-
-.scroll-trigger,
-.scroll-end {
-  text-align: center;
-  color: #666;
-  font-size: 14px;
-  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: hidden;
+  background-color: white;
 }
 
 .floating-button {
   position: absolute;
-  bottom: 210px;
+  bottom: 110px;
   right: 20px;
   background: #1d366f;
-  color: white;
-  font-size: 20px;
   border: none;
   border-radius: 50%;
   width: 56px;
   height: 56px;
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px hsla(0, 0%, 0%, 0.15);
   cursor: pointer;
 }
 
