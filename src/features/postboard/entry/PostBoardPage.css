@@ -49,7 +49,7 @@
 
 .search-bar-icon {
   position: absolute;
-  top: 20px;
+  bottom: -4px;
   right: 16px;
   transform: translateY(-50%);
   fill: var(--color-lightgray);

@@ -1,3 +1,4 @@
+// PostBoardPage.jsx
 import { useState, useEffect } from 'react'
 import { Icon } from '../../../components/Icon/Icon'
 import BottomNav from '../../../components/BottomNav/BottomNav'
