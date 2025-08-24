@@ -27,6 +27,12 @@ import naviHomeDefault from '../../assets/navigation/navi-home-default.svg?react
 import naviHomeFilled from '../../assets/navigation/navi-home-filled.svg?react'
 import naviMypageDefault from '../../assets/navigation/navi-mypage-default.svg?react'
 import naviMypageFilled from '../../assets/navigation/navi-mypage-filled.svg?react'
+import onboardOwner1 from '../../assets/onboard/onboard-owner-1.svg?react'
+import onboardOwner2 from '../../assets/onboard/onboard-owner-2.svg?react'
+import onboardOwner3 from '../../assets/onboard/onboard-owner-3.svg?react'
+import onboardStudent1 from '../../assets/onboard/onboard-student-1.svg?react'
+import onboardStudent2 from '../../assets/onboard/onboard-student-2.svg?react'
+import onboardStudent3 from '../../assets/onboard/onboard-student-3.svg?react'
 import postPostDate from '../../assets/post/post-date.svg?react'
 import postPostForm from '../../assets/post/post-form.svg?react'
 import postPostLocation from '../../assets/post/post-location.svg?react'
@@ -67,6 +73,12 @@ export const iconMap = {
   'navi-home-filled': naviHomeFilled,
   'navi-mypage-default': naviMypageDefault,
   'navi-mypage-filled': naviMypageFilled,
+  'onboard-owner-1': onboardOwner1,
+  'onboard-owner-2': onboardOwner2,
+  'onboard-owner-3': onboardOwner3,
+  'onboard-student-1': onboardStudent1,
+  'onboard-student-2': onboardStudent2,
+  'onboard-student-3': onboardStudent3,
   'post-date': postPostDate,
   'post-form': postPostForm,
   'post-location': postPostLocation,
