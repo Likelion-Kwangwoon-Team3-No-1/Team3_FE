@@ -1,36 +1,48 @@
 import { useEffect, useState } from 'react'
-import splashUp from '../../../assets/splash/splash-up.svg'
-import splashUnion from '../../../assets/splash/splash-union.svg'
-import splashIcon from '../../../assets/splash/splash-icon.svg'
-import splashFeedup from '../../../assets/splash/splash-feedup.svg'
+import { Icon } from '../../../components/Icon/Icon'
+import { useNavigate } from 'react-router-dom'
+import './SplashPage.css'
 
 export function SplashPage() {
   const [step, setStep] = useState(0)
+  const [fade, setFade] = useState(false) // fade-in 적용 여부
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const timers = [1000, 1000, 1000] // 각 단계마다 1초씩 보여줌
-
-    timers.forEach((time, index) => {
-      setTimeout(() => {
-        setStep(index + 1)
-      }, time * (index + 1))
-    })
+    // 첫 렌더 후 fade 적용
+    const timeout = setTimeout(() => setFade(true), 50)
+    return () => clearTimeout(timeout)
   }, [])
 
-  const renderContent = () => {
-    switch (step) {
-      case 0:
-        return <img src={splashUp} alt='splash-up' className='splash-img' />
-      case 1:
-        return <img src={splashUnion} alt='splash-union' className='splash-img' />
-      case 2:
-        return <img src={splashIcon} alt='splash-icon' className='splash-img' />
-      case 3:
-        return <img src={splashFeedup} alt='splash-feedup' className='splash-img' />
-      default:
-        return null
-    }
-  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStep((prev) => (prev < 2 ? prev + 1 : prev))
+    }, 1400)
 
-  return <div className='splash-container'>{renderContent()}</div>
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    if (step === 2) {
+      const timeout = setTimeout(() => {
+        navigate('/login')
+      }, 1400)
+      return () => clearTimeout(timeout)
+    }
+  }, [step, navigate])
+
+  return (
+    <div className='splash-container'>
+      {step === 0 && (
+        <Icon name='splash-up' width={120} height={120} className={fade ? 'fade-in' : ''} />
+      )}
+      {step === 1 && <Icon name='splash-union' width={120} height={120} />}
+      {step === 2 && (
+        <div className='splash-logo fade-in'>
+          <Icon name='splash-icon' width={50} height={50} />
+          <span className='logo-text'>Feed up</span>
+        </div>
+      )}
+    </div>
+  )
 }

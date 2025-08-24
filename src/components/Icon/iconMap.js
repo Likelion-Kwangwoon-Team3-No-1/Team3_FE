@@ -32,6 +32,10 @@ import postPostForm from '../../assets/post/post-form.svg?react'
 import postPostLocation from '../../assets/post/post-location.svg?react'
 import postPostSearch from '../../assets/post/post-search.svg?react'
 import signupPhoto from '../../assets/signup/signup-photo.svg?react'
+import splashFeedup from '../../assets/splash/splash-feedup.svg?react'
+import splashIcon from '../../assets/splash/splash-icon.svg?react'
+import splashUnion from '../../assets/splash/splash-union.svg?react'
+import splashUp from '../../assets/splash/splash-up.svg?react'
 
 export const iconMap = {
   'agree-arrow-right': agreeAgreeArrowRight,
@@ -68,4 +72,8 @@ export const iconMap = {
   'post-location': postPostLocation,
   'post-search': postPostSearch,
   'signup-photo': signupPhoto,
+  'splash-feedup': splashFeedup,
+  'splash-icon': splashIcon,
+  'splash-union': splashUnion,
+  'splash-up': splashUp,
 }
