@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Icon } from '../../components/Icon/Icon'
 import './BottomNav.css'
+import { getUserRole } from '../../api/client'
 
 const navItems = [
   {
@@ -27,9 +28,8 @@ export const BottomNav = () => {
   const [hoveredItem, setHoveredItem] = useState(null)
 
   useEffect(() => {
-    // localStorage에서 userType을 가져와 상태에 저장
-    const storedUserType = localStorage.getItem('userType')
-    setUserType(storedUserType)
+    // 컴포넌트 마운트 시 사용자 역할을 가져와 상태에 저장
+    setUserType(getUserRole())
   }, [])
 
   return (
@@ -37,7 +37,7 @@ export const BottomNav = () => {
       <ul className='bottom-nav-list'>
         {navItems.map((item) => {
           // userType에 따라 홈 경로를 동적으로 결정
-          const rolePath = userType === 'OWNER' ? `${item.path}/owner` : `${item.path}/student`
+          const rolePath = userType === 'ROLE_HOST' ? `${item.path}/owner` : `${item.path}/student`
           const itemPath = item.name === '둘러보기' ? item.path : rolePath
 
           // 현재 경로가 활성화되었는지 확인

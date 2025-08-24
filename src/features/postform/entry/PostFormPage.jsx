@@ -1,17 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../../components/Icon/Icon'
 import { instance } from '../../../api/client'
 import './PostFormPage.css'
 
 export function PostFormPage() {
-  // 사용자의 가게 정보
+  /* 사용자의 가게 정보 더미
   const [storeInfo] = useState({
     name: '푸른스시',
     phoneNumber: '02-943-8791',
     address: '서울특별시 노원구 월계동 402-19',
     category: '식당',
   })
+    */
+  const [storeInfo, setStoreInfo] = useState(null) // 서버 데이터로 대체
+  const [loading, setLoading] = useState(true) // 로딩 상태
 
   // 프로모션 기간
   const [startDate, setStartDate] = useState('')
@@ -22,6 +25,30 @@ export function PostFormPage() {
 
   // 프로모션 내용
   const [promotionContent, setPromotionContent] = useState('')
+
+  const navigate = useNavigate()
+
+  // 서버에서 사용자 가게 정보 가져오기
+  useEffect(() => {
+    const fetchStoreInfo = async () => {
+      try {
+        const response = await instance.get('/promotions/me')
+        setStoreInfo({
+          nickname: response.nickname,
+          phone: response.phone,
+          address: response.address,
+          category: response.category,
+        })
+      } catch (error) {
+        console.error('가게 정보 불러오기 실패:', error)
+        alert('가게 정보를 불러오지 못했습니다.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchStoreInfo()
+  }, [])
 
   const handlePostClick = async () => {
     // 요금제에 따라 planId 결정
@@ -38,12 +65,17 @@ export function PostFormPage() {
       return
     }
 
+    if (new Date(startDate) > new Date(endDate)) {
+      alert('시작일은 종료일보다 앞서야 합니다.')
+      return
+    }
+
     // API 명세서에 맞는 전송 데이터 준비
     const postData = {
-      promotionContext: promotionContent,
-      startDate: startDate,
-      endDate: endDate,
-      planId: planId,
+      context: promotionContent,
+      startDate,
+      endDate,
+      planId,
     }
 
     try {
@@ -54,12 +86,14 @@ export function PostFormPage() {
       alert('게시물 등록 완료! 결제 페이지로 이동합니다.')
       // navigate('/payment') // 결제 페이지가 있다면 이렇게 연결할 수 있습니다.
     } catch (error) {
-      console.error('게시물 등록 실패:', error)
+      console.error('게시물 등록 실패:', error.response?.data || error.message)
       alert('게시물 등록에 실패했습니다. 다시 시도해 주세요.')
     }
   }
 
-  const navigate = useNavigate()
+  if (loading) {
+    return <div className='post-form-container'>로딩 중...</div>
+  }
 
   return (
     <div className='post-form-container'>
@@ -76,11 +110,11 @@ export function PostFormPage() {
         <div className='scroll-content'>
           <div className='input-group'>
             <label className='input-label'>상호명</label>
-            <input type='text' className='input-field' value={storeInfo.name} disabled />
+            <input type='text' className='input-field' value={storeInfo.nickname} disabled />
           </div>
           <div className='input-group'>
             <label className='input-label'>가게 번호</label>
-            <input type='text' className='input-field' value={storeInfo.phoneNumber} disabled />
+            <input type='text' className='input-field' value={storeInfo.phone} disabled />
           </div>
           <div className='input-group'>
             <label className='input-label'>가게 주소</label>
@@ -104,7 +138,7 @@ export function PostFormPage() {
                 type='date'
                 className='date-input'
                 value={endDate}
-                onChange={(e) => setEndDate(e.target.value)} // ⭐️ 이 부분을 추가합니다.
+                onChange={(e) => setEndDate(e.target.value)}
               />
             </div>
           </div>
@@ -146,7 +180,11 @@ export function PostFormPage() {
 
       {/* 게시하기 버튼 고정 */}
       <div className='post-button-wrapper'>
-        <button className='post-button' onClick={handlePostClick}>
+        <button
+          className='post-button'
+          onClick={handlePostClick}
+          disabled={!startDate || !endDate || !selectedPlan || !promotionContent}
+        >
           게시하기
         </button>
       </div>

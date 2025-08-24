@@ -1,6 +1,7 @@
 import './PostList.css'
 import { formatPromoDate, timeAgo } from '../../../utils/promoDate'
 import { Icon } from '../../../components/Icon/Icon'
+import { useNavigate } from 'react-router-dom'
 
 // PostBoardPage 에서 {...post}로 props가 펼쳐져 넘어옴
 export function PostList({
@@ -11,10 +12,16 @@ export function PostList({
   address,
   thumbnail,
   start_date,
-  onClick,
+  end_date,
 }) {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(`/postboard/${promotionId}`)
+  }
+
   return (
-    <div className='postlist-item' key={promotionId} onClick={() => onClick(promotionId)}>
+    <div className='postlist-item' key={promotionId} onClick={handleClick}>
       {/* 왼쪽 텍스트 영역 */}
       <div className='postlist-content'>
         <div className='postlist-header'>
@@ -29,7 +36,7 @@ export function PostList({
         </div>
         <div className='promo-date'>
           <Icon name='post-date' width={16} height={16} />
-          <span>{formatPromoDate(start_date)}</span>
+          <span>{formatPromoDate(start_date, end_date)}</span>
         </div>
       </div>
 

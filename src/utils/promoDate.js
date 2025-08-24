@@ -4,15 +4,13 @@
  * @returns {string} - "2025.08.25 ~ 2025.09.25", "10분 전" | "3시간 전" | "2일 전"
  */
 
-export function formatPromoDate(startDateStr) {
+export function formatPromoDate(startDateStr, endDateStr) {
   const startDate = new Date(startDateStr)
+  const endDate = new Date(endDateStr)
 
   const startYear = startDate.getFullYear()
   const startMonth = String(startDate.getMonth() + 1).padStart(2, '0')
   const startDay = String(startDate.getDate()).padStart(2, '0')
-
-  const endDate = new Date(startDate)
-  endDate.setMonth(endDate.getMonth() + 1)
 
   const endYear = endDate.getFullYear()
   const endMonth = String(endDate.getMonth() + 1).padStart(2, '0')
@@ -29,16 +27,14 @@ export function timeAgo(createdAt) {
   const [month, day] = createdAt.split('/').map(Number)
   const createdDate = new Date(currentYear, month - 1, day)
 
-  // 현재 시간과의 차이(ms 단위)
-  const diffMs = now - createdDate
-  const diffMinutes = Math.floor(diffMs / (1000 * 60))
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+  // 오늘 날짜(시,분,초 제거)
+  const today = new Date(currentYear, now.getMonth(), now.getDate())
 
-  if (diffMinutes < 60) {
-    return `${diffMinutes}분 전`
-  } else if (diffHours < 24) {
-    return `${diffHours}시간 전`
+  // 밀리초 차이 → 일 단위 변환
+  const diffDays = Math.floor((today - createdDate) / (1000 * 60 * 60 * 24))
+
+  if (diffDays === 0) {
+    return '오늘'
   } else {
     return `${diffDays}일 전`
   }

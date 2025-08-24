@@ -1,8 +1,9 @@
+// HomeOwnerPage.jsx
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Icon } from '../../../components/Icon/Icon'
@@ -10,35 +11,9 @@ import PromoCard from '../components/PromoCard'
 import BottomNav from '../../../components/BottomNav/BottomNav'
 import banner from '../../../assets/logo/logo-home-banner.svg'
 import './HomePage.css'
+import instance from '../../../api/client'
 
-// 더미데이터
-const promotions = [
-  {
-    image: 'https://placehold.co/353x200',
-    name: '푸른스시',
-    category: '식당',
-    address: '서울특별시 노원구 월계동',
-    date: '2025-07-31',
-    promotionId: 1,
-  },
-  {
-    image: 'https://placehold.co/353x200',
-    name: '푸른스시',
-    category: '식당',
-    address: '서울특별시 노원구 월계동',
-    date: '2025-07-31',
-    promotionId: 2,
-  },
-  {
-    image: 'https://placehold.co/353x200',
-    name: '푸른스시',
-    category: '식당',
-    address: '서울특별시 노원구 월계동',
-    date: '2025-07-31',
-    promotionId: 3,
-  },
-]
-
+// Carousel 내부에서 promotions을 props로 받도록 수정
 function NextArrow(props) {
   const { onClick, currentSlide, slideCount } = props
   if (currentSlide === slideCount - 1) return null
@@ -59,7 +34,7 @@ function PrevArrow(props) {
   )
 }
 
-function Carousel() {
+function Carousel({ promotions }) {
   const settings = {
     dots: true,
     infinite: false,
@@ -82,8 +57,8 @@ function Carousel() {
       <h2 className='section-title'>진행 중인 프로모션</h2>
       {promotions.length > 0 ? (
         <Slider {...settings}>
-          {promotions.map((promo, index) => (
-            <div key={index} className='card-wrapper'>
+          {promotions.map((promo) => (
+            <div key={promo.promotionId} className='card-wrapper'>
               <PromoCard promotion={promo} onClick={handleCardClick} />
             </div>
           ))}
@@ -107,9 +82,32 @@ function Carousel() {
 }
 
 export const HomeOwnerPage = () => {
-  // 테스트용 자영업자
+  const [promotions, setPromotions] = useState([])
+
   useEffect(() => {
     localStorage.setItem('userType', 'OWNER')
+
+    // hostId 임시 하드코딩 (ex: 3)
+    const hostId = 3
+
+    instance
+      .get(`/api/promotions?hostId=${hostId}`)
+      .then((res) => {
+        // 서버 응답: { items: [...], hasNext: false }
+        const mapped = res.items.map((p) => ({
+          promotionId: p.promotionId,
+          nickname: p.nickname,
+          category: p.category,
+          address: p.address,
+          thumbnail: p.thumbnail, // 서버에서는 thumbnail
+          end_date: p.end_date,
+          start_date: p.start_date,
+        }))
+        setPromotions(mapped)
+      })
+      .catch((err) => {
+        console.error('프로모션 불러오기 실패:', err)
+      })
   }, [])
 
   return (
@@ -122,7 +120,7 @@ export const HomeOwnerPage = () => {
           <p className='welcome-msg'>👋 사장님, 환영합니다!</p>
           <img src={banner} className='banner' />
 
-          <Carousel />
+          <Carousel promotions={promotions} />
 
           <div className='sns-btn'>
             <button onClick={() => window.open('https://www.instagram.com/instagram/')}>

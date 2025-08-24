@@ -31,6 +31,7 @@ import postPostDate from '../../assets/post/post-date.svg?react'
 import postPostForm from '../../assets/post/post-form.svg?react'
 import postPostLocation from '../../assets/post/post-location.svg?react'
 import postPostSearch from '../../assets/post/post-search.svg?react'
+import signupPhoto from '../../assets/signup/signup-photo.svg?react'
 
 export const iconMap = {
   'agree-arrow-right': agreeAgreeArrowRight,
@@ -66,4 +67,5 @@ export const iconMap = {
   'post-form': postPostForm,
   'post-location': postPostLocation,
   'post-search': postPostSearch,
+  'signup-photo': signupPhoto,
 }
