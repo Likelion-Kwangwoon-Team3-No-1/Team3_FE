@@ -26,7 +26,12 @@ instance.interceptors.request.use(
 
     const token = localStorage.getItem('ACCESS_TOKEN')
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      /*배포시 변경 config.headers.Authorization = `Bearer ${token}`*/
+      /* 자영업자 토큰
+      config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIb3N0QWRtaW4iLCJyb2xlIjoiUk9MRV9IT1NUIiwiaWF0IjoxNzU1OTkyODkzLCJleHAiOjE3NTU5OTY0OTN9.Gs5-i3PwUyWGQF7mgDlS1UN5lDEWQ83HrmLhu9mpg3o`
+*/
+      /* 대학생 토큰*/
+      config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYXRlQWRtaW4iLCJyb2xlIjoiUk9MRV9NQVRFIiwiaWF0IjoxNzU1OTkyODY0LCJleHAiOjE3NTU5OTY0NjR9.SHfXK_1BLwNQuFJGQ8yGbDzTi0jcsK-T8LjPmqFIDrc`
     }
 
     return config
@@ -64,6 +69,19 @@ export const getUserRole = () => {
   try {
     const decoded = jwtDecode(token)
     return decoded.role
+  } catch (error) {
+    console.error('Failed to decode JWT:', error)
+    return null
+  }
+}
+
+// 유저 아이디 가져오는 함수
+export const getUserSub = () => {
+  const token = localStorage.getItem('ACCESS_TOKEN')
+  if (!token) return null
+  try {
+    const decoded = jwtDecode(token)
+    return decoded.sub // JWT payload 안의 sub 값 반환
   } catch (error) {
     console.error('Failed to decode JWT:', error)
     return null

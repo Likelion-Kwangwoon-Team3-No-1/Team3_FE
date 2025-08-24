@@ -68,7 +68,7 @@ export const AppRouter = () => {
       {/* 모집 게시판 */}
       <Route path='/postboard' element={<PostBoardPage />} />
       {/* 모집글 상세 */}
-      <Route path='/postboard/:id' element={<PostDetailPage />} />
+      <Route path='/postboard/:promotionId' element={<PostDetailPage />} />
 
       {/* 모집글 작성 */}
       <Route path='/postform' element={<PostFormPage />} />
