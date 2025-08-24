@@ -1,43 +1,17 @@
+// HomeStudentPage.jsx
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Icon } from '../../../components/Icon/Icon'
 import PromoCard from '../components/PromoCard'
 import BottomNav from '../../../components/BottomNav/BottomNav'
 import banner from '../../../assets/logo/logo-home-banner.svg'
+import instance from '../../../api/client'
 import './HomePage.css'
-
-// 더미데이터
-const promotions = [
-  {
-    image: 'https://placehold.co/353x200',
-    name: '푸른스시',
-    category: '식당',
-    address: '서울특별시 노원구 월계동',
-    date: '2025-07-31',
-    promotionId: 1,
-  },
-  {
-    image: 'https://placehold.co/353x200',
-    name: '푸른스시',
-    category: '식당',
-    address: '서울특별시 노원구 월계동',
-    date: '2025-07-31',
-    promotionId: 2,
-  },
-  {
-    image: 'https://placehold.co/353x200',
-    name: '푸른스시',
-    category: '식당',
-    address: '서울특별시 노원구 월계동',
-    date: '2025-07-31',
-    promotionId: 3,
-  },
-]
 
 function NextArrow(props) {
   const { onClick, currentSlide, slideCount } = props
@@ -60,6 +34,9 @@ function PrevArrow(props) {
 }
 
 function Carousel() {
+  const [promotions, setPromotions] = useState([])
+  const navigate = useNavigate()
+
   const settings = {
     dots: true,
     infinite: false,
@@ -71,19 +48,45 @@ function Carousel() {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   }
-  const style = { textDecoration: 'none' }
-  const navigate = useNavigate()
+
   const handleCardClick = (promotionId) => {
     navigate(`/review-form/${promotionId}`)
   }
+
+  useEffect(() => {
+    const fetchPromotions = async () => {
+      try {
+        const res = await instance.get('/promotion-applies/me', {
+          params: { offset: 0, limit: 10 },
+        })
+        // API 응답 -> PromoCard prop 맞춰주기
+        const mapped = res.items.map((item) => ({
+          promotionId: item.promotionId,
+          image: item.thumbnail,
+          name: item.nickname,
+          category: item.category,
+          address: item.address,
+          start_date: item.start_date,
+          end_date: item.end_date, // 마감일 표시
+        }))
+        setPromotions(mapped)
+      } catch (error) {
+        console.error('참여 중인 프로모션 불러오기 실패:', error)
+      }
+    }
+
+    fetchPromotions()
+  }, [])
+
+  const style = { textDecoration: 'none' }
 
   return (
     <div className='carousel-container'>
       <h2 className='section-title'>참여 중인 프로모션</h2>
       {promotions.length > 0 ? (
         <Slider {...settings}>
-          {promotions.map((promo, index) => (
-            <div key={index} className='card-wrapper'>
+          {promotions.map((promo) => (
+            <div key={promo.promotionId} className='card-wrapper'>
               <PromoCard promotion={promo} onClick={handleCardClick} />
             </div>
           ))}
@@ -107,7 +110,6 @@ function Carousel() {
 }
 
 export const HomeStudentPage = () => {
-  // 테스트용 학생
   useEffect(() => {
     localStorage.setItem('userType', 'STUDENT')
   }, [])

@@ -20,7 +20,7 @@ export function MypageOwnerPage() {
   // 가게 정보 불러오기
   const fetchStoreInfo = async () => {
     try {
-      const res = await instance.get('/promotions/me')
+      const res = await instance.get('/hosts/info')
       setStoreName(res.nickname || '상호명 없음')
     } catch (error) {
       console.error('가게 정보 불러오기 실패:', error)

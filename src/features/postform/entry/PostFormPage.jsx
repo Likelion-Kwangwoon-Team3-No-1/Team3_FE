@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { instance } from '../../../api/client'
 import './PostFormPage.css'
 import TopBar from '../../../components/TopBar/TopBar'
+import { Button } from '../../../components/Button/Button'
+import { formatPhoneNumber } from '../../../utils/fomatNumber'
 
 export function PostFormPage() {
   /* 사용자의 가게 정보 더미
@@ -32,7 +34,7 @@ export function PostFormPage() {
   useEffect(() => {
     const fetchStoreInfo = async () => {
       try {
-        const response = await instance.get('/promotions/host-info')
+        const response = await instance.get('/hosts/info')
         setStoreInfo({
           nickname: response.nickname,
           phone: response.phone,
@@ -80,18 +82,22 @@ export function PostFormPage() {
 
     try {
       const response = await instance.post('/promotions', postData)
-      const promotionId = response.data.id
       console.log('게시물 등록 성공:', response)
 
-      // 성공 팝업 후 결제 페이지로 이동하거나, 다른 로직 실행
-      alert('게시물 등록 완료! 결제 페이지로 이동합니다.')
+      /* 결제 페이지로 이동
+      const promotionId = response.id      
       navigate('/payments', {
         state: {
           planId,
           promotionId,
         },
       })
-      // navigate('/payment') // 결제 페이지가 있다면 이렇게 연결할 수 있습니다.
+        */
+      // 성공 팝업 후 결제 페이지로 이동하거나, 다른 로직 실행
+      // 테스트용. 홈으로 이동
+      navigate('/home/owner')
+
+      alert('게시물 등록 완료! 결제 페이지로 이동합니다.')
     } catch (error) {
       console.error('게시물 등록 실패:', error.response?.data || error.message)
       alert('게시물 등록에 실패했습니다. 다시 시도해 주세요.')
@@ -105,9 +111,7 @@ export function PostFormPage() {
   return (
     <div className='post-form-container'>
       {/* 상단바 고정 */}
-      <div className='reviewPage__header'>
-        <TopBar title='리뷰' />
-      </div>
+      <TopBar title='게시물 작성' />
       {/* 스크롤되는 내용 영역 */}
       <div className='scroll-wrapper'>
         <div className='scroll-content'>
@@ -117,7 +121,12 @@ export function PostFormPage() {
           </div>
           <div className='input-group'>
             <label className='input-label'>가게 번호</label>
-            <input type='text' className='input-field' value={storeInfo.phone} disabled />
+            <input
+              type='text'
+              className='input-field'
+              value={formatPhoneNumber(storeInfo.phone)}
+              disabled
+            />
           </div>
           <div className='input-group'>
             <label className='input-label'>가게 주소</label>
@@ -182,15 +191,12 @@ export function PostFormPage() {
       </div>
 
       {/* 게시하기 버튼 고정 */}
-      <div className='post-button-wrapper'>
-        <button
-          className='post-button'
-          onClick={handlePostClick}
-          disabled={!startDate || !endDate || !selectedPlan || !promotionContent}
-        >
-          게시하기
-        </button>
-      </div>
+
+      <Button
+        label='게시하기'
+        onClick={handlePostClick}
+        disabled={!startDate || !endDate || !selectedPlan || !promotionContent}
+      />
     </div>
   )
 }

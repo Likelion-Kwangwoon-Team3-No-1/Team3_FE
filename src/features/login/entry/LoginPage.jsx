@@ -29,9 +29,9 @@ export function LoginPage() {
       const userRole = decodedToken.role
 
       if (userRole === 'ROLE_MATE') {
-        navigate('/home/student')
+        navigate('/onboarding/student')
       } else if (userRole === 'ROLE_HOST') {
-        navigate('/home/owner')
+        navigate('/onboarding/owner')
       } else {
         console.error('Unknown role:', userRole)
         navigate('/')

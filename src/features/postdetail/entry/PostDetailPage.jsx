@@ -6,6 +6,14 @@ import { CompletionModal } from '../components/CompletionModal'
 import './PostDetailPage.css'
 import { Icon } from '../../../components/Icon/Icon'
 import instance, { getUserRole } from '../../../api/client'
+import { Button } from '../../../components/Button/Button'
+
+// 카테고리 변환 매핑
+const categoryMap = {
+  CAFE: '카페',
+  RESTAURANT: '식당',
+  OTHER: '기타',
+}
 
 export function PostDetailPage() {
   const { promotionId } = useParams()
@@ -77,7 +85,7 @@ export function PostDetailPage() {
             <img src={post.thumbnail} alt={post.nickname} className='store-thumbnail' />
             <div className='store-text'>
               <h1 className='store-name'>{post.nickname}</h1>
-              <p className='store-category'>{post.category}</p>
+              <p className='store-category'>{categoryMap[post.category] || post.category}</p>
               <div className='store-details'>
                 <p className='detail-item'>
                   <Icon name='detail-location' width={24} height={24} />
@@ -120,9 +128,7 @@ export function PostDetailPage() {
       </div>
       {userRole === 'ROLE_MATE' && (
         <div className='apply-button-wrapper'>
-          <button className='apply-button' onClick={handleApplyClick}>
-            신청하기
-          </button>
+          <Button label='신청하기' onClick={handleApplyClick} />
         </div>
       )}
 

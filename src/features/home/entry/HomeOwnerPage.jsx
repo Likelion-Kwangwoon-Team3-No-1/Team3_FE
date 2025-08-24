@@ -11,7 +11,7 @@ import PromoCard from '../components/PromoCard'
 import BottomNav from '../../../components/BottomNav/BottomNav'
 import banner from '../../../assets/logo/logo-home-banner.svg'
 import './HomePage.css'
-import instance, { getUserSub } from '../../../api/client'
+import instance from '../../../api/client'
 
 // Carousel 내부에서 promotions을 props로 받도록 수정
 function NextArrow(props) {
@@ -87,11 +87,8 @@ export const HomeOwnerPage = () => {
   useEffect(() => {
     localStorage.setItem('userType', 'OWNER')
 
-    // hostId: JWT에서 sub 추출 (없으면 fallback 하드코딩)
-    const loginId = getUserSub()
-
     instance
-      .get(`/promotions?loginId=${loginId}`)
+      .get(`/promotions/me`)
       .then((res) => {
         console.log('서버 응답:', res)
 
