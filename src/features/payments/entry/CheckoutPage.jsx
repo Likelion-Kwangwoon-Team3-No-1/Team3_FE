@@ -1,7 +1,7 @@
 import { loadTossPayments } from '@tosspayments/tosspayments-sdk'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { instance } from '../api/client'
+import { instance } from '../../../api/client'
 
 const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm'
 const customerKey = 'FaCEncROfkbEXg_aC4HN4'
