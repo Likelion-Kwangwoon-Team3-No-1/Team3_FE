@@ -9,7 +9,6 @@
   border-radius: 10px;
   background: var(--sub, #1d366f);
   color: white;
-  position: fixed;
   font-family: 'EliceDigitalBaeum';
 
   /* 그림자 */
