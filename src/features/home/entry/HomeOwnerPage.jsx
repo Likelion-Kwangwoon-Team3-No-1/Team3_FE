@@ -11,7 +11,7 @@ import PromoCard from '../components/PromoCard'
 import BottomNav from '../../../components/BottomNav/BottomNav'
 import banner from '../../../assets/logo/logo-home-banner.svg'
 import './HomePage.css'
-import instance from '../../../api/client'
+import instance, { getUserSub } from '../../../api/client'
 
 // Carousel 내부에서 promotions을 props로 받도록 수정
 function NextArrow(props) {
@@ -87,26 +87,32 @@ export const HomeOwnerPage = () => {
   useEffect(() => {
     localStorage.setItem('userType', 'OWNER')
 
-    // hostId 임시 하드코딩 (ex: 3)
-    const hostId = 3
+    // hostId: JWT에서 sub 추출 (없으면 fallback 하드코딩)
+    const loginId = getUserSub()
 
     instance
-      .get(`/api/promotions?hostId=${hostId}`)
+      .get(`/promotions?loginId=${loginId}`)
       .then((res) => {
+        console.log('서버 응답:', res)
+
+        if (!res.items) return
+
         // 서버 응답: { items: [...], hasNext: false }
         const mapped = res.items.map((p) => ({
           promotionId: p.promotionId,
           nickname: p.nickname,
           category: p.category,
           address: p.address,
-          thumbnail: p.thumbnail, // 서버에서는 thumbnail
-          end_date: p.end_date,
+          thumbnail: p.thumbnail,
           start_date: p.start_date,
+          end_date: p.end_date,
+          createdAt: p.createdAt,
+          promotionStatus: p.promotionStatus,
         }))
         setPromotions(mapped)
       })
       .catch((err) => {
-        console.error('프로모션 불러오기 실패:', err)
+        console.error('프로모션 불러오기 실패:', err.response?.data || err)
       })
   }, [])
 

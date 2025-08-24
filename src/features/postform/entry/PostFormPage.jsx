@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Icon } from '../../../components/Icon/Icon'
 import { instance } from '../../../api/client'
 import './PostFormPage.css'
+import TopBar from '../../../components/TopBar/TopBar'
 
 export function PostFormPage() {
   /* 사용자의 가게 정보 더미
@@ -32,7 +32,7 @@ export function PostFormPage() {
   useEffect(() => {
     const fetchStoreInfo = async () => {
       try {
-        const response = await instance.get('/promotions/me')
+        const response = await instance.get('/promotions/host-info')
         setStoreInfo({
           nickname: response.nickname,
           phone: response.phone,
@@ -105,13 +105,9 @@ export function PostFormPage() {
   return (
     <div className='post-form-container'>
       {/* 상단바 고정 */}
-      <div className='header-bar'>
-        <button className='back-button' onClick={() => navigate(-1)}>
-          <Icon name='detail-arrow-left' width={36} height={36} />
-        </button>
-        <h1 className='page-title'>게시물 작성</h1>
+      <div className='reviewPage__header'>
+        <TopBar title='리뷰' />
       </div>
-
       {/* 스크롤되는 내용 영역 */}
       <div className='scroll-wrapper'>
         <div className='scroll-content'>

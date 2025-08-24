@@ -3,11 +3,13 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Icon } from '../../../components/Icon/Icon'
 import { useState } from 'react'
 import instance from '../../../api/client'
+import imageCompression from 'browser-image-compression' // 추가
 
 export function SignupOwnerPage() {
   const navigate = useNavigate()
   const [category, setCategory] = useState('')
-  const [previewUrl, setPreviewUrl] = useState(null) // 업로드한 이미지 상태
+  const [previewUrl, setPreviewUrl] = useState(null) // 미리보기
+  const [file, setFile] = useState(null) // 실제 업로드할 파일
   const [shopName, setShopName] = useState('')
   const [shopPhone, setShopPhone] = useState('')
   const [detailedAddress, setDetailedAddress] = useState('')
@@ -17,41 +19,85 @@ export function SignupOwnerPage() {
   console.log('넘어온 값:', userId, password)
 
   const categoryList = ['식당', '카페', '기타']
+  const MAX_FILE_SIZE_MB = 2
 
-  const MAX_FILE_SIZE_MB = 2 // 최대 2MB
+  // 이미지 선택
+  const handleFileChange = async (e) => {
+    const selectedFile = e.target.files[0]
+    if (!selectedFile) return
 
-  // 이미지 업로드 핸들러
-  const handleFileChange = (e) => {
-    const file = e.target.files[0]
-    if (!file) return
+    const MAX_FILE_SIZE_MB = 2
 
-    if (file.size / 1024 / 1024 > MAX_FILE_SIZE_MB) {
-      alert(`이미지 크기는 ${MAX_FILE_SIZE_MB}MB 이하로 선택해주세요.`)
-      return
+    try {
+      // 브라우저에서 이미지 압축
+      const options = {
+        maxSizeMB: MAX_FILE_SIZE_MB,
+        maxWidthOrHeight: 1024, // 원하는 최대 가로/세로
+        useWebWorker: true,
+      }
+
+      const compressedFile = await imageCompression(selectedFile, options)
+
+      if (compressedFile.size / 1024 / 1024 > MAX_FILE_SIZE_MB) {
+        alert(`이미지 크기는 ${MAX_FILE_SIZE_MB}MB 이하로 선택해주세요.`)
+        return
+      }
+
+      setFile(compressedFile) // 업로드용 파일 저장
+
+      // 미리보기
+      const reader = new FileReader()
+      reader.onloadend = () => setPreviewUrl(reader.result)
+      reader.readAsDataURL(compressedFile)
+    } catch (error) {
+      console.error('이미지 압축 실패:', error)
+      alert('이미지 처리 중 오류가 발생했습니다.')
     }
-
-    const reader = new FileReader()
-    reader.onloadend = () => setPreviewUrl(reader.result)
-    reader.readAsDataURL(file)
 
     e.target.value = ''
   }
 
+  // 회원가입
   const handleSignup = async (e) => {
     e.preventDefault()
-
-    const finalImage = previewUrl || 'https://placehold.co/400'
     const address = `서울특별시 노원구 ${detailedAddress}`
 
+    let uploadedImageUrl = 'https://placehold.co/400'
+
     try {
+      // 파일 업로드
+      if (file) {
+        const formData = new FormData()
+        formData.append('thumbnail', file) // 명세서에 맞게 key를 thumbnail 로!
+
+        const uploadRes = await instance.post(
+          `/uploads/host-thumbnail?loginId=${encodeURIComponent(userId)}`,
+          formData,
+          {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          },
+        )
+
+        uploadedImageUrl = uploadRes.url || uploadRes.data?.url
+        console.log('업로드 성공:', uploadedImageUrl)
+      }
+
+      // 한글 카테고리를 영어 카테고리로 매핑
+      const categoryMap = {
+        식당: 'RESTAURANT',
+        카페: 'CAFE',
+        기타: 'OTHER',
+      }
+      const en_category = categoryMap[category] || 'etc'
+      // 회원가입 요청
       const response = await instance.post('/signup/host', {
         loginId: userId,
         password: password,
         nickname: shopName,
         phone: shopPhone,
-        address: address,
-        category: category,
-        thumbnail: finalImage,
+        address,
+        category: en_category,
+        thumbnail: uploadedImageUrl, // 업로드된 이미지 URL 사용
       })
 
       console.log('회원가입 성공:', response)
@@ -94,6 +140,7 @@ export function SignupOwnerPage() {
             />
           </div>
 
+          {/* 상호명 */}
           <div className='input-group'>
             <label htmlFor='shopName'>상호명</label>
             <div className='input-with-button'>
@@ -106,6 +153,7 @@ export function SignupOwnerPage() {
             </div>
           </div>
 
+          {/* 가게 번호 */}
           <div className='input-group'>
             <label htmlFor='shopPhone'>가게 번호</label>
             <div className='input-with-button'>
@@ -120,6 +168,7 @@ export function SignupOwnerPage() {
             </div>
           </div>
 
+          {/* 주소 */}
           <div className='input-group'>
             <label htmlFor='detailed-address'>상세 주소</label>
             <div className='address-input-group'>
@@ -129,11 +178,11 @@ export function SignupOwnerPage() {
                 id='detailed-address'
                 value={detailedAddress}
                 onChange={(e) => setDetailedAddress(e.target.value)}
-                placeholder=''
               />
             </div>
           </div>
 
+          {/* 카테고리 */}
           <div className='input-group'>
             <label htmlFor='category-select'>가게 카테고리</label>
             <select
