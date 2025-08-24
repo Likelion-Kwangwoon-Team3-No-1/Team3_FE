@@ -1,67 +1,65 @@
+/* 페이지 전체 */
 .written-review-page {
   background-color: var(--white);
-  height: 218px;
-  width: 393px;
-  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
-.written-review-page .checkbox-btn {
-  aspect-ratio: 1;
-  height: 24px;
-  left: 338px;
-  position: absolute;
-  top: 19px;
-  width: 24px;
+/* 사진 그리드 */
+/* .photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 80px); 
+  gap: 8px;
+  justify-content: center; 
+  margin-bottom: 20px;
 }
 
-.written-review-page .report-btn {
-  aspect-ratio: 1;
-  height: 24px;
-  left: 298px;
-  position: absolute;
-  top: 19px;
-  width: 24px;
+.photo-item {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+} */
+
+/* 리뷰 리스트 */
+.review-list {
+  width: 100%;
 }
-/* 카드 */
+
 .review-item {
-  position: relative; /* ⬅ 아이콘 고정용 기준 */
-  padding: 22px 0 24px;
+  position: relative;
+  padding: 22px 20px 24px;
   border-bottom: 1px solid #eceff3;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* 제목 줄 */
+/* 제목 + 아이콘 */
 .review-title-row {
-  display: block; /* 제목은 블록, 아이콘은 절대 배치 */
-  min-height: 28px; /* 제목이 없어도 높이 확보 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 28px;
 }
 
-/* 제목 스타일: 스샷 느낌 */
 .review-title {
-  margin: 0;
   font-size: 16px;
   font-weight: 800;
-  line-height: 28px;
   color: #0f172a;
-  letter-spacing: -0.3px;
-  max-width: calc(100% - 80px); /* 우상단 아이콘과 겹치지 않게 */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  margin: 0;
 }
 
-/* 아이콘 묶음: 카드 우상단 고정 */
 .review-actions {
-  position: absolute;
-  top: 4px;
-  right: 0;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .report-btn,
 .checkbox-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
@@ -78,32 +76,33 @@
   height: 24px;
 }
 
-.report-btn.is-done img {
-  opacity: 0.6;
-}
-
-/* 닉네임/별점/본문 간격 — 스샷과 유사 */
+/* 작성자 */
 .review-nickname {
   font-size: 14px;
   font-weight: 700;
-  line-height: 22px;
   color: #1f2937;
+  margin: 8px 0;
 }
 
+/* 별점 */
 .star-wrapper {
   display: flex;
   gap: 2px;
-}
-.star-icon {
-  width: 24px;
-  height: 24px;
+  margin-bottom: 8px;
 }
 
+.star-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* 본문 */
 .review-text {
   font-size: 14px;
-  font-weight: 700;
-  line-height: 28px;
+  font-weight: 500;
+  line-height: 22px;
   color: #111827;
   letter-spacing: -0.2px;
   word-break: keep-all;
+  margin: 0;
 }

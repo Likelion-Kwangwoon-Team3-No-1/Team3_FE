@@ -1,19 +1,43 @@
-import { useState, useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import ReviewReportList from '../components/ReviewReportList'
-import '../ui/ReviewPage.css'
+import { useState, useEffect, useCallback } from 'react'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { instance } from '../../../api/client'
 import TopBar from '../../../components/TopBar/TopBar'
 import { Button } from '../../../components/Button/Button'
-import { instance } from '../../../api/client'
+import ReviewReportList from '../components/ReviewReportList'
+import '../ui/ReviewPage.css'
 
 export function ReviewPage() {
   const { promotionId } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const [reviews, setReviews] = useState([])
+  const [allPhotos, setAllPhotos] = useState([])
   const [selectedPhotoIdxSet, setSelectedPhotoIdxSet] = useState(new Set())
 
-  // 사진 선택 toggle
+  // 리뷰 & 사진 불러오기
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await instance.get('/reviews', {
+          params: { promotionId: Number(promotionId) },
+        })
+        const items = res?.items || []
+        setReviews(items)
+
+        // 리뷰의 모든 사진 URL 모으기
+        const urls = items.flatMap((r) => r.photoUrls || []).filter(Boolean)
+        const newPhotos = location.state?.newReviewPhotos || []
+        setAllPhotos([...newPhotos, ...urls])
+      } catch (err) {
+        console.error('리뷰 불러오기 실패:', err.response?.data || err.message)
+      }
+    }
+
+    if (promotionId) fetchReviews()
+  }, [promotionId, location.state])
+
+  // 사진 선택 토글
   const handleTogglePhoto = useCallback((idx) => {
     setSelectedPhotoIdxSet((prev) => {
       const next = new Set(prev)
@@ -23,75 +47,67 @@ export function ReviewPage() {
     })
   }, [])
 
-  // AI 게시물 생성 버튼
-  // 제작 버튼: AI 게시물 생성 후 이동
+  // 제작 버튼 클릭 → 선택 사진만 mediaUrls로 서버에 저장
   const handleGenerate = async () => {
     try {
-      // ✅ 선택된 사진 뽑기
       const selectedPhotos = allPhotos.filter((_, idx) => selectedPhotoIdxSet.has(idx))
 
-      const res = await instance.post('/generated-sns', { promotionId: Number(promotionId) })
-      console.log('AI 생성 응답:', res)
-
-      const items = res.data?.items || []
-      if (!items.length) {
-        alert('AI 생성된 게시물이 없습니다.')
+      if (selectedPhotos.length === 0) {
+        alert('사진을 최소 1장 이상 선택해주세요.')
         return
       }
 
-      // ContentPreviewPage로 이동하면서 selectedPhotos도 같이 전달
-      navigate('/ai-preview', {
-        state: {
-          promotionId: Number(promotionId),
-          items,
-          selectedPhotos,
-        },
+      await instance.post('/generated-sns', {
+        promotionId: Number(promotionId),
+        mediaUrls: selectedPhotos, // 선택한 사진만 저장
       })
+
+      // 이후 AI 피드백 페이지로 이동
+      navigate('/ai-feedback', { state: { promotionId: Number(promotionId) } })
     } catch (err) {
       console.error('AI 게시물 생성 실패:', err)
       alert('게시물 생성에 실패했습니다.')
     }
   }
 
-  // 상단 그리드에 표시할 모든 사진
-  const allPhotos = reviews.flatMap((r) => r.photoUrls || []).filter(Boolean)
-
   return (
     <div className='reviewPage'>
       <div className='reviewPage__header'>
-        <TopBar title='리뷰' />
+        <TopBar title='리뷰 확인' />
       </div>
 
-      {/* 상단 사진 그리드 */}
-      <div className='reviewPage__photoGrid'>
-        {allPhotos.slice(0, 30).map((src, idx) => {
-          const selected = selectedPhotoIdxSet.has(idx)
-          return (
-            <div key={idx} className={`reviewPage__photoItem ${selected ? 'is-selected' : ''}`}>
-              <img
-                className='reviewPage__photoImg'
-                src={src}
-                alt=''
+      {/* 상단 사진 선택 그리드 */}
+      <div className='reviewPage__photoGridWrap'>
+        <div className='reviewPage__photoGrid'>
+          {allPhotos.slice(0, 30).map((url, idx) => {
+            const selected = selectedPhotoIdxSet.has(idx)
+            return (
+              <div
+                key={idx}
+                className={`reviewPage__photoItem ${selected ? 'is-selected' : ''}`}
+                onClick={() => handleTogglePhoto(idx)}
                 role='button'
                 tabIndex={0}
-                onClick={() => handleTogglePhoto(idx)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    handleTogglePhoto(idx)
-                  }
-                }}
-                draggable={false}
-              />
-              {selected && <span className='reviewPage__photoBadge'>선택됨</span>}
-            </div>
-          )
-        })}
+              >
+                <img
+                  className='reviewPage__photoImg'
+                  src={url}
+                  alt={`review-photo-${idx}`}
+                  draggable={false}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                  }}
+                />
+                {selected && <span className='reviewPage__photoBadge'>선택됨</span>}
+              </div>
+            )
+          })}
+        </div>
       </div>
 
-      {/* 리뷰 리스트 (API 호출 담당) */}
+      {/* 리뷰 리스트 */}
       <div className='reviewPage__scroll'>
-        <ReviewReportList promotionId={promotionId} onLoad={setReviews} />
+        <ReviewReportList reviews={reviews} />
       </div>
 
       {/* 하단 버튼 */}

@@ -1,17 +1,23 @@
-.selectedPhotos,
-.aiContent {
-  margin-top: 20px;
-}
-
-.photoGrid {
+.content-preview {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto; /* 세로 스크롤 */
 }
 
-.previewPhoto {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
+.content-preview__card {
+  padding: 16px;
+}
+
+.content-preview__carousel img {
+  width: 100%;
+  height: auto;
   border-radius: 8px;
+}
+
+.content-preview__text {
+  margin-top: 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-line; /* 줄바꿈 반영 */
 }

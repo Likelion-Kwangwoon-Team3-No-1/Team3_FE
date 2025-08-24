@@ -2,7 +2,6 @@
   display: flex;
   width: 353px;
   height: 50px;
-  padding: 16px 135px;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -10,9 +9,19 @@
   background: var(--sub, #1d366f);
   color: white;
   font-family: 'EliceDigitalBaeum';
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
 
   /* 그림자 */
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+
+  /* 화면 고정 */
+  position: fixed;
+  left: 50%; /* 가운데 정렬 */
+  bottom: 42px; /* 화면 밑에서 42px 띄움 */
+  transform: translateX(-50%); /* 정확히 중앙 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
 }
 
 /* 비활성화 상태 */

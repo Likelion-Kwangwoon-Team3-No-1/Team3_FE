@@ -3,21 +3,22 @@ import { instance } from '../../../api/client'
 
 export const useCreateReview = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null)
 
-  const createReview = async ({ promotionId, content, rate }) => {
+  const createReview = async ({ promotionId, content, rate, photoUrls = [] }) => {
     setIsLoading(true)
-    setError(false)
+    setError(null)
     try {
       await instance.post('/reviews', {
         promotionId,
         content,
         rate,
-        photoUrls: ['https://example.com/review1.jpg', 'https://example.com/review2.jpg'],
+        photoUrls, // 단순 문자열 배열 그대로 전송
       })
-    } catch (error) {
-      console.error('리뷰 등록 실패:', error)
-      setError(true)
+    } catch (err) {
+      console.error('리뷰 등록 실패:', err)
+      setError(err)
+      throw err
     } finally {
       setIsLoading(false)
     }
