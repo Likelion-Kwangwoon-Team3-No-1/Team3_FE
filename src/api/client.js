@@ -26,12 +26,12 @@ instance.interceptors.request.use(
 
     const token = localStorage.getItem('ACCESS_TOKEN')
     if (token) {
-      /*배포시 변경 config.headers.Authorization = `Bearer ${token}`*/
-      /* 자영업자 토큰
-      config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIb3N0QWRtaW4iLCJyb2xlIjoiUk9MRV9IT1NUIiwiaWF0IjoxNzU1OTkyODkzLCJleHAiOjE3NTU5OTY0OTN9.Gs5-i3PwUyWGQF7mgDlS1UN5lDEWQ83HrmLhu9mpg3o`
-*/
-      /* 대학생 토큰*/
-      config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYXRlQWRtaW4iLCJyb2xlIjoiUk9MRV9NQVRFIiwiaWF0IjoxNzU1OTkyODY0LCJleHAiOjE3NTU5OTY0NjR9.SHfXK_1BLwNQuFJGQ8yGbDzTi0jcsK-T8LjPmqFIDrc`
+      /*배포시 변경 */
+      //config.headers.Authorization = `Bearer ${token}`
+      /* 자영업자 토큰*/
+      config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJIb3N0QWRtaW4iLCJyb2xlIjoiUk9MRV9IT1NUIiwiaWF0IjoxNzU2MDEzNzAwLCJleHAiOjE3NTYwMTczMDB9.eeBtQF9Pk4tNgFRiS2qGZnmsAo7P8C12je7jt3MVuJo`
+      /* 대학생 토큰  */
+      //config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYXRlQWRtaW4iLCJyb2xlIjoiUk9MRV9NQVRFIiwiaWF0IjoxNzU1OTkyODY0LCJleHAiOjE3NTU5OTY0NjR9.SHfXK_1BLwNQuFJGQ8yGbDzTi0jcsK-T8LjPmqFIDrc`
     }
 
     return config
