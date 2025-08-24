@@ -1,4 +1,4 @@
-/*
+/* 동균T
 .app {
   display: flex;
   justify-content: center;
@@ -9,10 +9,21 @@
 }
 */
 
+/* 광슐랭
 .app {
   display: flex;
   justify-content: center;
   width: 100vw;
+  height: 100svh;
+}*/
+
+.app {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100svh;
+  vertical-align: baseline;
+  box-sizing: border-box;
 }
 
 .container {
