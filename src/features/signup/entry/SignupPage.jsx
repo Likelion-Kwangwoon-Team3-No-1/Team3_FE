@@ -122,39 +122,43 @@ export function SignupPage() {
             </p>
           </div>
 
-          <div className='user-type-group'>
-            <button
-              type='button'
-              className={`user-type-button ${userType === 'ROLE_MATE' ? 'active' : ''}`}
-              onClick={() => handleUserTypeSelect('ROLE_MATE')}
-            >
-              대학생
-            </button>
-            <button
-              type='button'
-              className={`user-type-button ${userType === 'ROLE_HOST' ? 'active' : ''}`}
-              onClick={() => handleUserTypeSelect('ROLE_HOST')}
-            >
-              자영업자
-            </button>
-          </div>
+          <div className='signup-buttons'>
+            <div className='signup-footer'>
+              <div className='user-type-group'>
+                <button
+                  type='button'
+                  className={`user-type-button ${userType === 'ROLE_MATE' ? 'active' : ''}`}
+                  onClick={() => handleUserTypeSelect('ROLE_MATE')}
+                >
+                  대학생
+                </button>
+                <button
+                  type='button'
+                  className={`user-type-button ${userType === 'ROLE_HOST' ? 'active' : ''}`}
+                  onClick={() => handleUserTypeSelect('ROLE_HOST')}
+                >
+                  자영업자
+                </button>
+              </div>
 
-          <div className='terms-group'>
-            <Icon
-              name={`agree-checkbox${agreedToTerms ? '-filled' : '-default'}`}
-              width={24}
-              height={24}
-              onClick={handleOpenModal}
-            />
-            <span className='terms-text'>이용약관 동의</span>
-            <span className='terms-link' onClick={handleOpenModal}>
-              <Icon name='agree-arrow-right' width={24} height={24} />
-            </span>
-          </div>
+              <div className='terms-group'>
+                <Icon
+                  name={`agree-checkbox${agreedToTerms ? '-filled' : '-default'}`}
+                  width={24}
+                  height={24}
+                  onClick={handleOpenModal}
+                />
+                <span className='terms-text'>이용약관 동의</span>
+                <span className='terms-link' onClick={handleOpenModal}>
+                  <Icon name='agree-arrow-right' width={24} height={24} />
+                </span>
+              </div>
 
-          <button type='submit' className='signup-button'>
-            가입하기
-          </button>
+              <button type='submit' className='signup-button'>
+                가입하기
+              </button>
+            </div>
+          </div>
         </form>
       </main>
       {isModalOpen && <TermsModal onClose={handleModalClose} />}

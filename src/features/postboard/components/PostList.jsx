@@ -25,16 +25,16 @@ export function PostList({
       {/* 왼쪽 텍스트 영역 */}
       <div className='postlist-content'>
         <div className='postlist-header'>
-          <span className='promo-shop'>{nickname}</span>
-          <span className='dot'>·</span>
-          <span className='promo-category'>{category}</span>
-          <span className='promo-time'>{timeAgo(createdAt)}</span>
+          <span className='postlist-shop'>{nickname}</span>
+          <span className='postlist-dot'>·</span>
+          <span className='postlist-category'>{category}</span>
+          <span className='postlist-time'>{timeAgo(createdAt)}</span>
         </div>
-        <div className='promo-address'>
+        <div className='postlist-address'>
           <Icon name='post-location' width={16} height={16} />
           <span>{address}</span>
         </div>
-        <div className='promo-date'>
+        <div className='postlist-date'>
           <Icon name='post-date' width={16} height={16} />
           <span>{formatPromoDate(start_date, end_date)}</span>
         </div>
