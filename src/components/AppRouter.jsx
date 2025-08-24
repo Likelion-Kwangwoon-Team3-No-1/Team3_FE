@@ -110,7 +110,7 @@ export const AppRouter = () => {
       {/* 관리자 */}
       <Route path='/admin' element={<AdminPage />} />
 
-      {/* 관리자 */}
+      {/* 결제 */}
       <Route path='/payments' element={<CheckoutPage />} />
     </Routes>
   )

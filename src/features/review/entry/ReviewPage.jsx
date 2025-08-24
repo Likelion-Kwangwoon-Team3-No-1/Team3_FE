@@ -1,39 +1,19 @@
-import { useEffect, useMemo, useState, useRef, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { loadReviews } from '../../../utils/storage'
 import ReviewReportList from '../components/ReviewReportList'
 import '../ui/ReviewPage.css'
-import { useIntersectionObserver } from '../../../hooks/useIntersectionObserver'
 import TopBar from '../../../components/TopBar/TopBar'
 import { Button } from '../../../components/Button/Button'
 import { instance } from '../../../api/client'
 
 export function ReviewPage() {
-  const [reviews, setReviews] = useState([])
   const { promotionId } = useParams()
   const navigate = useNavigate()
 
+  const [reviews, setReviews] = useState([])
   const [selectedPhotoIdxSet, setSelectedPhotoIdxSet] = useState(new Set())
 
-  const PAGE_SIZE = 10
-  const [visibleReviews, setVisibleReviews] = useState([])
-  const [page, setPage] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
-  const [hasNext, setHasNext] = useState(true)
-
-  const observerRef = useRef(null)
-
-  useEffect(() => {
-    const data = loadReviews ? loadReviews() : []
-    const arr = Array.isArray(data) ? data : []
-    setReviews(arr)
-  }, [])
-
-  const allPhotos = useMemo(
-    () => reviews.flatMap((r) => r.photos || r.previewUrls || []).filter(Boolean),
-    [reviews],
-  )
-
+  // 사진 선택 toggle
   const handleTogglePhoto = useCallback((idx) => {
     setSelectedPhotoIdxSet((prev) => {
       const next = new Set(prev)
@@ -43,51 +23,28 @@ export function ReviewPage() {
     })
   }, [])
 
-  useEffect(() => {
-    const first = reviews.slice(0, PAGE_SIZE)
-    setVisibleReviews(first)
-    setPage(first.length ? 1 : 0)
-    setHasNext(reviews.length > first.length)
-  }, [reviews])
-
-  const loadNextPage = useCallback(async () => {
-    if (isLoading || !hasNext) return
-    setIsLoading(true)
-    try {
-      const start = page * PAGE_SIZE
-      const end = start + PAGE_SIZE
-      const nextChunk = reviews.slice(start, end)
-
-      setVisibleReviews((prev) => [...prev, ...nextChunk])
-      setPage((p) => p + 1)
-      setHasNext(end < reviews.length)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [isLoading, hasNext, page, reviews])
-
-  useIntersectionObserver(
-    observerRef,
-    loadNextPage,
-    !isLoading && hasNext && visibleReviews.length > 0,
-  )
-
+  // AI 게시물 생성 버튼
   // 제작 버튼: AI 게시물 생성 후 이동
   const handleGenerate = async () => {
     try {
+      // ✅ 선택된 사진 뽑기
+      const selectedPhotos = allPhotos.filter((_, idx) => selectedPhotoIdxSet.has(idx))
+
       const res = await instance.post('/generated-sns', { promotionId: Number(promotionId) })
       console.log('AI 생성 응답:', res)
 
-      const items = res.items || []
+      const items = res.data?.items || []
       if (!items.length) {
         alert('AI 생성된 게시물이 없습니다.')
         return
       }
 
-      navigate('/ai-feedback', {
+      // ContentPreviewPage로 이동하면서 selectedPhotos도 같이 전달
+      navigate('/ai-preview', {
         state: {
           promotionId: Number(promotionId),
           items,
+          selectedPhotos,
         },
       })
     } catch (err) {
@@ -95,6 +52,9 @@ export function ReviewPage() {
       alert('게시물 생성에 실패했습니다.')
     }
   }
+
+  // 상단 그리드에 표시할 모든 사진
+  const allPhotos = reviews.flatMap((r) => r.photoUrls || []).filter(Boolean)
 
   return (
     <div className='reviewPage'>
@@ -129,15 +89,9 @@ export function ReviewPage() {
         })}
       </div>
 
-      {/* 스크롤 영역 */}
+      {/* 리뷰 리스트 (API 호출 담당) */}
       <div className='reviewPage__scroll'>
-        <ReviewReportList promotionId={promotionId} />
-
-        {isLoading && <p className='infoText'>불러오는 중…</p>}
-        {!isLoading && visibleReviews.length === 0 && (
-          <p className='infoText'>아직 등록된 리뷰가 없습니다.</p>
-        )}
-        <div ref={observerRef} style={{ height: 1 }} />
+        <ReviewReportList promotionId={promotionId} onLoad={setReviews} />
       </div>
 
       {/* 하단 버튼 */}

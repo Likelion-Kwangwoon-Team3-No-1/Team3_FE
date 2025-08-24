@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import '../ui/ReviewFormPage.css'
 // import { saveReviews, loadReviews } from '../../../utils/storage'
 // import { v4 as uuidv4 } from 'uuid'
@@ -15,7 +15,7 @@ export function ReviewFormPage() {
   const [shopTitle, setShopTitle] = useState('') // 화면 표시용
   const [content, setContent] = useState('')
   const fileInputRef = useRef(null)
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const { createReview, isLoading } = useCreateReview()
 
   // URL 파라미터에서 읽음
@@ -67,7 +67,7 @@ export function ReviewFormPage() {
       setContent('')
       setPreviewUrls([])
 
-      // navigate('/home/student')
+      navigate('/home/student')
     } catch (error) {
       console.error('리뷰 등록 실패', error)
       alert('리뷰 등록에 실패하였습니다.')
