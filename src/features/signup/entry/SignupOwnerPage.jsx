@@ -26,13 +26,11 @@ export function SignupOwnerPage() {
     const selectedFile = e.target.files[0]
     if (!selectedFile) return
 
-    const MAX_FILE_SIZE_MB = 2
-
     try {
       // 브라우저에서 이미지 압축
       const options = {
         maxSizeMB: MAX_FILE_SIZE_MB,
-        maxWidthOrHeight: 1024, // 원하는 최대 가로/세로
+        maxWidthOrHeight: 1024,
         useWebWorker: true,
       }
 
@@ -43,7 +41,7 @@ export function SignupOwnerPage() {
         return
       }
 
-      setFile(compressedFile) // 업로드용 파일 저장
+      setFile(compressedFile)
 
       // 미리보기
       const reader = new FileReader()
@@ -62,13 +60,13 @@ export function SignupOwnerPage() {
     e.preventDefault()
     const address = `서울특별시 노원구 ${detailedAddress}`
 
-    let uploadedImageUrl = 'https://placehold.co/400'
+    let uploadedImageUrl = null
 
     try {
       // 파일 업로드
       if (file) {
         const formData = new FormData()
-        formData.append('thumbnail', file) // 명세서에 맞게 key를 thumbnail 로!
+        formData.append('thumbnail', file)
 
         const uploadRes = await instance.post(
           `/uploads/host-thumbnail?loginId=${encodeURIComponent(userId)}`,
@@ -78,7 +76,8 @@ export function SignupOwnerPage() {
           },
         )
 
-        uploadedImageUrl = uploadRes.url || uploadRes.data?.url
+        // 서버에서 urls 배열로 내려주는 구조 반영
+        uploadedImageUrl = uploadRes?.urls?.[0] || null
         console.log('업로드 성공:', uploadedImageUrl)
       }
 
@@ -89,15 +88,16 @@ export function SignupOwnerPage() {
         기타: 'OTHER',
       }
       const en_category = categoryMap[category] || 'etc'
+
       // 회원가입 요청
       const response = await instance.post('/signup/host', {
         loginId: userId,
-        password: password,
+        password,
         nickname: shopName,
         phone: shopPhone,
         address,
         category: en_category,
-        thumbnail: uploadedImageUrl, // 업로드된 이미지 URL 사용
+        thumbnail: uploadedImageUrl,
       })
 
       console.log('회원가입 성공:', response)

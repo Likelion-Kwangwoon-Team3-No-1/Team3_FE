@@ -5,18 +5,15 @@
  */
 
 export function formatPromoDate(startDateStr, endDateStr) {
-  const startDate = new Date(startDateStr)
-  const endDate = new Date(endDateStr)
+  const format = (dateStr) => {
+    const date = new Date(dateStr)
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return `${year}.${month}.${day}`
+  }
 
-  const startYear = startDate.getFullYear()
-  const startMonth = String(startDate.getMonth() + 1).padStart(2, '0')
-  const startDay = String(startDate.getDate()).padStart(2, '0')
-
-  const endYear = endDate.getFullYear()
-  const endMonth = String(endDate.getMonth() + 1).padStart(2, '0')
-  const endDay = String(endDate.getDate()).padStart(2, '0')
-
-  return `${startYear}.${startMonth}.${startDay} ~ ${endYear}.${endMonth}.${endDay}`
+  return `${format(startDateStr)} ~ ${format(endDateStr)}`
 }
 
 export function timeAgo(createdAt) {

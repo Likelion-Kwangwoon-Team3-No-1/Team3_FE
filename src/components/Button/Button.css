@@ -14,7 +14,7 @@
   cursor: pointer;
 
   /* 그림자 */
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 
   /* 화면 고정 */
   position: fixed;
@@ -26,6 +26,7 @@
 
 /* 비활성화 상태 */
 .btn:disabled {
-  opacity: 0.5;
+  color: var(--color-gray300);
+  background-color: var(--color-lightgray);
   pointer-events: none;
 }

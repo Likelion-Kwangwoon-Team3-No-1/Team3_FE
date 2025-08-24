@@ -3,11 +3,13 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 100vh;
-  padding: 40px 20px;
+  padding: 0px 20px;
   background: #ffffff;
   text-align: center;
   box-sizing: border-box;
+  max-width: 450px;
+  width: 100%;
+  height: 100svh;
 }
 
 .onboarding-content {
@@ -16,6 +18,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 50px;
 }
 
 .onboarding-image {
@@ -42,7 +45,9 @@
 .indicator {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 20px;
+  position: fixed;
+  bottom: 100px;
 }
 
 .dot {
@@ -57,21 +62,4 @@
 
 .dot.active {
   background-color: #007bff;
-}
-
-.next-btn {
-  width: 100%;
-  max-width: 320px;
-  padding: 14px;
-  background-color: #3b82f6;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.next-btn:hover {
-  background-color: #2563eb;
 }

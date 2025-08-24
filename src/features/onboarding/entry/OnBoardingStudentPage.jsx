@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './Onboarding.css'
 import { Icon } from '../../../components/Icon/Icon'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '../../../components/Button/Button'
 
 export const OnBoardingStudentPage = () => {
   const [step, setStep] = useState(0)
@@ -26,7 +27,6 @@ export const OnBoardingStudentPage = () => {
     if (step < pages.length - 1) {
       setStep(step + 1)
     } else {
-      alert('온보딩이 완료되었습니다!') // 추후 라우팅 연결 가능
       navigate('/home/student')
     }
   }
@@ -45,9 +45,7 @@ export const OnBoardingStudentPage = () => {
       </div>
 
       {/* button */}
-      <button className='next-btn' onClick={handleNext}>
-        {pages[step].button}
-      </button>
+      <Button label={pages[step].button} onClick={handleNext} />
     </div>
   )
 }
