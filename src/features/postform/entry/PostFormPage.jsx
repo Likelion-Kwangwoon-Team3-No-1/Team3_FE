@@ -80,10 +80,17 @@ export function PostFormPage() {
 
     try {
       const response = await instance.post('/promotions', postData)
+      const promotionId = response.data.id
       console.log('게시물 등록 성공:', response)
 
       // 성공 팝업 후 결제 페이지로 이동하거나, 다른 로직 실행
       alert('게시물 등록 완료! 결제 페이지로 이동합니다.')
+      navigate('/payments', {
+        state: {
+          planId,
+          promotionId,
+        },
+      })
       // navigate('/payment') // 결제 페이지가 있다면 이렇게 연결할 수 있습니다.
     } catch (error) {
       console.error('게시물 등록 실패:', error.response?.data || error.message)
