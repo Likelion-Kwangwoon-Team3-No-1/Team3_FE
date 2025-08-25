@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import '../ui/ReviewFormPage.css'
 import { Button } from '../../../components/Button/Button'
 import { Rating } from '../../../components/Rating/Rating'
@@ -12,13 +12,11 @@ export function ReviewFormPage() {
   const [previewUrls, setPreviewUrls] = useState([]) // 화면 미리보기용
   const [photoUrls, setPhotoUrls] = useState([]) // 서버에서 내려준 S3 URL 배열
   const [rate, setRate] = useState(0)
-  // const [shopTitle, setShopTitle] = useState('')
+  const [shopTitle, setShopTitle] = useState('')
   const [content, setContent] = useState('')
   const fileInputRef = useRef(null)
   const navigate = useNavigate()
   const { createReview, isLoading } = useCreateReview()
-  const { state } = useLocation()
-  const { nickname } = state || {}
 
   const { promotionId: paramId } = useParams()
   const promotionId = isNaN(Number(paramId)) ? paramId : Number(paramId)
@@ -120,9 +118,9 @@ export function ReviewFormPage() {
           type='text'
           className='title-input'
           placeholder='상호명을 입력하세요'
-          value={nickname}
+          value={shopTitle}
           disabled
-          // onChange={(e) => setShopTitle(e.target.value)}
+          onChange={(e) => setShopTitle(e.target.value)}
         />
 
         <div className='rating-section'>
