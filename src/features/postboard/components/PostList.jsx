@@ -16,6 +16,8 @@ export function PostList({
 }) {
   const navigate = useNavigate()
 
+  console.log('넘어온 thumbnail:', thumbnail)
+
   const handleClick = () => {
     navigate(`/postboard/${promotionId}`)
   }

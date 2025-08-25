@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react'
 import { instance } from '../../../api/client'
 import '../ui/MyPromotionPage.css'
 import TopBar from '../../../components/TopBar/TopBar'
+import { useNavigate } from 'react-router-dom'
 
 export function MyPromotionPage() {
   const { hostId } = useParams()
   const [promotions, setPromotions] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!hostId) return
@@ -58,7 +61,11 @@ export function MyPromotionPage() {
           promotions.map((item) => {
             const status = getStatusLabel(item.promotionStatus)
             return (
-              <div key={item.promotionId} className='promotion-item'>
+              <div
+                key={item.promotionId}
+                className='promotion-item'
+                onClick={() => navigate(`/review/${item.promotionId}`)}
+              >
                 <div className='promotion-info'>
                   <span className='promotion-name'>{item.nickname}</span>
                   {status.text && (

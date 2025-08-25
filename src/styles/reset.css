@@ -93,3 +93,18 @@ video {
 ::-webkit-scrollbar {
   display: none;
 }
+
+html,
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: black;
+}
+
+select {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+input,
+textarea {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: black;
+}

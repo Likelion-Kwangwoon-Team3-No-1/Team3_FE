@@ -51,13 +51,14 @@ export function PostDetailPage() {
     try {
       await instance.post('/promotion-applies', {
         /* request body 확인 부탁하기*/
-        promotionId: `PROMO_${promotionId}`,
+        promotionId,
       })
       setShowConsentModal(false)
       setShowCompletionModal(true)
     } catch (err) {
       console.error('프로모션 신청 실패:', err.response?.data || err.message)
       alert('신청에 실패했습니다.')
+      setShowConsentModal(false)
     }
   }
 

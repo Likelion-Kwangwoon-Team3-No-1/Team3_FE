@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('../assets/font/NotoSansKR-VariableFont_wght.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* 카드 타이틀, 큰 본문 */
 @font-face {
   font-family: 'EliceDigitalBaeum';
