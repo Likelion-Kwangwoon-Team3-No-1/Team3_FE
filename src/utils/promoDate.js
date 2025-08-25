@@ -18,21 +18,33 @@ export function formatPromoDate(startDateStr, endDateStr) {
 
 export function timeAgo(createdAt) {
   const now = new Date()
-  const currentYear = now.getFullYear()
 
-  // createdAt을 Date 객체로 변환 (연도는 올해로 맞춤)
-  const [month, day] = createdAt.split('/').map(Number)
-  const createdDate = new Date(currentYear, month - 1, day)
+  // ":" 포함 → 시간 계산
+  if (createdAt.includes(':')) {
+    const [hh, mm] = createdAt.split(':').map(Number)
+    const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh, mm)
 
-  // 오늘 날짜(시,분,초 제거)
-  const today = new Date(currentYear, now.getMonth(), now.getDate())
+    const diffMs = now - target
+    const diffMinutes = Math.floor(diffMs / (1000 * 60))
+    const hours = Math.floor(diffMinutes / 60)
+    const minutes = diffMinutes % 60
 
-  // 밀리초 차이 → 일 단위 변환
-  const diffDays = Math.floor((today - createdDate) / (1000 * 60 * 60 * 24))
+    if (hours > 0) {
+      return `${hours}시간 ${minutes}분 전`
+    }
+    return `${minutes}분 전`
+  }
 
-  if (diffDays === 0) {
-    return '오늘'
-  } else {
+  // "/" 포함 → 날짜 계산 (MM/DD)
+  if (createdAt.includes('/')) {
+    const [MM, DD] = createdAt.split('/').map(Number)
+    const target = new Date(now.getFullYear(), MM - 1, DD)
+
+    const diffMs = now - target
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+
     return `${diffDays}일 전`
   }
+
+  return '잘못된 입력'
 }
