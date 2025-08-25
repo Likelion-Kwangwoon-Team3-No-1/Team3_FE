@@ -50,7 +50,7 @@ function Carousel() {
   }
 
   const handleCardClick = (promotionId) => {
-    navigate(`/review-form/${promotionId}`, { state: promotions.nickname })
+    navigate(`/review-form/${promotionId}`)
   }
 
   useEffect(() => {
