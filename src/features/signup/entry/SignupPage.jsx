@@ -153,7 +153,7 @@ export function SignupPage() {
               </span>
             </div>
           </div>
-          <Button label='저장하기' className='signup-button' />
+          <Button label='저장하기' className='signup-button' onClick={handleSignup} />
         </form>
       </main>
       {isModalOpen && <TermsModal onClose={handleModalClose} />}

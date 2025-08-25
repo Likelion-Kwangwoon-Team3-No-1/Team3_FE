@@ -179,6 +179,13 @@
   border-radius: 10px;
   display: block;
   border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.user-type-button.active {
+  background-color: var(--color-primary);
+  color: white;
 }
 
 .address-input-group input {
