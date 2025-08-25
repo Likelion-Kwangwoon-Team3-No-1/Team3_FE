@@ -114,31 +114,31 @@ export function SignupPage() {
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
             />
-            <p className='password-info'>
-              * 영문, 숫자, 특수문자 중 2가지 이상을 조합하여 6~20자로 입력해주세요
-            </p>
+            <div className='signup-password-info'>
+              <p>* 영문, 숫자, 특수문자 중 2가지 이상을 조합하여 6~20자로 입력해주세요</p>
+            </div>
           </div>
 
           <div className='signup-buttons'>
-            <div className='signup-footer'>
-              <div className='user-type-group'>
-                <button
-                  type='button'
-                  className={`user-type-button ${userType === 'ROLE_MATE' ? 'active' : ''}`}
-                  onClick={() => handleUserTypeSelect('ROLE_MATE')}
-                >
-                  대학생
-                </button>
-                <button
-                  type='button'
-                  className={`user-type-button ${userType === 'ROLE_HOST' ? 'active' : ''}`}
-                  onClick={() => handleUserTypeSelect('ROLE_HOST')}
-                >
-                  자영업자
-                </button>
-              </div>
+            <div className='user-type-group'>
+              <button
+                type='button'
+                className={`user-type-button ${userType === 'ROLE_MATE' ? 'active' : ''}`}
+                onClick={() => handleUserTypeSelect('ROLE_MATE')}
+              >
+                대학생
+              </button>
+              <button
+                type='button'
+                className={`user-type-button ${userType === 'ROLE_HOST' ? 'active' : ''}`}
+                onClick={() => handleUserTypeSelect('ROLE_HOST')}
+              >
+                자영업자
+              </button>
+            </div>
 
-              <div className='terms-group'>
+            <div className='terms-group'>
+              <div className='terms-group-left'>
                 <Icon
                   name={`agree-checkbox${agreedToTerms ? '-filled' : '-default'}`}
                   width={24}
@@ -146,14 +146,14 @@ export function SignupPage() {
                   onClick={handleOpenModal}
                 />
                 <span className='terms-text'>이용약관 동의</span>
-                <span className='terms-link' onClick={handleOpenModal}>
-                  <Icon name='agree-arrow-right' width={24} height={24} />
-                </span>
               </div>
 
-              <Button label='저장하기' className='signup-button' />
+              <span className='terms-link' onClick={handleOpenModal}>
+                <Icon name='agree-arrow-right' width={24} height={24} />
+              </span>
             </div>
           </div>
+          <Button label='저장하기' className='signup-button' />
         </form>
       </main>
       {isModalOpen && <TermsModal onClose={handleModalClose} />}
