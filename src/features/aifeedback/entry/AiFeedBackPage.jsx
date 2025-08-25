@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import TopBar from '../../../components/TopBar/TopBar'
 import { instance } from '../../../api/client'
 import { Button } from '../../../components/Button/Button'
-import '../ui/AiFeedbackPage.css'
+import '../ui/AiFeedBackPage.css'
 
 export function AiFeedBackPage() {
   const { state } = useLocation()
