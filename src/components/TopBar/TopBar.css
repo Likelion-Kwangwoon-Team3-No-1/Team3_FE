@@ -35,8 +35,9 @@
 }
 
 .topbar__title {
+  position: absolute;
   display: flex;
-  width: 178.285px;
+  width: 90%;
   height: 22.469px;
   flex-direction: column;
   justify-content: center;

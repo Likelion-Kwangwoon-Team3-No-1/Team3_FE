@@ -1,12 +1,10 @@
 /* 전체 컨테이너 */
 .signup-page {
-  display: flex;
   flex-direction: column;
   background-color: white;
   max-width: 450px;
   width: 100%;
   height: 100svh;
-  outline: 1px solid var(--color-outline);
   overflow: hidden;
   position: relative;
   align-items: center;
@@ -43,11 +41,21 @@
   flex: 1;
   padding: 20px;
   box-sizing: border-box;
+  position: relative;
+  height: 100%;
 }
 
 .signup-form {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.signup-buttons {
+  position: absolute;
+  bottom: 160px;
+  width: 100%;
 }
 
 /* 이미지 업로드 */
@@ -128,11 +136,54 @@
   color: #666;
 }
 
+.terms-group {
+  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.terms-group-left {
+  display: flex;
+  align-items: center;
+}
+
+.terms-text {
+  padding-left: 7.69px;
+}
+
+.signup-password-info {
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+}
+
+.signup-password-info p {
+  font-size: 10px;
+  color: #9ea4aa;
+}
+
+.user-type-group {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.user-type-button {
+  background-color: #e8ebed;
+  color: #72787f;
+  width: 172px;
+  width: 46%;
+  height: 50px;
+  padding: 14.37px 58.09px;
+  border-radius: 10px;
+  display: block;
+  border: none;
+}
+
 .address-input-group input {
   flex: 1;
 }
-
-/* 버튼 */
 
 .signup-button:hover {
   background-color: #142752;
