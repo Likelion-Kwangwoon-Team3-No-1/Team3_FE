@@ -1,38 +1,14 @@
-.promotion-page {
-  background: #fff;
-  min-height: 100vh;
-  padding: 16px;
-}
-
-.page-title {
-  text-align: center;
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.promotion-list {
-  display: flex;
-  flex-direction: column;
-}
-
 .promotion-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 12px;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
-}
-
-.promotion-item:hover {
-  background: #fafafa;
+  flex-direction: column;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .promotion-info {
   display: flex;
-  gap: 8px;
   align-items: center;
+  justify-content: space-between;
 }
 
 .promotion-name {
@@ -42,6 +18,7 @@
 
 .promotion-status {
   font-size: 14px;
+  margin-left: 8px;
 }
 
 .status-active {
@@ -60,10 +37,4 @@
   font-size: 13px;
   color: #888;
   margin-top: 4px;
-}
-
-.promotion-arrow {
-  font-size: 18px;
-  color: #999;
-  margin-left: auto;
 }

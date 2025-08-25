@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { Icon } from '../../../components/Icon/Icon'
 import { useState } from 'react'
 import instance from '../../../api/client'
+import TopBar from '../../../components/TopBar/TopBar'
+import { Button } from '../../../components/Button/Button'
 
 export function SignupStudentPage() {
   const navigate = useNavigate()
@@ -53,12 +55,7 @@ export function SignupStudentPage() {
 
   return (
     <div className='signup-page'>
-      <header className='signup-header'>
-        <button className='back-button' onClick={() => navigate(-1)}>
-          <Icon name='detail-arrow-left' width={36} height={36} />
-        </button>
-        <h1 className='header-title'>회원가입</h1>
-      </header>
+      <TopBar title='회원가입' />
 
       <main className='signup-form-container'>
         <form className='signup-form' onSubmit={handleSignup}>
@@ -97,7 +94,7 @@ export function SignupStudentPage() {
               />
             </div>
 
-            {/* 🏦 은행 선택 드롭다운 추가 */}
+            {/*  은행 선택 드롭다운 추가 */}
             <div className='input-group'>
               <select
                 id='bank-select'
@@ -117,9 +114,7 @@ export function SignupStudentPage() {
             </div>
           </div>
 
-          <button type='submit' className='signup-button' onClick={handleSignup}>
-            가입하기
-          </button>
+          <Button label='저장' className='signup-button' onClick={handleSignup} />
         </form>
       </main>
     </div>

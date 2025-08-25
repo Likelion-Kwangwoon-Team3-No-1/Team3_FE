@@ -5,24 +5,10 @@ import '../ui/MyPromotionPage.css'
 import TopBar from '../../../components/TopBar/TopBar'
 
 export function MyPromotionPage() {
-  const { hostId } = useParams() // 로그인 사용자 hostId
+  const { hostId } = useParams()
   const [promotions, setPromotions] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
-
-  // 상태 변환 함수
-  const getStatusLabel = (status) => {
-    switch (status?.toLowerCase()) {
-      case 'active':
-        return { text: '모집 중', className: 'status-active' }
-      case 'pending':
-        return { text: '리뷰 작성 대기 중', className: 'status-pending' }
-      case 'completed':
-        return { text: '모든 리뷰 작성 완료', className: 'status-completed' }
-      default:
-        return { text: '알 수 없음', className: '' }
-    }
-  }
 
   useEffect(() => {
     if (!hostId) return
@@ -30,18 +16,34 @@ export function MyPromotionPage() {
       setIsLoading(true)
       setError(null)
       try {
-        const res = await instance.get('/promotions', { params: { hostId } })
+        const res = await instance.get('/promotions/me', {
+          params: { hostId: Number(hostId) },
+        })
         setPromotions(res.items || [])
       } catch (err) {
         console.error('내 프로모션 불러오기 실패:', err)
         setPromotions([])
-        //setError('데이터를 불러오지 못했습니다.')
+        setError('데이터를 불러오지 못했습니다.')
       } finally {
         setIsLoading(false)
       }
     }
     fetchPromotions()
   }, [hostId])
+
+  // 상태 변환 함수
+  const getStatusLabel = (status) => {
+    switch (status?.toUpperCase()) {
+      case 'ACTIVE':
+        return { text: '진행 중', className: 'status-active' }
+      case 'PENDING':
+        return { text: '리뷰 대기', className: 'status-pending' }
+      case 'COMPLETED':
+        return { text: '완료', className: 'status-completed' }
+      default:
+        return { text: '', className: '' }
+    }
+  }
 
   if (isLoading) return <p className='loading'>불러오는 중...</p>
   if (error) return <p className='error'>{error}</p>
@@ -59,7 +61,9 @@ export function MyPromotionPage() {
               <div key={item.promotionId} className='promotion-item'>
                 <div className='promotion-info'>
                   <span className='promotion-name'>{item.nickname}</span>
-                  <span className={`promotion-status ${status.className}`}>{status.text}</span>
+                  {status.text && (
+                    <span className={`promotion-status ${status.className}`}>{status.text}</span>
+                  )}
                 </div>
                 <div className='promotion-time'>{item.createdAt}</div>
               </div>

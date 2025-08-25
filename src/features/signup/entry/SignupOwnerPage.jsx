@@ -4,6 +4,8 @@ import { Icon } from '../../../components/Icon/Icon'
 import { useState } from 'react'
 import instance from '../../../api/client'
 import imageCompression from 'browser-image-compression' // 추가
+import { Button } from '../../../components/Button/Button'
+import TopBar from '../../../components/TopBar/TopBar'
 
 export function SignupOwnerPage() {
   const navigate = useNavigate()
@@ -111,12 +113,7 @@ export function SignupOwnerPage() {
 
   return (
     <div className='signup-page'>
-      <header className='signup-header'>
-        <button className='back-button' onClick={() => navigate(-1)}>
-          <Icon name='detail-arrow-left' width={36} height={36} />
-        </button>
-        <h1 className='header-title'>회원가입</h1>
-      </header>
+      <TopBar title='가게 정보' />
 
       <main className='signup-form-container'>
         <form className='signup-form' onSubmit={handleSignup}>
@@ -202,9 +199,7 @@ export function SignupOwnerPage() {
             </select>
           </div>
 
-          <button type='submit' className='signup-button'>
-            가입하기
-          </button>
+          <Button label='저장하기' className='signup-button' />
         </form>
       </main>
     </div>
