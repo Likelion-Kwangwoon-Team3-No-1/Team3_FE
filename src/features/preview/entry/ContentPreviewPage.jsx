@@ -71,9 +71,16 @@ export function ContentPreviewPage() {
     )
   }
 
+  const handleUploadClick = () => {
+    alert('업로드가 완료되었습니다.')
+    navigate('/home/owner')
+  }
+
   return (
-    <div className='content-preview scrollable'>
-      <TopBar title='제작된 게시물' />
+    <div className='content-preview'>
+      <div>
+        <TopBar title='제작된 게시물' />
+      </div>
 
       <div className='content-preview__card'>
         {/* 캐러셀 */}
@@ -97,7 +104,7 @@ export function ContentPreviewPage() {
         <div className='content-preview__text'>
           <p>{contentData.content}</p>
         </div>
-        <Button label='업로드' onClick={() => navigate('/home/owner')} />
+        <Button label='업로드' onClick={handleUploadClick} />
       </div>
     </div>
   )
