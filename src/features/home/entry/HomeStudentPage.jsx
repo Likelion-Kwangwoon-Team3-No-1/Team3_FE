@@ -62,7 +62,7 @@ function Carousel() {
         // API 응답 -> PromoCard prop 맞춰주기
         const mapped = res.items.map((item) => ({
           promotionId: item.promotionId,
-          image: item.thumbnail,
+          thumbnail: item.thumbnail,
           nickname: item.nickname,
           category: item.category,
           address: item.address,

@@ -13,10 +13,10 @@ export function MypageStudentPage() {
   // 참여 중인 프로모션 불러오기
   const fetchPromotions = async () => {
     try {
-      const res = await instance.get('/promotion-applies/me/promotions', {
+      const res = await instance.get('/promotion-applies/me', {
         params: { offset: 0, limit: 10 },
       })
-      setPromotions(res.promotions || [])
+      setPromotions(res.items || [])
     } catch (error) {
       console.error('참여중인 프로모션 불러오기 실패:', error)
     }
@@ -65,7 +65,7 @@ export function MypageStudentPage() {
                   className='list-item'
                   onClick={() => navigate(`/review-form/${promo.promotionId}`)}
                 >
-                  <span>{promo.placeName}</span>
+                  <span>{promo.nickname}</span>
                   <Icon name='mypage-arrow-right' width={24} height={24} />
                 </div>
               ))
