@@ -126,7 +126,7 @@ export const HomeOwnerPage = () => {
           <Carousel promotions={promotions} />
 
           <div className='sns-btn'>
-            <button onClick={() => window.open('https://www.instagram.com/instagram/')}>
+            <button onClick={() => window.open('https://www.instagram.com/feedup.official/')}>
               <Icon name='logo-instagram' width={32} height={32} className='sns-btn-logo' />
               <span className='sns-btn-content'>Feed Up SNS 바로가기</span>
               <Icon name='button-sns-arrow' width={24} height={24} className='sns-btn-arrow' />
