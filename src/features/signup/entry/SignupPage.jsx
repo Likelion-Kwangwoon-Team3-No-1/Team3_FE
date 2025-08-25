@@ -3,6 +3,8 @@ import './SignupPage.css'
 import { TermsModal } from '../components/TermsModal'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../../components/Icon/Icon'
+import { Button } from '../../../components/Button/Button'
+import TopBar from '../../../components/TopBar/TopBar'
 
 export function SignupPage() {
   const [userId, setUserId] = useState('')
@@ -90,12 +92,7 @@ export function SignupPage() {
 
   return (
     <div className='signup-page'>
-      <header className='signup-header'>
-        <button className='back-button' onClick={() => navigate('/login')}>
-          <Icon name='detail-arrow-left' width={36} height={36} />
-        </button>
-        <h1 className='header-title'>회원가입</h1>
-      </header>
+      <TopBar title='회원가입' />
 
       <main className='signup-form-container'>
         <form onSubmit={handleSignup} className='signup-form'>
@@ -154,9 +151,7 @@ export function SignupPage() {
                 </span>
               </div>
 
-              <button type='submit' className='signup-button'>
-                가입하기
-              </button>
+              <Button label='저장하기' className='signup-button' />
             </div>
           </div>
         </form>

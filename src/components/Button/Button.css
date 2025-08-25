@@ -19,7 +19,7 @@
   /* 화면 고정 */
   position: fixed;
   left: 50%; /* 가운데 정렬 */
-  bottom: 42px; /* 화면 밑에서 42px 띄움 */
+  bottom: 34px; /* 화면 밑에서 42px 띄움 */
   transform: translateX(-50%); /* 정확히 중앙 */
   z-index: 1000; /* 다른 요소 위에 표시 */
 }

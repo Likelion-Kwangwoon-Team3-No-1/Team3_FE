@@ -5,7 +5,7 @@
 
   /* 피그마 레이아웃 고정 */
   /* width: 393px; */
-  height: 111px;
+  height: 52px;
   padding: 67px 107.357px 8px 20px;
   flex-shrink: 0;
 
@@ -25,6 +25,7 @@
   border: none;
   background: none;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .topbar__back-icon {
@@ -42,6 +43,7 @@
   flex-shrink: 0;
   color: var(--black, #121212);
   text-align: center;
+  margin-bottom: 15px;
 
   /* Laundry/B/헤드라인 */
   font-family: 'TTLaundryGothicB';
