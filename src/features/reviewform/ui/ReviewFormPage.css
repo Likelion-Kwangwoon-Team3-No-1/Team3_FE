@@ -1,6 +1,5 @@
 .review-form-container {
   padding: 16px;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
 /* 필드 라벨 */
@@ -155,6 +154,6 @@
 /* 페이지 전체 고정폭 & 중앙 정렬 */
 .page-fixed-393 {
   width: 393px;
-  margin: 0 auto; /* 필요하면 중앙 배치 */
-  background: #fff; /* 디자인에 맞게 */
+  margin: 0 auto;
+  background: #fff;
 }
