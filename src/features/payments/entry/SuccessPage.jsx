@@ -59,7 +59,7 @@ export function SuccessPage() {
   if (!payment) {
     return (
       <div className='result wrapper'>
-        <div className='box_section'>
+        <div className='box_section' style={{ textAlign: 'center' }}>
           <h2>결제 확인 중...</h2>
           <p>잠시만 기다려주세요.</p>
         </div>

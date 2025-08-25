@@ -11,7 +11,7 @@ const customerKey = 'V3I3W43j_V5CY-rtsjAhU'
 export function CheckoutPage() {
   const { state } = useLocation()
   // 기본값으로 planId:1, promotionId:9 설정 (테스트용)
-  const { planId = 1, promotionId = 9 } = state || {}
+  const { planId, promotionId } = state || {}
 
   const [amount, setAmount] = useState({ currency: 'KRW', value: 0 })
   const [ready, setReady] = useState(false)
