@@ -1,55 +1,36 @@
 .topbar {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 51.358px;
-
-  /* 피그마 레이아웃 고정 */
-  /* width: 393px; */
-  height: 52px;
-  padding: 67px 107.357px 8px 20px;
-  flex-shrink: 0;
-
+  align-items: center; /* 세로 가운데 정렬 */
+  justify-content: center; /* 가로 가운데 정렬 */
+  height: 52px; /* 고정 높이 */
+  padding: 0 20px; /* 좌우 패딩만 */
   background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
 }
 
 .topbar__back {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%); /* ← 버튼을 세로 가운데 */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 28px;
   height: 28px;
-  padding: 0;
-  margin: 0;
   border: none;
   background: none;
   cursor: pointer;
-  margin-bottom: 15px;
-}
-
-.topbar__back-icon {
-  width: 36px;
-  height: 36px;
-  display: block;
 }
 
 .topbar__title {
-  position: absolute;
-  display: flex;
-  width: 90%;
-  height: 22.469px;
-  flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--black, #121212);
+  margin: 0; /* 불필요한 margin 제거 */
+  line-height: 1; /* 높이 균등하게 */
   text-align: center;
-  margin-bottom: 15px;
-
-  /* Laundry/B/헤드라인 */
   font-family: 'TTLaundryGothicB';
   font-size: 20px;
-  font-style: normal;
   font-weight: 700;
-  line-height: normal;
+  color: #121212;
 }
