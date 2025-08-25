@@ -91,7 +91,6 @@ export function PostFormPage() {
           promotionId,
         },
       })
-      // 성공 팝업 후 결제 페이지로 이동하거나, 다른 로직 실행
 
       alert('게시물 등록 완료! 결제 페이지로 이동합니다.')
     } catch (error) {
