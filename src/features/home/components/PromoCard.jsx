@@ -12,10 +12,10 @@ const categoryMap = {
 const PromoCard = ({ promotion, onClick }) => {
   return (
     <div className='promo-card' onClick={() => onClick(promotion.promotionId)}>
-      <img src={promotion.thumbnail} alt={promotion.name} className='promo-image' />
+      <img src={promotion.thumbnail} alt={promotion.nickname} className='promo-image' />
       <div className='promo-body'>
         <div className='promo-header'>
-          <h3 className='promo-name'>{promotion.name}</h3>
+          <h3 className='promo-name'>{promotion.nickname}</h3>
           <p className='promo-category'>{categoryMap[promotion.category] || promotion.category}</p>
         </div>
 

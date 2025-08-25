@@ -63,7 +63,7 @@ function Carousel() {
         const mapped = res.items.map((item) => ({
           promotionId: item.promotionId,
           image: item.thumbnail,
-          name: item.nickname,
+          nickname: item.nickname,
           category: item.category,
           address: item.address,
           start_date: item.start_date,

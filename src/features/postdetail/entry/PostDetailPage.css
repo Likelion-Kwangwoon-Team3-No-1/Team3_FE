@@ -17,13 +17,14 @@
   width: 100%;
   height: 127px;
   overflow: hidden;
+  background-color: var(--color-gray);
 }
 
 .main-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(5px);
+  filter: blur(2px);
   opacity: 80%;
 }
 
@@ -80,6 +81,7 @@
 .store-name {
   font-size: 20px;
   font-weight: bold;
+  padding-top: 15.69px;
   font-family: 'TTLaundryGothicB', sans-serif;
 }
 

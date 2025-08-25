@@ -70,7 +70,7 @@ function Carousel({ promotions }) {
           <Link style={style} to='/postform'>
             <div className='go-btn'>
               <button>
-                <span className='go-btn-text'>프로모션 신청하러 가기</span>
+                <span className='go-btn-text'>프로모션 등록하러 가기</span>
                 <Icon name='card-none-arrow' width={24} height={24} className='go-btn-arrow' />
               </button>
             </div>
