@@ -199,7 +199,7 @@ export function SignupOwnerPage() {
             </select>
           </div>
 
-          <Button label='저장하기' className='signup-button' />
+          <Button label='저장하기' className='signup-button' onClick={handleSignup} />
         </form>
       </main>
     </div>
