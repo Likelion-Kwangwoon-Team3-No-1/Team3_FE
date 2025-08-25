@@ -119,7 +119,6 @@ export function ReviewFormPage() {
           className='title-input'
           placeholder='상호명을 입력하세요'
           value={shopTitle}
-          disabled
           onChange={(e) => setShopTitle(e.target.value)}
         />
 

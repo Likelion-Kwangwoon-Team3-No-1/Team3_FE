@@ -30,10 +30,6 @@ export function MypageStudentPage() {
     alert('업데이트 예정입니다.')
   }
 
-  const handleReviewClick = ({ promo }) => {
-    navigate(`/review-form/${promo.promotionId}`, { state: promo.nickname })
-  }
-
   return (
     <div className='mypage-container'>
       <div className='mypage-header'>
@@ -67,7 +63,7 @@ export function MypageStudentPage() {
                 <div
                   key={promo.promotionId}
                   className='list-item'
-                  onClick={handleReviewClick(promo)}
+                  onClick={() => navigate(`/review-form/${promo.promotionId}`)}
                 >
                   <span>{promo.nickname}</span>
                   <Icon name='mypage-arrow-right' width={24} height={24} />
